@@ -3,6 +3,7 @@ import Header from "@/components/Header";
 import Stepper from "@/components/Stepper";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
+import { useToast } from "@/hooks/use-toast";
 
 const steps = [
   { number: 1, title: "نوع الحساب" },
@@ -13,6 +14,7 @@ const steps = [
 
 const RegistrationComplete = () => {
   const [currentView, setCurrentView] = useState<'welcome' | 'payment' | 'card-payment' | 'unavailable'>('welcome');
+  const { toast } = useToast();
 
   return (
     <div className="min-h-screen flex flex-col bg-white" dir="rtl">
@@ -93,7 +95,13 @@ const RegistrationComplete = () => {
                       variant="outline" 
                       className="w-full justify-start h-14 text-right border-2 hover:border-primary hover:bg-primary/5 transition-all"
                       dir="rtl"
-                      onClick={() => setCurrentView('unavailable')}
+                      onClick={() => {
+                        toast({
+                          variant: "destructive",
+                          title: "طريقة الدفع غير متاحة",
+                          description: "نعتذر، طريقة الدفع المحددة غير متاحة في الوقت الحالي. يرجى التكرم باختيار وسيلة دفع بديلة لإتمام عملية الدفع.",
+                        });
+                      }}
                     >
                       <span className="text-base"> Apple Pay</span>
                     </Button>
@@ -215,22 +223,6 @@ const RegistrationComplete = () => {
             </div>
           )}
 
-          {currentView === 'unavailable' && (
-            <div className="bg-secondary/30 rounded-lg shadow-lg p-8 border border-border max-w-xl mx-auto">
-              <h2 className="text-xl font-bold mb-4 text-right text-foreground">
-                طريقة الدفع غير متاحة
-              </h2>
-              <p className="text-right text-base leading-relaxed text-foreground mb-6">
-                نعتذر، طريقة الدفع المحددة غير متاحة في الوقت الحالي. يرجى التكرم باختيار وسيلة دفع بديلة لإتمام عملية الدفع.
-              </p>
-              <Button 
-                className="bg-primary hover:bg-primary/90 text-primary-foreground w-full"
-                onClick={() => setCurrentView('payment')}
-              >
-                العودة لاختيار طريقة الدفع
-              </Button>
-            </div>
-          )}
         </div>
       </main>
 
