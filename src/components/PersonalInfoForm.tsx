@@ -220,9 +220,9 @@ const PersonalInfoForm = () => {
           <div>
             <Label className="text-right block mb-2">الاسم بالإنجليزي</Label>
             <div className="grid grid-cols-3 gap-4">
-              <Input type="text" placeholder="First Name" className="text-right bg-white placeholder:text-right" dir="rtl" />
-              <Input type="text" placeholder="Middle Name" className="text-right bg-white placeholder:text-right" dir="rtl" />
               <Input type="text" placeholder="Last Name" className="text-right bg-white placeholder:text-right" dir="rtl" />
+              <Input type="text" placeholder="Middle Name" className="text-right bg-white placeholder:text-right" dir="rtl" />
+              <Input type="text" placeholder="First Name" className="text-right bg-white placeholder:text-right" dir="rtl" />
             </div>
           </div>
         </div>
