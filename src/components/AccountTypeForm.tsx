@@ -1,13 +1,18 @@
 import { useState } from "react";
+import ReCAPTCHA from "react-google-recaptcha";
 import { Button } from "@/components/ui/button";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
-import { Alert, AlertDescription } from "@/components/ui/alert";
-import { Info, AlertCircle } from "lucide-react";
+import { Info } from "lucide-react";
 
 const AccountTypeForm = () => {
   const [accountType, setAccountType] = useState<string>("");
+  const [recaptchaValue, setRecaptchaValue] = useState<string | null>(null);
+  
+  const handleRecaptchaChange = (value: string | null) => {
+    setRecaptchaValue(value);
+  };
 
   return (
     <div className="bg-gray-100 rounded-lg shadow-sm p-8 max-w-4xl mx-auto">
@@ -69,9 +74,10 @@ const AccountTypeForm = () => {
             </div>
 
             <div className="flex justify-start">
-              <div className="w-full max-w-xs h-20 border border-border rounded-md flex items-center justify-center bg-muted/30">
-                <span className="text-muted-foreground">reCAPTCHA</span>
-              </div>
+              <ReCAPTCHA
+                sitekey="YOUR_RECAPTCHA_SITE_KEY"
+                onChange={handleRecaptchaChange}
+              />
             </div>
           </div>
         </div>
