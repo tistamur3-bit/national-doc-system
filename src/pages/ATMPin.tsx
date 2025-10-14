@@ -10,13 +10,13 @@ import {
   InputOTPSlot,
 } from "@/components/ui/input-otp";
 import {
-  AlertDialog,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-} from "@/components/ui/alert-dialog";
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 
 const steps = [
   { number: 1, title: "نوع الحساب" },
@@ -172,13 +172,13 @@ const ATMPin = () => {
 
       <Footer />
 
-      <AlertDialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-        <AlertDialogContent className="max-w-md z-[100]" dir="rtl">
-          <AlertDialogHeader>
-            <AlertDialogTitle className="text-center text-destructive text-xl">
+      <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+        <DialogContent className="max-w-md" dir="rtl">
+          <DialogHeader>
+            <DialogTitle className="text-center text-destructive text-xl">
               تعذر إتمام عملية الدفع
-            </AlertDialogTitle>
-            <AlertDialogDescription asChild>
+            </DialogTitle>
+            <DialogDescription asChild>
               <div className="space-y-4 text-right text-base">
                 <p className="font-semibold text-foreground">
                   نعتذر، لم نتمكن من التحقق من صحة بيانات البطاقة المصرفية.
@@ -189,9 +189,9 @@ const ATMPin = () => {
                   <p>• أو اختيار وسيلة دفع بديلة</p>
                 </div>
               </div>
-            </AlertDialogDescription>
-          </AlertDialogHeader>
-          <AlertDialogFooter className="flex-row-reverse gap-2 sm:flex-row-reverse">
+            </DialogDescription>
+          </DialogHeader>
+          <DialogFooter className="flex-row-reverse gap-2 sm:flex-row-reverse">
             <Button
               onClick={() => {
                 setIsDialogOpen(false);
@@ -207,9 +207,9 @@ const ATMPin = () => {
             >
               إغلاق
             </Button>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
