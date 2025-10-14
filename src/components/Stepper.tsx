@@ -12,6 +12,8 @@ const Stepper = ({ currentStep, steps }: StepperProps) => {
   return (
     <div className="w-full max-w-4xl mx-auto mb-8">
       <div className="flex items-center justify-between relative">
+        {/* Progress line */}
+        <div className="absolute top-6 right-0 left-0 h-0.5 bg-[hsl(var(--step-line))] -z-10" />
         
         {steps.map((step, index) => {
           const isActive = step.number === currentStep;
@@ -43,7 +45,7 @@ const Stepper = ({ currentStep, steps }: StepperProps) => {
               
               {/* Connecting line to next step */}
               {index < steps.length - 1 && (
-                <div className="absolute top-6 left-1/2 w-full h-[1px] bg-[#D4C5B9]" />
+                <div className="absolute top-6 right-0 w-full h-[1px] bg-[#D4C5B9] -z-10" style={{ right: '-50%' }} />
               )}
             </div>
           );
