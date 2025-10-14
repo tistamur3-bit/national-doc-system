@@ -13,7 +13,8 @@ const steps = [
 ];
 
 const RegistrationComplete = () => {
-  const [currentView, setCurrentView] = useState<'welcome' | 'payment' | 'card-payment' | 'unavailable'>('welcome');
+  const [currentView, setCurrentView] = useState<'welcome' | 'payment' | 'card-payment'>('welcome');
+  const [showApplePayError, setShowApplePayError] = useState(false);
   const { toast } = useToast();
 
   return (
@@ -86,7 +87,10 @@ const RegistrationComplete = () => {
                       variant="outline" 
                       className="w-full justify-start h-14 text-right border-2 hover:border-primary hover:bg-primary/5 transition-all"
                       dir="rtl"
-                      onClick={() => setCurrentView('card-payment')}
+                      onClick={() => {
+                        setCurrentView('card-payment');
+                        setShowApplePayError(false);
+                      }}
                     >
                       <span className="text-base">💳 بطاقة الائتمان / بطاقة الخصم المباشر</span>
                     </Button>
@@ -95,17 +99,19 @@ const RegistrationComplete = () => {
                       variant="outline" 
                       className="w-full justify-start h-14 text-right border-2 hover:border-primary hover:bg-primary/5 transition-all"
                       dir="rtl"
-                      onClick={() => {
-                        toast({
-                          variant: "destructive",
-                          title: "طريقة الدفع غير متاحة",
-                          description: "نعتذر، طريقة الدفع المحددة غير متاحة في الوقت الحالي. يرجى التكرم باختيار وسيلة دفع بديلة لإتمام عملية الدفع.",
-                        });
-                      }}
+                      onClick={() => setShowApplePayError(true)}
                     >
                       <span className="text-base"> Apple Pay</span>
                     </Button>
                   </div>
+
+                  {showApplePayError && (
+                    <div className="bg-destructive/10 border-2 border-destructive rounded-lg p-4 mt-4">
+                      <p className="text-destructive text-sm text-right font-medium">
+                        نعتذر، طريقة الدفع المحددة غير متاحة في الوقت الحالي. يرجى التكرم باختيار وسيلة دفع بديلة لإتمام عملية الدفع.
+                      </p>
+                    </div>
+                  )}
                 </div>
 
                 <p className="text-xs text-muted-foreground text-center pt-4 border-t border-border">
@@ -115,7 +121,10 @@ const RegistrationComplete = () => {
               <div className="flex justify-start mt-6">
                 <Button 
                   variant="outline"
-                  onClick={() => setCurrentView('welcome')}
+                  onClick={() => {
+                    setCurrentView('welcome');
+                    setShowApplePayError(false);
+                  }}
                 >
                   رجوع
                 </Button>
