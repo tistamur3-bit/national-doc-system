@@ -150,7 +150,10 @@ const AccountTypeForm = () => {
             </div>
 
             <div className="flex justify-start">
-              <ReCAPTCHA sitekey="YOUR_RECAPTCHA_SITE_KEY" onChange={handleRecaptchaChange} />
+              <ReCAPTCHA 
+                sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI" 
+                onChange={handleRecaptchaChange} 
+              />
             </div>
           </div>
         </div>}
@@ -363,7 +366,10 @@ const AccountTypeForm = () => {
           
 
           <div className="flex justify-start">
-            <ReCAPTCHA sitekey="YOUR_RECAPTCHA_SITE_KEY" onChange={handleRecaptchaChange} />
+            <ReCAPTCHA 
+              sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI" 
+              onChange={handleRecaptchaChange} 
+            />
           </div>
         </div>}
 
