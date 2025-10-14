@@ -75,8 +75,7 @@ const PersonalInfoForm = () => {
            buildingNumber.trim() !== "" && 
            street.trim() !== "" && 
            area.trim() !== "" && 
-           email.trim() !== "" && 
-           recaptchaValue !== null;
+           email.trim() !== "";
   };
 
   const handleContinue = async () => {
@@ -397,10 +396,6 @@ const PersonalInfoForm = () => {
           <Input id="confirmEmail" type="email" className="text-right bg-white placeholder:text-right" dir="rtl" />
         </div>
 
-        {/* reCAPTCHA */}
-        <div className="flex justify-start">
-          <ReCAPTCHA sitekey="YOUR_RECAPTCHA_SITE_KEY" onChange={handleRecaptchaChange} />
-        </div>
       </div>
 
       {/* الأزرار */}
