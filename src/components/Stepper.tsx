@@ -42,6 +42,11 @@ const Stepper = ({ currentStep, steps }: StepperProps) => {
               >
                 {step.title}
               </div>
+              
+              {/* Connecting line to next step */}
+              {index < steps.length - 1 && (
+                <div className="absolute top-6 right-0 w-full h-[1px] bg-[#D4C5B9] -z-10" style={{ right: '-50%' }} />
+              )}
             </div>
           );
         })}
