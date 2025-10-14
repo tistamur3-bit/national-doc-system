@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import ReCAPTCHA from "react-google-recaptcha";
 import { Button } from "@/components/ui/button";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
@@ -8,10 +9,16 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Checkbox } from "@/components/ui/checkbox";
 import { Info } from "lucide-react";
 const AccountTypeForm = () => {
+  const navigate = useNavigate();
   const [accountType, setAccountType] = useState<string>("");
   const [recaptchaValue, setRecaptchaValue] = useState<string | null>(null);
+  
   const handleRecaptchaChange = (value: string | null) => {
     setRecaptchaValue(value);
+  };
+
+  const handleContinue = () => {
+    navigate("/personal-info");
   };
   return <div className="bg-gray-100 rounded-lg shadow-sm p-8 max-w-4xl mx-auto">
       <h2 className="text-2xl font-semibold mb-2 text-right">اختر نوع الحساب</h2>
@@ -271,7 +278,7 @@ const AccountTypeForm = () => {
           </Button>
         </div>
         
-        <Button className="min-w-32 bg-primary hover:bg-primary/90">
+        <Button className="min-w-32 bg-primary hover:bg-primary/90" onClick={handleContinue}>
           استمر
         </Button>
       </div>
