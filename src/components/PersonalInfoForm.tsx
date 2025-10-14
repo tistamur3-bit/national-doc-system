@@ -235,7 +235,7 @@ const PersonalInfoForm = () => {
           <Label className="text-right block mb-2">
             العنوان
           </Label>
-          <div className="bg-primary rounded-lg p-4 space-y-4">
+          <div className="bg-primary rounded-lg p-4 space-y-4 max-w-md">
             <div>
               <Label className="text-white text-right block mb-2">رقم المبنى</Label>
               <Input type="text" className="text-right bg-white" />
