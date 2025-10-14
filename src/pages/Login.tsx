@@ -100,7 +100,7 @@ const Login = () => {
                 <Button
                   size="lg"
                   className="px-12 text-base"
-                  onClick={handleLogin}
+                  onClick={() => navigate("/register")}
                 >
                   سُجّل
                 </Button>
