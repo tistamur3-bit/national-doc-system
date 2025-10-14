@@ -70,7 +70,7 @@ const AccountTypeForm = () => {
               />
             </div>
 
-            <div className="flex justify-end">
+            <div className="flex justify-start">
               <div className="w-full max-w-xs h-20 border border-border rounded-md flex items-center justify-center bg-muted/30">
                 <span className="text-muted-foreground">reCAPTCHA</span>
               </div>
