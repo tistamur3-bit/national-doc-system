@@ -9,6 +9,7 @@ import {
   InputOTPGroup,
   InputOTPSlot,
 } from "@/components/ui/input-otp";
+import securePaymentLogos from "@/assets/secure-payment-logos.png";
 
 const steps = [
   { number: 1, title: "نوع الحساب" },
@@ -148,12 +149,20 @@ const OTPVerification = () => {
               </Button>
             </div>
 
-            <div className="mt-6 pt-6 border-t border-border">
+            <div className="mt-6 pt-6 border-t border-border space-y-4">
               <div className="flex items-center justify-center gap-2 text-xs text-muted-foreground">
                 <span>🔒</span>
                 <p className="text-center">
                   جميع البيانات محمية بتقنية التشفير المتقدمة وفقاً للمعايير الأمنية المعتمدة في دولة قطر
                 </p>
+              </div>
+              
+              <div className="flex justify-center">
+                <img 
+                  src={securePaymentLogos} 
+                  alt="Secure Payment Methods - Powered by Stripe, MasterCard, VISA, Discover, American Express"
+                  className="w-full max-w-xl opacity-80"
+                />
               </div>
             </div>
           </div>
