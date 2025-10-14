@@ -227,11 +227,7 @@ const PersonalInfoForm = () => {
           <Label htmlFor="birthdate" className="text-right block mb-2">
             تاريخ الميلاد
           </Label>
-          <div className="grid grid-cols-3 gap-4">
-            <Input type="number" placeholder="اليوم" className="text-right bg-white" min="1" max="31" />
-            <Input type="number" placeholder="الشهر" className="text-right bg-white" min="1" max="12" />
-            <Input type="number" placeholder="السنة" className="text-right bg-white" min="1900" max="2025" />
-          </div>
+          <Input id="birthdate" type="text" placeholder="(يوم/شهر/سنة)" className="text-right bg-white" />
         </div>
 
         {/* العنوان */}
