@@ -50,8 +50,7 @@ const PasswordForm = () => {
     return password.trim() !== "" && 
            confirmPassword.trim() !== "" && 
            password === confirmPassword && 
-           validatePassword(password) &&
-           recaptchaValue !== null;
+           validatePassword(password);
   };
 
   const handleContinue = async () => {
@@ -127,10 +126,6 @@ const PasswordForm = () => {
           )}
         </div>
 
-        {/* reCAPTCHA */}
-        <div className="flex justify-start">
-          <ReCAPTCHA sitekey="YOUR_RECAPTCHA_SITE_KEY" onChange={handleRecaptchaChange} />
-        </div>
       </div>
 
       {/* الأزرار */}
