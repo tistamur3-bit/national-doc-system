@@ -4,6 +4,8 @@ import { Button } from "@/components/ui/button";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Checkbox } from "@/components/ui/checkbox";
 import { Info } from "lucide-react";
 
 const AccountTypeForm = () => {
@@ -79,6 +81,78 @@ const AccountTypeForm = () => {
                 onChange={handleRecaptchaChange}
               />
             </div>
+          </div>
+        </div>
+      )}
+
+      {accountType === "visitors" && (
+        <div className="space-y-6 mb-8">
+          <div>
+            <Label htmlFor="email" className="text-right block mb-2">
+              البريد الإلكتروني
+            </Label>
+            <Input 
+              id="email" 
+              type="email" 
+              className="text-right bg-white"
+            />
+          </div>
+
+          <div>
+            <Label htmlFor="confirmEmail" className="text-right block mb-2">
+              أعد إدخال البريد الإلكتروني
+            </Label>
+            <Input 
+              id="confirmEmail" 
+              type="email" 
+              className="text-right bg-white"
+            />
+          </div>
+
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <Label htmlFor="phoneCode" className="text-right block mb-2">
+                حدد الرمز الهاتف الدولي
+              </Label>
+              <Select>
+                <SelectTrigger className="bg-white">
+                  <SelectValue placeholder="حدد الرمز الهاتف الدولي" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="+974">+974 (قطر)</SelectItem>
+                  <SelectItem value="+966">+966 (السعودية)</SelectItem>
+                  <SelectItem value="+971">+971 (الإمارات)</SelectItem>
+                  <SelectItem value="+965">+965 (الكويت)</SelectItem>
+                  <SelectItem value="+973">+973 (البحرين)</SelectItem>
+                  <SelectItem value="+968">+968 (عمان)</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+
+            <div>
+              <Label htmlFor="visitorMobile" className="text-right block mb-2">
+                رقم الهاتف المحمول
+              </Label>
+              <Input 
+                id="visitorMobile" 
+                type="tel" 
+                className="text-right bg-white"
+              />
+            </div>
+          </div>
+
+          <div className="flex items-center justify-end gap-3">
+            <Label htmlFor="robotCheck" className="text-right cursor-pointer">
+              أنا لست برنامج روبوت
+            </Label>
+            <Checkbox id="robotCheck" />
+          </div>
+
+          <div className="flex justify-start">
+            <ReCAPTCHA
+              sitekey="YOUR_RECAPTCHA_SITE_KEY"
+              onChange={handleRecaptchaChange}
+            />
           </div>
         </div>
       )}
