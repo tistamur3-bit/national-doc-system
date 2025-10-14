@@ -4,13 +4,15 @@ import ReCAPTCHA from "react-google-recaptcha";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
-import { Info } from "lucide-react";
+import { Info, Eye, EyeOff } from "lucide-react";
 
 const PasswordForm = () => {
   const navigate = useNavigate();
   const [recaptchaValue, setRecaptchaValue] = useState<string | null>(null);
   const [password, setPassword] = useState<string>("");
   const [confirmPassword, setConfirmPassword] = useState<string>("");
+  const [showPassword, setShowPassword] = useState<boolean>(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState<boolean>(false);
 
   const handleRecaptchaChange = (value: string | null) => {
     setRecaptchaValue(value);
@@ -95,13 +97,22 @@ const PasswordForm = () => {
           <Label htmlFor="password" className="text-right block mb-2">
             أدخل كلمة المرور
           </Label>
-          <Input 
-            id="password" 
-            type="password" 
-            className="text-right bg-white"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
+          <div className="relative">
+            <Input 
+              id="password" 
+              type={showPassword ? "text" : "password"}
+              className="text-right bg-white pr-10"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <button
+              type="button"
+              onClick={() => setShowPassword(!showPassword)}
+              className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
+            >
+              {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+            </button>
+          </div>
         </div>
 
         {/* إعادة إدخال كلمة المرور */}
@@ -109,13 +120,22 @@ const PasswordForm = () => {
           <Label htmlFor="confirmPassword" className="text-right block mb-2">
             أعد إدخال كلمة المرور
           </Label>
-          <Input 
-            id="confirmPassword" 
-            type="password" 
-            className="text-right bg-white" 
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
-          />
+          <div className="relative">
+            <Input 
+              id="confirmPassword" 
+              type={showConfirmPassword ? "text" : "password"}
+              className="text-right bg-white pr-10" 
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+            />
+            <button
+              type="button"
+              onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+              className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
+            >
+              {showConfirmPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+            </button>
+          </div>
           {confirmPassword && password !== confirmPassword && (
             <p className="text-destructive text-xs mt-1 text-right">كلمة المرور غير متطابقة</p>
           )}
