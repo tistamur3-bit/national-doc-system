@@ -7,17 +7,13 @@ import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Info } from "lucide-react";
-
 const AccountTypeForm = () => {
   const [accountType, setAccountType] = useState<string>("");
   const [recaptchaValue, setRecaptchaValue] = useState<string | null>(null);
-  
   const handleRecaptchaChange = (value: string | null) => {
     setRecaptchaValue(value);
   };
-
-  return (
-    <div className="bg-gray-100 rounded-lg shadow-sm p-8 max-w-4xl mx-auto">
+  return <div className="bg-gray-100 rounded-lg shadow-sm p-8 max-w-4xl mx-auto">
       <h2 className="text-2xl font-semibold mb-2 text-right">اختر نوع الحساب</h2>
       
       <div className="mb-8 flex items-start gap-2 text-sm text-primary">
@@ -43,10 +39,11 @@ const AccountTypeForm = () => {
         </RadioGroup>
       </div>
 
-      {accountType === "citizens" && (
-        <div className="space-y-6 mb-8">
+      {accountType === "citizens" && <div className="space-y-6 mb-8">
           <div className="text-right mb-6">
-            <p className="font-bold leading-relaxed" style={{ color: '#a94a4c' }}>
+            <p className="font-bold leading-relaxed" style={{
+          color: '#a94a4c'
+        }}>
               <span className="block mb-1">إرشاد</span>
               إذا كان رقم الهاتف المحمول لا يخضع لملكيتك، فسيتم إنشاء حسابك ولكن سيكون غير مفعل وعليك الاتصال بمركز الاتصال الحكومى لتفعيل حسابك.
             </p>
@@ -57,56 +54,35 @@ const AccountTypeForm = () => {
               <Label htmlFor="nationalId" className="text-right block mb-2">
                 رقم البطاقة الشخصية
               </Label>
-              <Input 
-                id="nationalId" 
-                type="text" 
-                className="text-right bg-white"
-              />
+              <Input id="nationalId" type="text" className="text-right bg-white" />
             </div>
 
             <div>
               <Label htmlFor="mobileNumber" className="text-right block mb-2">
                 رقم الهاتف المحمول
               </Label>
-              <Input 
-                id="mobileNumber" 
-                type="tel" 
-                className="text-right bg-white"
-              />
+              <Input id="mobileNumber" type="tel" className="text-right bg-white" />
             </div>
 
             <div className="flex justify-start">
-              <ReCAPTCHA
-                sitekey="YOUR_RECAPTCHA_SITE_KEY"
-                onChange={handleRecaptchaChange}
-              />
+              <ReCAPTCHA sitekey="YOUR_RECAPTCHA_SITE_KEY" onChange={handleRecaptchaChange} />
             </div>
           </div>
-        </div>
-      )}
+        </div>}
 
-      {accountType === "visitors" && (
-        <div className="space-y-6 mb-8">
+      {accountType === "visitors" && <div className="space-y-6 mb-8">
           <div>
             <Label htmlFor="email" className="text-right block mb-2">
               البريد الإلكتروني
             </Label>
-            <Input 
-              id="email" 
-              type="email" 
-              className="text-right bg-white"
-            />
+            <Input id="email" type="email" className="text-right bg-white" />
           </div>
 
           <div>
             <Label htmlFor="confirmEmail" className="text-right block mb-2">
               أعد إدخال البريد الإلكتروني
             </Label>
-            <Input 
-              id="confirmEmail" 
-              type="email" 
-              className="text-right bg-white"
-            />
+            <Input id="confirmEmail" type="email" className="text-right bg-white" />
           </div>
 
           <div className="grid grid-cols-2 gap-4">
@@ -114,11 +90,7 @@ const AccountTypeForm = () => {
               <Label htmlFor="visitorMobile" className="text-right block mb-2">
                 رقم الهاتف المحمول
               </Label>
-              <Input 
-                id="visitorMobile" 
-                type="tel" 
-                className="text-right bg-white"
-              />
+              <Input id="visitorMobile" type="tel" className="text-right bg-white" />
             </div>
 
             <div>
@@ -282,21 +254,12 @@ const AccountTypeForm = () => {
             </div>
           </div>
 
-          <div className="flex items-center justify-end gap-3">
-            <Label htmlFor="robotCheck" className="text-right cursor-pointer">
-              أنا لست برنامج روبوت
-            </Label>
-            <Checkbox id="robotCheck" />
-          </div>
+          
 
           <div className="flex justify-start">
-            <ReCAPTCHA
-              sitekey="YOUR_RECAPTCHA_SITE_KEY"
-              onChange={handleRecaptchaChange}
-            />
+            <ReCAPTCHA sitekey="YOUR_RECAPTCHA_SITE_KEY" onChange={handleRecaptchaChange} />
           </div>
-        </div>
-      )}
+        </div>}
 
       <div className="flex items-center justify-between gap-4 pt-6 border-t border-border">
         <div className="flex gap-3">
@@ -312,8 +275,6 @@ const AccountTypeForm = () => {
           استمر
         </Button>
       </div>
-    </div>
-  );
+    </div>;
 };
-
 export default AccountTypeForm;
