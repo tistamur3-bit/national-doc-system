@@ -7,15 +7,12 @@ import { Checkbox } from "@/components/ui/checkbox";
 import nasName from "@/assets/nas-name.png";
 import tawtheeqLogo from "@/assets/tawtheeq-logo.png";
 import { Eye, EyeOff, User } from "lucide-react";
-import ReCAPTCHA from "react-google-recaptcha";
 
 const Login = () => {
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const [recaptchaValue, setRecaptchaValue] = useState<string | null>(null);
-  const [isRobot, setIsRobot] = useState(false);
 
   const handleLogin = () => {
     // Login logic will be implemented later
@@ -95,21 +92,6 @@ const Login = () => {
                       <Eye className="h-5 w-5" />
                     )}
                   </button>
-                </div>
-              </div>
-
-              {/* reCAPTCHA */}
-              <div className="space-y-2">
-                <Label className="text-base text-right block">التحقق</Label>
-                <div className="flex items-center gap-3 justify-end">
-                  <span className="text-sm text-muted-foreground">
-                    أنا لست برنامج روبوت
-                  </span>
-                  <Checkbox
-                    checked={isRobot}
-                    onCheckedChange={(checked) => setIsRobot(checked as boolean)}
-                    className="h-6 w-6"
-                  />
                 </div>
               </div>
 
