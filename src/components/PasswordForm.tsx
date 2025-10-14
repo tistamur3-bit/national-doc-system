@@ -14,6 +14,10 @@ const PasswordForm = () => {
     setRecaptchaValue(value);
   };
 
+  const handleContinue = () => {
+    navigate("/registration-complete");
+  };
+
   const handleBack = () => {
     navigate("/personal-info");
   };
@@ -75,7 +79,7 @@ const PasswordForm = () => {
           </Button>
         </div>
         
-        <Button className="min-w-32 bg-primary hover:bg-primary/90">
+        <Button className="min-w-32 bg-primary hover:bg-primary/90" onClick={handleContinue}>
           استمر
         </Button>
       </div>
