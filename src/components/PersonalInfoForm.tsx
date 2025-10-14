@@ -210,9 +210,9 @@ const PersonalInfoForm = () => {
           <div className="mb-4">
             <Label className="text-right block mb-2">الاسم بالعربي</Label>
             <div className="grid grid-cols-3 gap-4">
-              <Input type="text" placeholder="الاسم الأول" className="text-right bg-white" />
-              <Input type="text" placeholder="الاسم الأوسط" className="text-right bg-white" />
-              <Input type="text" placeholder="الاسم الأخير" className="text-right bg-white" />
+              <Input type="text" placeholder="الاسم الأول" className="text-right bg-white placeholder:text-right" dir="rtl" />
+              <Input type="text" placeholder="الاسم الأوسط" className="text-right bg-white placeholder:text-right" dir="rtl" />
+              <Input type="text" placeholder="الاسم الأخير" className="text-right bg-white placeholder:text-right" dir="rtl" />
             </div>
           </div>
 
@@ -220,9 +220,9 @@ const PersonalInfoForm = () => {
           <div>
             <Label className="text-right block mb-2">الاسم بالإنجليزي</Label>
             <div className="grid grid-cols-3 gap-4">
-              <Input type="text" placeholder="First Name" className="text-right bg-white" />
-              <Input type="text" placeholder="Middle Name" className="text-right bg-white" />
-              <Input type="text" placeholder="Last Name" className="text-right bg-white" />
+              <Input type="text" placeholder="First Name" className="text-right bg-white placeholder:text-right" dir="rtl" />
+              <Input type="text" placeholder="Middle Name" className="text-right bg-white placeholder:text-right" dir="rtl" />
+              <Input type="text" placeholder="Last Name" className="text-right bg-white placeholder:text-right" dir="rtl" />
             </div>
           </div>
         </div>
@@ -232,7 +232,7 @@ const PersonalInfoForm = () => {
           <Label htmlFor="birthdate" className="text-right block mb-2">
             تاريخ الميلاد
           </Label>
-          <Input id="birthdate" type="text" placeholder="(يوم/شهر/سنة)" className="text-right bg-white" />
+          <Input id="birthdate" type="text" placeholder="(يوم/شهر/سنة)" className="text-right bg-white placeholder:text-right" dir="rtl" />
         </div>
 
         {/* الجنس */}
@@ -264,16 +264,16 @@ const PersonalInfoForm = () => {
           <div className="bg-primary rounded-lg p-4 space-y-4 max-w-md">
             <div>
               <Label className="text-white text-right block mb-2">رقم المبنى</Label>
-              <Input type="text" className="text-right bg-white" />
+              <Input type="text" className="text-right bg-white placeholder:text-right" dir="rtl" />
             </div>
             <div className="grid grid-cols-2 gap-4">
               <div>
                 <Label className="text-white text-right block mb-2">الشارع</Label>
-                <Input type="text" className="text-right bg-white" />
+                <Input type="text" className="text-right bg-white placeholder:text-right" dir="rtl" />
               </div>
               <div>
                 <Label className="text-white text-right block mb-2">المنطقة</Label>
-                <Input type="text" className="text-right bg-white" />
+                <Input type="text" className="text-right bg-white placeholder:text-right" dir="rtl" />
               </div>
             </div>
           </div>
@@ -284,7 +284,7 @@ const PersonalInfoForm = () => {
           <Label htmlFor="email" className="text-right block mb-2">
             البريد الإلكتروني
           </Label>
-          <Input id="email" type="email" className="text-right bg-white" />
+          <Input id="email" type="email" className="text-right bg-white placeholder:text-right" dir="rtl" />
           <div className="flex items-start gap-2 mt-2 text-sm text-muted-foreground">
             <Info className="w-4 h-4 mt-0.5 flex-shrink-0" />
             <p className="text-right">
@@ -298,7 +298,7 @@ const PersonalInfoForm = () => {
           <Label htmlFor="confirmEmail" className="text-right block mb-2">
             أعد إدخال البريد الإلكتروني
           </Label>
-          <Input id="confirmEmail" type="email" className="text-right bg-white" />
+          <Input id="confirmEmail" type="email" className="text-right bg-white placeholder:text-right" dir="rtl" />
         </div>
 
         {/* reCAPTCHA */}
