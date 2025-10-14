@@ -24,6 +24,10 @@ const PersonalInfoForm = () => {
     navigate("/");
   };
 
+  const handleContinue = () => {
+    navigate("/password");
+  };
+
   return (
     <div className="bg-gray-100 rounded-lg shadow-sm p-8 max-w-4xl mx-auto">
       <h2 className="text-2xl font-semibold mb-2 text-right">البيانات الشخصية</h2>
@@ -308,7 +312,7 @@ const PersonalInfoForm = () => {
           </Button>
         </div>
         
-        <Button className="min-w-32 bg-primary hover:bg-primary/90">
+        <Button className="min-w-32 bg-primary hover:bg-primary/90" onClick={handleContinue}>
           استمر
         </Button>
       </div>
