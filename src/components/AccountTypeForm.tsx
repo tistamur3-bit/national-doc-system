@@ -38,14 +38,12 @@ const AccountTypeForm = () => {
 
       {accountType === "citizens" && (
         <div className="space-y-6 mb-8">
-          <Alert className="border-[#a94a4c] bg-[#a94a4c]/10">
-            <AlertCircle className="h-5 w-5 text-[#a94a4c]" />
-            <AlertDescription className="text-[#a94a4c] text-right mr-6">
-              <strong>إرشاد</strong>
-              <br />
+          <div className="text-right mb-6">
+            <p className="font-bold text-foreground leading-relaxed">
+              <span className="block mb-1">إرشاد</span>
               إذا كان رقم الهاتف المحمول لا يخضع لملكيتك، فسيتم إنشاء حسابك ولكن سيكون غير مفعل وعليك الاتصال بمركز الاتصال الحكومى لتفعيل حسابك.
-            </AlertDescription>
-          </Alert>
+            </p>
+          </div>
 
           <div className="space-y-4">
             <div>
