@@ -285,6 +285,12 @@ const PersonalInfoForm = () => {
             البريد الإلكتروني
           </Label>
           <Input id="email" type="email" className="text-right bg-white" />
+          <div className="flex items-start gap-2 mt-2 text-sm text-muted-foreground">
+            <Info className="w-4 h-4 mt-0.5 flex-shrink-0" />
+            <p className="text-right">
+              يُرجى التأكد من إدخال البريد الإلكتروني المسجل والمعتمد لدى شركة الاتصالات الخاصة بك، حيث سيتم استخدامه للتحقق من هويتك وإرسال الإشعارات الهامة.
+            </p>
+          </div>
         </div>
 
         {/* إعادة إدخال البريد الإلكتروني */}
