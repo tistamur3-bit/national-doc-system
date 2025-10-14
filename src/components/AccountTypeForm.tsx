@@ -53,7 +53,7 @@ const AccountTypeForm = () => {
               <Input 
                 id="nationalId" 
                 type="text" 
-                className="text-right"
+                className="text-right bg-white"
               />
             </div>
 
@@ -64,7 +64,7 @@ const AccountTypeForm = () => {
               <Input 
                 id="mobileNumber" 
                 type="tel" 
-                className="text-right"
+                className="text-right bg-white"
               />
             </div>
 
