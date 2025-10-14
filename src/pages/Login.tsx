@@ -47,11 +47,11 @@ const Login = () => {
           {/* Login Form */}
           <div className="bg-card border border-border rounded-lg p-8 shadow-sm">
             {/* Section Title */}
-            <div className="flex items-center gap-2 mb-6 justify-end">
+            <div className="flex items-center gap-2 mb-6 justify-start">
+              <User className="h-6 w-6 text-foreground" />
               <h2 className="text-xl font-semibold text-foreground">
                 الدخول بواسطة إسم المستخدم
               </h2>
-              <User className="h-6 w-6 text-foreground" />
             </div>
 
             <div className="space-y-6">
