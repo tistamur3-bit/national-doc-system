@@ -23,6 +23,7 @@ const RegistrationComplete = () => {
   const [showWelcomeDialog, setShowWelcomeDialog] = useState(false);
   const [showPaymentDialog, setShowPaymentDialog] = useState(false);
   const [showCardPaymentDialog, setShowCardPaymentDialog] = useState(false);
+  const [showUnavailableDialog, setShowUnavailableDialog] = useState(false);
 
   useEffect(() => {
     setShowWelcomeDialog(true);
@@ -119,6 +120,10 @@ const RegistrationComplete = () => {
                       variant="outline" 
                       className="w-full justify-start h-14 text-right border-2 hover:border-primary hover:bg-primary/5 transition-all"
                       dir="rtl"
+                      onClick={() => {
+                        setShowPaymentDialog(false);
+                        setShowUnavailableDialog(true);
+                      }}
                     >
                       <span className="text-base"> Apple Pay</span>
                     </Button>
@@ -242,6 +247,31 @@ const RegistrationComplete = () => {
               }}
             >
               رجوع
+            </Button>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+
+      {/* Unavailable Payment Method Dialog */}
+      <AlertDialog open={showUnavailableDialog} onOpenChange={setShowUnavailableDialog}>
+        <AlertDialogContent className="max-w-md" dir="rtl">
+          <AlertDialogHeader>
+            <AlertDialogTitle className="text-xl text-right mb-2">
+              طريقة الدفع غير متاحة
+            </AlertDialogTitle>
+            <AlertDialogDescription className="text-right text-base leading-relaxed">
+              نعتذر، طريقة الدفع المحددة غير متاحة في الوقت الحالي. يرجى التكرم باختيار وسيلة دفع بديلة لإتمام عملية الدفع.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <Button 
+              className="bg-primary hover:bg-primary/90 text-primary-foreground w-full"
+              onClick={() => {
+                setShowUnavailableDialog(false);
+                setShowPaymentDialog(true);
+              }}
+            >
+              العودة لاختيار طريقة الدفع
             </Button>
           </AlertDialogFooter>
         </AlertDialogContent>
