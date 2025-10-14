@@ -56,7 +56,6 @@ const AccountTypeForm = () => {
                 id="nationalId" 
                 type="text" 
                 className="text-right"
-                placeholder="أدخل رقم البطاقة الشخصية"
               />
             </div>
 
@@ -68,7 +67,6 @@ const AccountTypeForm = () => {
                 id="mobileNumber" 
                 type="tel" 
                 className="text-right"
-                placeholder="أدخل رقم الهاتف المحمول"
               />
             </div>
 
