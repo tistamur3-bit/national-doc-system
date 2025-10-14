@@ -1,16 +1,23 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import ReCAPTCHA from "react-google-recaptcha";
+import { format } from "date-fns";
+import { ar } from "date-fns/locale";
+import { CalendarIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Calendar } from "@/components/ui/calendar";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Info } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 const PersonalInfoForm = () => {
   const navigate = useNavigate();
   const [recaptchaValue, setRecaptchaValue] = useState<string | null>(null);
+  const [birthDate, setBirthDate] = useState<Date>();
 
   const handleRecaptchaChange = (value: string | null) => {
     setRecaptchaValue(value);
@@ -229,10 +236,34 @@ const PersonalInfoForm = () => {
 
         {/* تاريخ الميلاد */}
         <div>
-          <Label htmlFor="birthdate" className="text-right block mb-2">
+          <Label className="text-right block mb-2">
             تاريخ الميلاد
           </Label>
-          <Input id="birthdate" type="text" placeholder="(يوم/شهر/سنة)" className="text-right bg-white placeholder:text-right" dir="rtl" />
+          <Popover>
+            <PopoverTrigger asChild>
+              <Button
+                variant="outline"
+                className={cn(
+                  "w-full justify-end text-right font-normal bg-white",
+                  !birthDate && "text-muted-foreground"
+                )}
+              >
+                <CalendarIcon className="ml-2 h-4 w-4" />
+                {birthDate ? format(birthDate, "PPP", { locale: ar }) : <span>اختر تاريخ الميلاد</span>}
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent className="w-auto p-0" align="end">
+              <Calendar
+                mode="single"
+                selected={birthDate}
+                onSelect={setBirthDate}
+                disabled={(date) =>
+                  date > new Date() || date < new Date("1900-01-01")
+                }
+                initialFocus
+              />
+            </PopoverContent>
+          </Popover>
         </div>
 
         {/* الجنس */}
