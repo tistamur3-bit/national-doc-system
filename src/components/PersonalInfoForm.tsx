@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Info } from "lucide-react";
 
 const PersonalInfoForm = () => {
@@ -228,6 +229,27 @@ const PersonalInfoForm = () => {
             تاريخ الميلاد
           </Label>
           <Input id="birthdate" type="text" placeholder="(يوم/شهر/سنة)" className="text-right bg-white" />
+        </div>
+
+        {/* الجنس */}
+        <div>
+          <Label className="text-right block mb-2">
+            الجنس
+          </Label>
+          <RadioGroup className="flex gap-6 justify-end">
+            <div className="flex items-center gap-2">
+              <Label htmlFor="female" className="text-base cursor-pointer">
+                أنثى
+              </Label>
+              <RadioGroupItem value="female" id="female" />
+            </div>
+            <div className="flex items-center gap-2">
+              <Label htmlFor="male" className="text-base cursor-pointer">
+                ذكر
+              </Label>
+              <RadioGroupItem value="male" id="male" />
+            </div>
+          </RadioGroup>
         </div>
 
         {/* العنوان */}
