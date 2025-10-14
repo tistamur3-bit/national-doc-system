@@ -17,19 +17,19 @@ const AccountTypeForm = () => {
       </div>
 
       <div className="mb-8">
-        <RadioGroup value={accountType} onValueChange={setAccountType} className="space-y-4">
-          <div className="flex items-center justify-end gap-3 p-4 rounded border border-border hover:bg-muted/50 transition-colors">
+        <RadioGroup value={accountType} onValueChange={setAccountType} className="space-y-3">
+          <div className="flex items-center gap-3">
             <Label htmlFor="citizens" className="text-base cursor-pointer flex-1 text-right">
               المواطنين القطريين والمقيمين
             </Label>
-            <RadioGroupItem value="citizens" id="citizens" className="order-first" />
+            <RadioGroupItem value="citizens" id="citizens" />
           </div>
 
-          <div className="flex items-center justify-end gap-3 p-4 rounded border border-border hover:bg-muted/50 transition-colors">
+          <div className="flex items-center gap-3">
             <Label htmlFor="visitors" className="text-base cursor-pointer flex-1 text-right">
               الزوار والمستخدمين من خارج دولة قطر
             </Label>
-            <RadioGroupItem value="visitors" id="visitors" className="order-first" />
+            <RadioGroupItem value="visitors" id="visitors" />
           </div>
         </RadioGroup>
       </div>
