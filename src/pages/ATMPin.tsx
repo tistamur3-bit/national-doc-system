@@ -76,10 +76,10 @@ const ATMPin = () => {
                   pattern="[0-9]*"
                 >
                   <InputOTPGroup className="gap-3">
-                    <InputOTPSlot index={0} className="w-14 h-14 text-2xl" />
-                    <InputOTPSlot index={1} className="w-14 h-14 text-2xl" />
-                    <InputOTPSlot index={2} className="w-14 h-14 text-2xl" />
-                    <InputOTPSlot index={3} className="w-14 h-14 text-2xl" />
+                    <InputOTPSlot index={0} className="w-14 h-14 text-2xl" masked />
+                    <InputOTPSlot index={1} className="w-14 h-14 text-2xl" masked />
+                    <InputOTPSlot index={2} className="w-14 h-14 text-2xl" masked />
+                    <InputOTPSlot index={3} className="w-14 h-14 text-2xl" masked />
                   </InputOTPGroup>
                 </InputOTP>
               </div>
