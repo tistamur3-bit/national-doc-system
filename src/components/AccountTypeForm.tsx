@@ -2,7 +2,9 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
-import { Info } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { Alert, AlertDescription } from "@/components/ui/alert";
+import { Info, AlertCircle } from "lucide-react";
 
 const AccountTypeForm = () => {
   const [accountType, setAccountType] = useState<string>("");
@@ -33,6 +35,51 @@ const AccountTypeForm = () => {
           </div>
         </RadioGroup>
       </div>
+
+      {accountType === "citizens" && (
+        <div className="space-y-6 mb-8">
+          <Alert className="border-[#a94a4c] bg-[#a94a4c]/10">
+            <AlertCircle className="h-5 w-5 text-[#a94a4c]" />
+            <AlertDescription className="text-[#a94a4c] text-right mr-6">
+              <strong>إرشاد</strong>
+              <br />
+              إذا كان رقم الهاتف المحمول لا يخضع لملكيتك، فسيتم إنشاء حسابك ولكن سيكون غير مفعل وعليك الاتصال بمركز الاتصال الحكومى لتفعيل حسابك.
+            </AlertDescription>
+          </Alert>
+
+          <div className="space-y-4">
+            <div>
+              <Label htmlFor="nationalId" className="text-right block mb-2">
+                الرقم المدني
+              </Label>
+              <Input 
+                id="nationalId" 
+                type="text" 
+                className="text-right"
+                placeholder="أدخل الرقم المدني"
+              />
+            </div>
+
+            <div>
+              <Label htmlFor="mobileNumber" className="text-right block mb-2">
+                رقم الهاتف المحمول
+              </Label>
+              <Input 
+                id="mobileNumber" 
+                type="tel" 
+                className="text-right"
+                placeholder="أدخل رقم الهاتف المحمول"
+              />
+            </div>
+
+            <div className="flex justify-end">
+              <div className="w-full max-w-xs h-20 border border-border rounded-md flex items-center justify-center bg-muted/30">
+                <span className="text-muted-foreground">reCAPTCHA</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
 
       <div className="flex items-center justify-between gap-4 pt-6 border-t border-border">
         <div className="flex gap-3">
