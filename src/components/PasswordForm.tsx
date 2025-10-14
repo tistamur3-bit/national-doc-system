@@ -42,7 +42,6 @@ const PasswordForm = () => {
     if (!/[A-Z]/.test(pwd)) return false;
     if (!/[a-z]/.test(pwd)) return false;
     if (!/[0-9]/.test(pwd)) return false;
-    if (!/[!@#$%^&*]/.test(pwd)) return false;
     return true;
   };
 
@@ -88,7 +87,6 @@ const PasswordForm = () => {
             <li>• يجب أن تحتوي على حرف كبير واحد على الأقل (A-Z)</li>
             <li>• يجب أن تحتوي على حرف صغير واحد على الأقل (a-z)</li>
             <li>• يجب أن تحتوي على رقم واحد على الأقل (0-9)</li>
-            <li>• يجب أن تحتوي على رمز خاص واحد على الأقل (!@#$%^&*)</li>
           </ul>
         </div>
 
