@@ -12,10 +12,10 @@ const steps = [
 
 const Index = () => {
   return (
-    <div className="min-h-screen flex flex-col" dir="rtl">
+    <div className="min-h-screen flex flex-col bg-white" dir="rtl">
       <Header />
       
-      <main className="flex-1 container mx-auto px-4 py-12">
+      <main className="flex-1 container mx-auto px-4 py-12 bg-white">
         <Stepper currentStep={1} steps={steps} />
         <AccountTypeForm />
       </main>

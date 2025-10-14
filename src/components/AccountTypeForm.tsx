@@ -8,7 +8,7 @@ const AccountTypeForm = () => {
   const [accountType, setAccountType] = useState<string>("");
 
   return (
-    <div className="bg-card rounded-lg shadow-sm p-8 max-w-4xl mx-auto">
+    <div className="bg-gray-100 rounded-lg shadow-sm p-8 max-w-4xl mx-auto">
       <h2 className="text-2xl font-semibold mb-8 text-right">اختر نوع الحساب</h2>
 
       <div className="mb-8">
