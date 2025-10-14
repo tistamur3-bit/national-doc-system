@@ -50,13 +50,13 @@ const AccountTypeForm = () => {
           <div className="space-y-4">
             <div>
               <Label htmlFor="nationalId" className="text-right block mb-2">
-                الرقم المدني
+                رقم البطاقة الشخصية
               </Label>
               <Input 
                 id="nationalId" 
                 type="text" 
                 className="text-right"
-                placeholder="أدخل الرقم المدني"
+                placeholder="أدخل رقم البطاقة الشخصية"
               />
             </div>
 
