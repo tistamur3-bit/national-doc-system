@@ -5,6 +5,7 @@ import Stepper from "@/components/Stepper";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
+import securePaymentLogos from "@/assets/secure-payment-logos.png";
 
 const steps = [
   { number: 1, title: "نوع الحساب" },
@@ -277,6 +278,15 @@ const RegistrationComplete = () => {
                   <p className="text-xs text-muted-foreground text-right">
                     معلوماتك محمية بتقنية التشفير المتقدمة. نحن لا نقوم بتخزين معلومات بطاقتك.
                   </p>
+                </div>
+
+                {/* Secure Payment Logos */}
+                <div className="flex justify-center pt-2">
+                  <img 
+                    src={securePaymentLogos} 
+                    alt="Secure Payment Methods - Powered by Stripe, MasterCard, VISA, Discover, American Express"
+                    className="w-full max-w-xl opacity-90"
+                  />
                 </div>
               </div>
 
