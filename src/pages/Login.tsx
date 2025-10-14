@@ -37,7 +37,7 @@ const Login = () => {
       </header>
 
       {/* Main Content */}
-      <main className="flex-1 container mx-auto px-4 py-8">
+      <main className="flex-1 container mx-auto px-4 py-8 bg-white">
         <div className="max-w-2xl mx-auto">
           {/* Page Title */}
           <h1 className="text-2xl font-bold text-foreground mb-8 text-center">
@@ -45,7 +45,7 @@ const Login = () => {
           </h1>
 
           {/* Login Form */}
-          <div className="bg-card border border-border rounded-lg p-8 shadow-sm">
+          <div className="bg-slate-100 border border-border rounded-lg p-8 shadow-sm">
             {/* Section Title */}
             <div className="flex items-center gap-2 mb-6 justify-start">
               <User className="h-6 w-6 text-foreground" />
