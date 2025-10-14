@@ -28,7 +28,7 @@ const PasswordForm = () => {
 
       <div className="space-y-6 mb-8">
         {/* قواعد كلمة المرور */}
-        <div className="bg-white rounded-lg p-6 border border-border">
+        <div className="bg-primary/10 rounded-lg p-6 border border-primary/20">
           <div className="flex items-start gap-2 mb-4">
             <Info className="w-5 h-5 mt-0.5 flex-shrink-0 text-primary" />
             <h3 className="font-semibold text-right">قواعد إدخال كلمة المرور</h3>
