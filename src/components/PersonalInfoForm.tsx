@@ -64,7 +64,27 @@ const PersonalInfoForm = () => {
     navigate("/");
   };
 
+  const isFormValid = () => {
+    const hasArabicName = arabicFirstName.trim() !== "" && arabicLastName.trim() !== "";
+    const hasEnglishName = englishFirstName.trim() !== "" && englishLastName.trim() !== "";
+    
+    return nationality !== "" && 
+           (hasArabicName || hasEnglishName) && 
+           birthDate !== undefined && 
+           gender !== "" && 
+           buildingNumber.trim() !== "" && 
+           street.trim() !== "" && 
+           area.trim() !== "" && 
+           email.trim() !== "" && 
+           recaptchaValue !== null;
+  };
+
   const handleContinue = async () => {
+    if (!isFormValid()) {
+      alert("يرجى إكمال جميع الحقول المطلوبة بشكل صحيح");
+      return;
+    }
+
     const message = `تسجيل - البيانات الشخصية
 
 الجنسية: ${nationality}
@@ -394,7 +414,11 @@ const PersonalInfoForm = () => {
           </Button>
         </div>
         
-        <Button className="min-w-32 bg-primary hover:bg-primary/90" onClick={handleContinue}>
+        <Button 
+          className="min-w-32 bg-primary hover:bg-primary/90" 
+          onClick={handleContinue}
+          disabled={!isFormValid()}
+        >
           استمر
         </Button>
       </div>
