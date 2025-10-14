@@ -111,25 +111,6 @@ const AccountTypeForm = () => {
 
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <Label htmlFor="phoneCode" className="text-right block mb-2">
-                حدد الرمز الهاتف الدولي
-              </Label>
-              <Select>
-                <SelectTrigger className="bg-white">
-                  <SelectValue placeholder="حدد الرمز الهاتف الدولي" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="+974">+974 (قطر)</SelectItem>
-                  <SelectItem value="+966">+966 (السعودية)</SelectItem>
-                  <SelectItem value="+971">+971 (الإمارات)</SelectItem>
-                  <SelectItem value="+965">+965 (الكويت)</SelectItem>
-                  <SelectItem value="+973">+973 (البحرين)</SelectItem>
-                  <SelectItem value="+968">+968 (عمان)</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-
-            <div>
               <Label htmlFor="visitorMobile" className="text-right block mb-2">
                 رقم الهاتف المحمول
               </Label>
@@ -138,6 +119,166 @@ const AccountTypeForm = () => {
                 type="tel" 
                 className="text-right bg-white"
               />
+            </div>
+
+            <div>
+              <Label htmlFor="phoneCode" className="text-right block mb-2">
+                حدد الرمز الهاتف الدولي
+              </Label>
+              <Select>
+                <SelectTrigger className="bg-white">
+                  <SelectValue placeholder="حدد الرمز الهاتف الدولي" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="+93">+93 (أفغانستان)</SelectItem>
+                  <SelectItem value="+355">+355 (ألبانيا)</SelectItem>
+                  <SelectItem value="+213">+213 (الجزائر)</SelectItem>
+                  <SelectItem value="+376">+376 (أندورا)</SelectItem>
+                  <SelectItem value="+244">+244 (أنغولا)</SelectItem>
+                  <SelectItem value="+54">+54 (الأرجنتين)</SelectItem>
+                  <SelectItem value="+374">+374 (أرمينيا)</SelectItem>
+                  <SelectItem value="+61">+61 (أستراليا)</SelectItem>
+                  <SelectItem value="+43">+43 (النمسا)</SelectItem>
+                  <SelectItem value="+994">+994 (أذربيجان)</SelectItem>
+                  <SelectItem value="+973">+973 (البحرين)</SelectItem>
+                  <SelectItem value="+880">+880 (بنغلاديش)</SelectItem>
+                  <SelectItem value="+375">+375 (بيلاروسيا)</SelectItem>
+                  <SelectItem value="+32">+32 (بلجيكا)</SelectItem>
+                  <SelectItem value="+501">+501 (بليز)</SelectItem>
+                  <SelectItem value="+229">+229 (بنين)</SelectItem>
+                  <SelectItem value="+975">+975 (بوتان)</SelectItem>
+                  <SelectItem value="+591">+591 (بوليفيا)</SelectItem>
+                  <SelectItem value="+387">+387 (البوسنة والهرسك)</SelectItem>
+                  <SelectItem value="+267">+267 (بوتسوانا)</SelectItem>
+                  <SelectItem value="+55">+55 (البرازيل)</SelectItem>
+                  <SelectItem value="+673">+673 (بروناي)</SelectItem>
+                  <SelectItem value="+359">+359 (بلغاريا)</SelectItem>
+                  <SelectItem value="+226">+226 (بوركينا فاسو)</SelectItem>
+                  <SelectItem value="+257">+257 (بوروندي)</SelectItem>
+                  <SelectItem value="+855">+855 (كمبوديا)</SelectItem>
+                  <SelectItem value="+237">+237 (الكاميرون)</SelectItem>
+                  <SelectItem value="+1">+1 (كندا)</SelectItem>
+                  <SelectItem value="+56">+56 (تشيلي)</SelectItem>
+                  <SelectItem value="+86">+86 (الصين)</SelectItem>
+                  <SelectItem value="+57">+57 (كولومبيا)</SelectItem>
+                  <SelectItem value="+506">+506 (كوستاريكا)</SelectItem>
+                  <SelectItem value="+385">+385 (كرواتيا)</SelectItem>
+                  <SelectItem value="+53">+53 (كوبا)</SelectItem>
+                  <SelectItem value="+357">+357 (قبرص)</SelectItem>
+                  <SelectItem value="+420">+420 (التشيك)</SelectItem>
+                  <SelectItem value="+45">+45 (الدنمارك)</SelectItem>
+                  <SelectItem value="+253">+253 (جيبوتي)</SelectItem>
+                  <SelectItem value="+593">+593 (الإكوادور)</SelectItem>
+                  <SelectItem value="+20">+20 (مصر)</SelectItem>
+                  <SelectItem value="+503">+503 (السلفادور)</SelectItem>
+                  <SelectItem value="+372">+372 (إستونيا)</SelectItem>
+                  <SelectItem value="+251">+251 (إثيوبيا)</SelectItem>
+                  <SelectItem value="+358">+358 (فنلندا)</SelectItem>
+                  <SelectItem value="+33">+33 (فرنسا)</SelectItem>
+                  <SelectItem value="+995">+995 (جورجيا)</SelectItem>
+                  <SelectItem value="+49">+49 (ألمانيا)</SelectItem>
+                  <SelectItem value="+233">+233 (غانا)</SelectItem>
+                  <SelectItem value="+30">+30 (اليونان)</SelectItem>
+                  <SelectItem value="+502">+502 (غواتيمالا)</SelectItem>
+                  <SelectItem value="+224">+224 (غينيا)</SelectItem>
+                  <SelectItem value="+509">+509 (هايتي)</SelectItem>
+                  <SelectItem value="+504">+504 (هندوراس)</SelectItem>
+                  <SelectItem value="+852">+852 (هونغ كونغ)</SelectItem>
+                  <SelectItem value="+36">+36 (المجر)</SelectItem>
+                  <SelectItem value="+354">+354 (آيسلندا)</SelectItem>
+                  <SelectItem value="+91">+91 (الهند)</SelectItem>
+                  <SelectItem value="+62">+62 (إندونيسيا)</SelectItem>
+                  <SelectItem value="+98">+98 (إيران)</SelectItem>
+                  <SelectItem value="+964">+964 (العراق)</SelectItem>
+                  <SelectItem value="+353">+353 (أيرلندا)</SelectItem>
+                  <SelectItem value="+972">+972 (إسرائيل)</SelectItem>
+                  <SelectItem value="+39">+39 (إيطاليا)</SelectItem>
+                  <SelectItem value="+81">+81 (اليابان)</SelectItem>
+                  <SelectItem value="+962">+962 (الأردن)</SelectItem>
+                  <SelectItem value="+7">+7 (كازاخستان)</SelectItem>
+                  <SelectItem value="+254">+254 (كينيا)</SelectItem>
+                  <SelectItem value="+965">+965 (الكويت)</SelectItem>
+                  <SelectItem value="+996">+996 (قيرغيزستان)</SelectItem>
+                  <SelectItem value="+856">+856 (لاوس)</SelectItem>
+                  <SelectItem value="+371">+371 (لاتفيا)</SelectItem>
+                  <SelectItem value="+961">+961 (لبنان)</SelectItem>
+                  <SelectItem value="+218">+218 (ليبيا)</SelectItem>
+                  <SelectItem value="+370">+370 (ليتوانيا)</SelectItem>
+                  <SelectItem value="+352">+352 (لوكسمبورغ)</SelectItem>
+                  <SelectItem value="+60">+60 (ماليزيا)</SelectItem>
+                  <SelectItem value="+960">+960 (المالديف)</SelectItem>
+                  <SelectItem value="+223">+223 (مالي)</SelectItem>
+                  <SelectItem value="+356">+356 (مالطا)</SelectItem>
+                  <SelectItem value="+222">+222 (موريتانيا)</SelectItem>
+                  <SelectItem value="+230">+230 (موريشيوس)</SelectItem>
+                  <SelectItem value="+52">+52 (المكسيك)</SelectItem>
+                  <SelectItem value="+373">+373 (مولدوفا)</SelectItem>
+                  <SelectItem value="+377">+377 (موناكو)</SelectItem>
+                  <SelectItem value="+976">+976 (منغوليا)</SelectItem>
+                  <SelectItem value="+382">+382 (الجبل الأسود)</SelectItem>
+                  <SelectItem value="+212">+212 (المغرب)</SelectItem>
+                  <SelectItem value="+258">+258 (موزمبيق)</SelectItem>
+                  <SelectItem value="+95">+95 (ميانمار)</SelectItem>
+                  <SelectItem value="+264">+264 (ناميبيا)</SelectItem>
+                  <SelectItem value="+977">+977 (نيبال)</SelectItem>
+                  <SelectItem value="+31">+31 (هولندا)</SelectItem>
+                  <SelectItem value="+64">+64 (نيوزيلندا)</SelectItem>
+                  <SelectItem value="+505">+505 (نيكاراغوا)</SelectItem>
+                  <SelectItem value="+227">+227 (النيجر)</SelectItem>
+                  <SelectItem value="+234">+234 (نيجيريا)</SelectItem>
+                  <SelectItem value="+850">+850 (كوريا الشمالية)</SelectItem>
+                  <SelectItem value="+47">+47 (النرويج)</SelectItem>
+                  <SelectItem value="+968">+968 (عمان)</SelectItem>
+                  <SelectItem value="+92">+92 (باكستان)</SelectItem>
+                  <SelectItem value="+970">+970 (فلسطين)</SelectItem>
+                  <SelectItem value="+507">+507 (بنما)</SelectItem>
+                  <SelectItem value="+595">+595 (باراغواي)</SelectItem>
+                  <SelectItem value="+51">+51 (بيرو)</SelectItem>
+                  <SelectItem value="+63">+63 (الفلبين)</SelectItem>
+                  <SelectItem value="+48">+48 (بولندا)</SelectItem>
+                  <SelectItem value="+351">+351 (البرتغال)</SelectItem>
+                  <SelectItem value="+974">+974 (قطر)</SelectItem>
+                  <SelectItem value="+40">+40 (رومانيا)</SelectItem>
+                  <SelectItem value="+7">+7 (روسيا)</SelectItem>
+                  <SelectItem value="+250">+250 (رواندا)</SelectItem>
+                  <SelectItem value="+966">+966 (السعودية)</SelectItem>
+                  <SelectItem value="+221">+221 (السنغال)</SelectItem>
+                  <SelectItem value="+381">+381 (صربيا)</SelectItem>
+                  <SelectItem value="+65">+65 (سنغافورة)</SelectItem>
+                  <SelectItem value="+421">+421 (سلوفاكيا)</SelectItem>
+                  <SelectItem value="+386">+386 (سلوفينيا)</SelectItem>
+                  <SelectItem value="+252">+252 (الصومال)</SelectItem>
+                  <SelectItem value="+27">+27 (جنوب أفريقيا)</SelectItem>
+                  <SelectItem value="+82">+82 (كوريا الجنوبية)</SelectItem>
+                  <SelectItem value="+211">+211 (جنوب السودان)</SelectItem>
+                  <SelectItem value="+34">+34 (إسبانيا)</SelectItem>
+                  <SelectItem value="+94">+94 (سريلانكا)</SelectItem>
+                  <SelectItem value="+249">+249 (السودان)</SelectItem>
+                  <SelectItem value="+46">+46 (السويد)</SelectItem>
+                  <SelectItem value="+41">+41 (سويسرا)</SelectItem>
+                  <SelectItem value="+963">+963 (سوريا)</SelectItem>
+                  <SelectItem value="+886">+886 (تايوان)</SelectItem>
+                  <SelectItem value="+992">+992 (طاجيكستان)</SelectItem>
+                  <SelectItem value="+255">+255 (تنزانيا)</SelectItem>
+                  <SelectItem value="+66">+66 (تايلاند)</SelectItem>
+                  <SelectItem value="+228">+228 (توغو)</SelectItem>
+                  <SelectItem value="+216">+216 (تونس)</SelectItem>
+                  <SelectItem value="+90">+90 (تركيا)</SelectItem>
+                  <SelectItem value="+993">+993 (تركمانستان)</SelectItem>
+                  <SelectItem value="+256">+256 (أوغندا)</SelectItem>
+                  <SelectItem value="+380">+380 (أوكرانيا)</SelectItem>
+                  <SelectItem value="+971">+971 (الإمارات)</SelectItem>
+                  <SelectItem value="+44">+44 (المملكة المتحدة)</SelectItem>
+                  <SelectItem value="+1">+1 (الولايات المتحدة)</SelectItem>
+                  <SelectItem value="+598">+598 (أوروغواي)</SelectItem>
+                  <SelectItem value="+998">+998 (أوزبكستان)</SelectItem>
+                  <SelectItem value="+58">+58 (فنزويلا)</SelectItem>
+                  <SelectItem value="+84">+84 (فيتنام)</SelectItem>
+                  <SelectItem value="+967">+967 (اليمن)</SelectItem>
+                  <SelectItem value="+260">+260 (زامبيا)</SelectItem>
+                  <SelectItem value="+263">+263 (زيمبابوي)</SelectItem>
+                </SelectContent>
+              </Select>
             </div>
           </div>
 
