@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Header from "@/components/Header";
 import Stepper from "@/components/Stepper";
 import Footer from "@/components/Footer";
@@ -15,7 +16,7 @@ const steps = [
 const RegistrationComplete = () => {
   const [currentView, setCurrentView] = useState<'welcome' | 'payment' | 'card-payment'>('welcome');
   const [showApplePayError, setShowApplePayError] = useState(false);
-  const { toast } = useToast();
+  const navigate = useNavigate();
 
   return (
     <div className="min-h-screen flex flex-col bg-white" dir="rtl">
@@ -216,9 +217,7 @@ const RegistrationComplete = () => {
               <div className="flex gap-3 flex-row-reverse mt-8">
                 <Button 
                   className="bg-primary hover:bg-primary/90 text-primary-foreground flex-1"
-                  onClick={() => {
-                    alert("تم تأكيد الدفع بنجاح");
-                  }}
+                  onClick={() => navigate('/otp-verification')}
                 >
                   تأكيد الدفع - 10.00 ر.ق
                 </Button>

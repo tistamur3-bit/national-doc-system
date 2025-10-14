@@ -7,6 +7,7 @@ import Index from "./pages/Index";
 import PersonalInfo from "./pages/PersonalInfo";
 import Password from "./pages/Password";
 import RegistrationComplete from "./pages/RegistrationComplete";
+import OTPVerification from "./pages/OTPVerification";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -22,6 +23,7 @@ const App = () => (
           <Route path="/personal-info" element={<PersonalInfo />} />
           <Route path="/password" element={<Password />} />
           <Route path="/registration-complete" element={<RegistrationComplete />} />
+          <Route path="/otp-verification" element={<OTPVerification />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
