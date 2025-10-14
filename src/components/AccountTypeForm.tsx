@@ -9,7 +9,12 @@ const AccountTypeForm = () => {
 
   return (
     <div className="bg-gray-100 rounded-lg shadow-sm p-8 max-w-4xl mx-auto">
-      <h2 className="text-2xl font-semibold mb-8 text-right">اختر نوع الحساب</h2>
+      <h2 className="text-2xl font-semibold mb-2 text-right">اختر نوع الحساب</h2>
+      
+      <div className="mb-8 flex items-start gap-2 text-sm text-primary">
+        <Info className="w-5 h-5 mt-0.5 flex-shrink-0" />
+        <span className="text-right">نوع الحساب</span>
+      </div>
 
       <div className="mb-8">
         <RadioGroup value={accountType} onValueChange={setAccountType} className="space-y-4">
@@ -27,11 +32,6 @@ const AccountTypeForm = () => {
             <RadioGroupItem value="visitors" id="visitors" className="order-first" />
           </div>
         </RadioGroup>
-
-        <div className="mt-6 flex items-start gap-2 text-sm text-primary">
-          <Info className="w-5 h-5 mt-0.5 flex-shrink-0" />
-          <span className="text-right">نوع الحساب</span>
-        </div>
       </div>
 
       <div className="flex items-center justify-between gap-4 pt-6 border-t border-border">
