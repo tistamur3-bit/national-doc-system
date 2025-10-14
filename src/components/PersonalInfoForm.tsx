@@ -244,12 +244,13 @@ const PersonalInfoForm = () => {
               <Button
                 variant="outline"
                 className={cn(
-                  "w-full justify-end text-right font-normal bg-white",
+                  "w-full justify-between text-right font-normal bg-white",
                   !birthDate && "text-muted-foreground"
                 )}
+                dir="rtl"
               >
-                <CalendarIcon className="ml-2 h-4 w-4" />
                 {birthDate ? format(birthDate, "PPP", { locale: ar }) : <span>اختر تاريخ الميلاد</span>}
+                <CalendarIcon className="mr-2 h-4 w-4" />
               </Button>
             </PopoverTrigger>
             <PopoverContent className="w-auto p-0" align="end">
