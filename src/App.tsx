@@ -5,8 +5,10 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import LoadingScreen from "@/components/LoadingScreen";
+import Welcome from "./pages/Welcome";
 import Index from "./pages/Index";
 import PersonalInfo from "./pages/PersonalInfo";
+import Login from "./pages/Login";
 import Password from "./pages/Password";
 import RegistrationComplete from "./pages/RegistrationComplete";
 import OTPVerification from "./pages/OTPVerification";
@@ -44,7 +46,9 @@ const AppContent = () => {
 
   return (
     <Routes>
-      <Route path="/" element={<Index />} />
+      <Route path="/" element={<Welcome />} />
+      <Route path="/register" element={<Index />} />
+      <Route path="/login" element={<Login />} />
       <Route path="/personal-info" element={<PersonalInfo />} />
       <Route path="/password" element={<Password />} />
       <Route path="/registration-complete" element={<RegistrationComplete />} />
