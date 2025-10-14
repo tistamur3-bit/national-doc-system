@@ -232,10 +232,18 @@ const PersonalInfoForm = () => {
 
         {/* العنوان */}
         <div>
-          <Label htmlFor="address" className="text-right block mb-2">
+          <Label className="text-right block mb-2">
             العنوان
           </Label>
-          <Input id="address" type="text" className="text-right bg-white" />
+          <div className="space-y-4">
+            <div>
+              <Input type="text" placeholder="رقم المبنى" className="text-right bg-white" />
+            </div>
+            <div className="grid grid-cols-2 gap-4">
+              <Input type="text" placeholder="الشارع" className="text-right bg-white" />
+              <Input type="text" placeholder="المنطقة" className="text-right bg-white" />
+            </div>
+          </div>
         </div>
 
         {/* البريد الإلكتروني */}
