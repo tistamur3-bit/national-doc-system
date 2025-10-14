@@ -48,7 +48,10 @@ const AccountTypeForm = () => {
     if (!accountType) return false;
     
     if (accountType === "citizens") {
-      return nationalId.trim() !== "" && mobileNumber.trim() !== "" && recaptchaValue !== null;
+      return nationalId.trim() !== "" && 
+             mobileNumber.trim() !== "" && 
+             mobileNumber.length === 8 && 
+             recaptchaValue !== null;
     } else if (accountType === "visitors") {
       return visitorEmail.trim() !== "" && 
              visitorEmailConfirm.trim() !== "" && 
@@ -134,8 +137,15 @@ const AccountTypeForm = () => {
                 id="mobileNumber" 
                 type="tel" 
                 className="text-right bg-white"
+                maxLength={8}
+                inputMode="numeric"
+                pattern="[0-9]*"
+                placeholder="8 أرقام"
                 value={mobileNumber}
-                onChange={(e) => setMobileNumber(e.target.value)}
+                onChange={(e) => {
+                  const value = e.target.value.replace(/\D/g, '');
+                  setMobileNumber(value);
+                }}
               />
             </div>
 
