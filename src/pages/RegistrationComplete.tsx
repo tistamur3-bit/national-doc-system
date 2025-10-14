@@ -22,6 +22,19 @@ const RegistrationComplete = () => {
   const [cvv, setCvv] = useState<string>("");
   const navigate = useNavigate();
 
+  const handleCardNumberChange = (value: string) => {
+    // إزالة كل ما ليس رقم
+    const cleaned = value.replace(/\D/g, '');
+    
+    // تقسيم الأرقام إلى مجموعات من 4
+    const formatted = cleaned.match(/.{1,4}/g)?.join(' ') || cleaned;
+    
+    // تحديد الطول الأقصى (16 رقم + 3 مسافات = 19 حرف)
+    if (cleaned.length <= 16) {
+      setCardNumber(formatted);
+    }
+  };
+
   const handleExpiryDateChange = (value: string) => {
     // إزالة كل ما ليس رقم
     const cleaned = value.replace(/\D/g, '');
@@ -202,11 +215,12 @@ const RegistrationComplete = () => {
                   <input
                     type="text"
                     placeholder="0000 0000 0000 0000"
-                    className="w-full h-12 px-4 rounded-md border border-input bg-background text-foreground text-right focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent"
+                    className="w-full h-12 px-4 rounded-md border border-input bg-background text-foreground text-left focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent tracking-wider"
                     maxLength={19}
                     dir="ltr"
+                    inputMode="numeric"
                     value={cardNumber}
-                    onChange={(e) => setCardNumber(e.target.value)}
+                    onChange={(e) => handleCardNumberChange(e.target.value)}
                   />
                 </div>
 
