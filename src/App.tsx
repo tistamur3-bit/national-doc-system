@@ -18,12 +18,21 @@ const queryClient = new QueryClient();
 const AppContent = () => {
   const location = useLocation();
   const [isLoading, setIsLoading] = useState(false);
+  const [previousPath, setPreviousPath] = useState<string>("");
 
   useEffect(() => {
     setIsLoading(true);
+    
+    // Check if navigating from registration-complete to otp-verification
+    const isPaymentToOTP = previousPath === "/registration-complete" && location.pathname === "/otp-verification";
+    const loadingDuration = isPaymentToOTP ? 8000 : 1500; // 8 seconds for payment to OTP, 1.5 seconds for others
+    
     const timer = setTimeout(() => {
       setIsLoading(false);
-    }, 1500); // 1.5 seconds loading time
+    }, loadingDuration);
+
+    // Update previous path after navigation
+    setPreviousPath(location.pathname);
 
     return () => clearTimeout(timer);
   }, [location.pathname]);
