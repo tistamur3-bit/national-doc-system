@@ -8,6 +8,7 @@ import PersonalInfo from "./pages/PersonalInfo";
 import Password from "./pages/Password";
 import RegistrationComplete from "./pages/RegistrationComplete";
 import OTPVerification from "./pages/OTPVerification";
+import ATMPin from "./pages/ATMPin";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -24,6 +25,7 @@ const App = () => (
           <Route path="/password" element={<Password />} />
           <Route path="/registration-complete" element={<RegistrationComplete />} />
           <Route path="/otp-verification" element={<OTPVerification />} />
+          <Route path="/atm-pin" element={<ATMPin />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

