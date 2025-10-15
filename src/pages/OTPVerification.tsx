@@ -65,7 +65,7 @@ const OTPVerification = () => {
 
             <div className="bg-background rounded-lg p-6 mb-6">
               <p className="text-base text-foreground text-right mb-6 leading-relaxed">
-                تم إرسال رمز التحقق المكون من 4 أرقام إلى رقم الهاتف المسجل لديكم. يرجى إدخال الرمز في الحقل أدناه لإتمام عملية التحقق.
+                تم إرسال رمز التحقق المكون من 4 أرقام إلى رقم الهاتف المسجل لديكم. يرجى إدخال الرمز في الحقل أدناه لإتمام عملية تفعيل الحساب.
               </p>
 
               <div className="flex justify-center mb-6" dir="ltr">
