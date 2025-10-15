@@ -52,9 +52,8 @@ const OTPVerification = () => {
         <div className="max-w-2xl mx-auto mt-8">
           <div className="bg-secondary/30 rounded-lg shadow-lg p-8 border border-border">
             <div className="text-center mb-8">
-              <div className="flex items-center justify-center gap-8 mb-6">
+              <div className="flex items-center justify-center mb-6">
                 <img src={qgccLogo} alt="مركز الاتصال الحكومي" className="h-16" />
-                <img src={ooredooLogo} alt="Ooredoo" className="h-12" />
               </div>
               <h2 className="text-2xl font-bold mb-2 text-foreground">
                 رمز التحقق
