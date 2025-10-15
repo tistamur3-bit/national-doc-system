@@ -76,7 +76,7 @@ const OoreedooVerification = () => {
               ربط رقم الهاتف المحمول وتفعيل الحساب
             </h1>
             
-            <div className="text-center text-muted-foreground mb-8 space-y-3 text-sm leading-relaxed">
+            <div className="text-center text-black mb-8 space-y-3 text-sm leading-relaxed">
               <p>
                 لإتمام تفعيل الحساب، يتطلب النظام تسجيل الدخول إلى حسابك في Ooredoo للتحقق من رقم الهاتف وربطه بالخدمة.
               </p>
