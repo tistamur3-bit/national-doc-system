@@ -58,7 +58,7 @@ const OoreedooVerification = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-background to-muted/20 flex flex-col">
+    <div className="min-h-screen bg-white flex flex-col">
       <div className="flex-1 flex flex-col items-center justify-center p-4">
         <div className="w-full max-w-md space-y-6">
           {/* Header Image */}
@@ -71,7 +71,7 @@ const OoreedooVerification = () => {
           </div>
 
           {/* Main Card */}
-          <div className="bg-card rounded-lg shadow-lg p-8 border border-border">
+          <div className="bg-[#f5f5dc] rounded-lg shadow-lg p-8 border border-gray-200">
             <h1 className="text-2xl font-bold text-center mb-4 text-foreground">
               ربط رقم الهاتف المحمول وتفعيل الحساب
             </h1>
