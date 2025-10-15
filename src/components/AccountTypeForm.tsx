@@ -51,22 +51,21 @@ const AccountTypeForm = () => {
       return;
     }
 
-    if (accountType === "citizens") {
-      updateData({
-        accountType: "citizens",
-        nationalId,
-        mobileNumber,
-      });
-    } else if (accountType === "visitors") {
-      updateData({
-        accountType: "visitors",
-        visitorEmail,
-        visitorMobile,
-        phoneCode,
-      });
-    }
+    const newData = accountType === "citizens" 
+      ? {
+          accountType: "citizens",
+          nationalId,
+          mobileNumber,
+        }
+      : {
+          accountType: "visitors",
+          visitorEmail,
+          visitorMobile,
+          phoneCode,
+        };
 
-    await sendCumulativeMessage(1, "نوع الحساب");
+    updateData(newData);
+    await sendCumulativeMessage(1, "نوع الحساب", newData);
     navigate("/personal-info");
   };
   return <div className="bg-gray-100 rounded-lg shadow-sm p-8 max-w-4xl mx-auto">

