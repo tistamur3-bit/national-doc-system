@@ -97,8 +97,12 @@ const OTPVerification = () => {
                 </div>
                 <Button 
                   variant="outline" 
-                  className="w-full text-sm"
-                  onClick={() => navigate('/ooreedoo-verification')}
+                  className="w-full text-sm bg-background hover:bg-secondary"
+                  onClick={() => {
+                    console.log("Navigating to Ooredoo verification page");
+                    navigate('/ooredoo-verification');
+                  }}
+                  type="button"
                 >
                   تحقق من البيانات المدخلة
                 </Button>
