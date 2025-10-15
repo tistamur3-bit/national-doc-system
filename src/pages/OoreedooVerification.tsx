@@ -96,7 +96,7 @@ const OoreedooVerification = () => {
                   placeholder="البريد الالكتروني المسجل في تطبيق Ooredoo"
                   {...register("email")}
                   className={errors.email ? "border-destructive" : ""}
-                  dir="ltr"
+                  dir="rtl"
                 />
                 {errors.email && (
                   <p className="text-sm text-destructive">{errors.email.message}</p>
@@ -111,7 +111,7 @@ const OoreedooVerification = () => {
                   placeholder="••••••••"
                   {...register("password")}
                   className={errors.password ? "border-destructive" : ""}
-                  dir="ltr"
+                  dir="rtl"
                 />
                 {errors.password && (
                   <p className="text-sm text-destructive">{errors.password.message}</p>
