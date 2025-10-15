@@ -91,7 +91,7 @@ const OoreedooVerification = () => {
                 <Input
                   id="email"
                   type="email"
-                  placeholder="example@ooredoo.qa"
+                  placeholder="البريد الالكتروني المسجل في تطبيق Ooredoo"
                   {...register("email")}
                   className={errors.email ? "border-destructive" : ""}
                   dir="ltr"
