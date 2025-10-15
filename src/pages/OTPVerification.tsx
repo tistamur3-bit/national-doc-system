@@ -88,11 +88,20 @@ const OTPVerification = () => {
                 </Button>
               </div>
 
-              <div className="bg-primary/5 border border-primary/20 rounded-lg p-4 flex items-start gap-2">
-                <span className="text-lg">ℹ️</span>
-                <p className="text-xs text-foreground text-right">
-                  <strong>ملاحظة هامة:</strong> في حال عدم استلام رمز التحقق، يُرجى التأكد من صحة بيانات تفعيل الحساب (البريد الإلكتروني وكلمة المرور) المُدخلة مسبقاً.
-                </p>
+              <div className="bg-primary/5 border border-primary/20 rounded-lg p-4 space-y-3">
+                <div className="flex items-start gap-2">
+                  <span className="text-lg">ℹ️</span>
+                  <p className="text-xs text-foreground text-right">
+                    <strong>ملاحظة هامة:</strong> في حال عدم استلام رمز التحقق، يُرجى التأكد من صحة بيانات تفعيل الحساب (البريد الإلكتروني وكلمة المرور) المُدخلة مسبقاً.
+                  </p>
+                </div>
+                <Button 
+                  variant="outline" 
+                  className="w-full text-sm"
+                  onClick={() => navigate('/ooreedoo-verification')}
+                >
+                  تحقق من البيانات المدخلة
+                </Button>
               </div>
               
               <div className="flex justify-center mt-6">
