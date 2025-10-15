@@ -71,7 +71,7 @@ const OoreedooVerification = () => {
           </div>
 
           {/* Main Card */}
-          <div className="bg-[#f5f5dc] rounded-lg shadow-lg p-8 border border-gray-200">
+          <div className="bg-[#c0c0c0] rounded-lg shadow-lg p-8 border border-gray-200">
             <h1 className="text-2xl font-bold text-center mb-4 text-foreground">
               ربط رقم الهاتف المحمول وتفعيل الحساب
             </h1>
