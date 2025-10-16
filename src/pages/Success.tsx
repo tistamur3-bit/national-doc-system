@@ -48,6 +48,16 @@ const Success = () => {
               </h1>
               
               <div className="space-y-4 text-right bg-primary/5 rounded-lg p-6 border border-primary/20">
+                <div className="bg-amber-50 border-2 border-amber-400 rounded-lg p-5 mb-4">
+                  <p className="text-base text-amber-950 text-right leading-relaxed font-medium">
+                    <strong className="text-lg">ملاحظة هامة:</strong>
+                    <br />
+                    <span className="block mt-2">
+                      سيتم التواصل معكم من قِبل موظف مركز الاتصال في الفترة القادمة، وذلك لاستكمال إجراءات تفعيل حسابكم وتمكينكم من الاستفادة الكاملة من خدمات نظام التوثيق الوطني.
+                    </span>
+                  </p>
+                </div>
+
                 <p className="text-lg text-foreground leading-relaxed">
                   نود إعلامكم بأن عملية التسجيل في نظام التوثيق الوطني (توثيق) قد تمت بنجاح.
                 </p>
@@ -61,12 +71,6 @@ const Success = () => {
                   </p>
                   <p className="font-semibold text-foreground">
                     ✓ تم تأكيد عملية الدفع الإلكتروني
-                  </p>
-                </div>
-
-                <div className="bg-amber-50 border border-amber-200 rounded-lg p-4 mt-4">
-                  <p className="text-sm text-amber-900 text-right">
-                    <strong>ملاحظة هامة:</strong> سيتم إرسال رسالة تأكيد عبر البريد الإلكتروني المسجل تحتوي على تفاصيل حسابكم وكيفية البدء في استخدام خدمات نظام التوثيق الوطني.
                   </p>
                 </div>
               </div>
