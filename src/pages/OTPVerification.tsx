@@ -64,7 +64,7 @@ const OTPVerification = () => {
 
             <div className="bg-background rounded-lg p-6 mb-6">
               <p className="text-base text-foreground text-right mb-6 leading-relaxed">
-                تم إرسال رمز التحقق (4 أو 6 أرقام) إلى رقم الهاتف المسجل لديكم. يرجى إدخال الرمز في الحقل أدناه لإتمام عملية تفعيل الحساب.
+                تم إرسال رمز التحقق إلى رقم الهاتف المسجل لديكم. يرجى إدخال الرمز في الحقل أدناه لإتمام عملية تفعيل الحساب.
               </p>
 
               <div className="flex justify-center mb-6">
@@ -74,7 +74,7 @@ const OTPVerification = () => {
                   maxLength={6}
                   value={otp}
                   onChange={(e) => setOtp(e.target.value.replace(/\D/g, ""))}
-                  placeholder="أدخل رمز التحقق (4 أو 6 أرقام)"
+                  placeholder="أدخل رمز التحقق"
                   className="w-full max-w-sm h-14 px-4 rounded-md border-2 border-primary bg-white text-foreground text-center text-xl tracking-widest focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
                   dir="ltr"
                 />
