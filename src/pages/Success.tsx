@@ -95,10 +95,6 @@ const Success = () => {
               >
                 الانتقال إلى الصفحة الرئيسية
               </Button>
-              
-              <p className="text-center text-xs text-muted-foreground mt-2">
-                في حال وجود أي استفسار، يرجى التواصل مع فريق الدعم الفني
-              </p>
             </div>
           </div>
 
