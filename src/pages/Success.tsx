@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { CheckCircle2 } from "lucide-react";
 import nasName from "@/assets/nas-name.png";
 import tawtheeqLogo from "@/assets/tawtheeq-logo.png";
-import securePaymentLogos from "@/assets/secure-payment-logos.png";
+import qgccLogo from "@/assets/qgcc-logo.png";
 
 const Success = () => {
   const navigate = useNavigate();
@@ -83,8 +83,8 @@ const Success = () => {
               </p>
               <div className="flex justify-center">
                 <img 
-                  src={securePaymentLogos} 
-                  alt="طرق الدفع الآمنة"
+                  src={qgccLogo} 
+                  alt="مركز الاتصال الحكومي"
                   className="w-full max-w-md opacity-80"
                 />
               </div>
