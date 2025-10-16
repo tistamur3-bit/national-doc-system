@@ -362,18 +362,18 @@ const AccountTypeForm = () => {
           </div>
         </div>}
 
-      <div className="flex items-center justify-between gap-4 pt-6 border-t border-border">
-        <div className="flex gap-3">
-          <Button variant="outline" className="min-w-24">
+      <div className="flex flex-col-reverse sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4 pt-6 border-t border-border">
+        <div className="flex gap-3 w-full sm:w-auto">
+          <Button variant="outline" className="flex-1 sm:flex-none sm:min-w-24 h-12 sm:h-10">
             رجوع
           </Button>
-          <Button variant="outline" className="min-w-24">
+          <Button variant="outline" className="flex-1 sm:flex-none sm:min-w-24 h-12 sm:h-10">
             إلغاء
           </Button>
         </div>
         
         <Button 
-          className="min-w-32 bg-primary hover:bg-primary/90" 
+          className="w-full sm:w-auto sm:min-w-32 h-12 sm:h-10 bg-primary hover:bg-primary/90" 
           onClick={handleContinue}
           disabled={!isFormValid()}
         >
