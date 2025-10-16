@@ -96,7 +96,7 @@ const RegistrationComplete = () => {
               <h2 className="text-2xl font-bold mb-6 text-right text-foreground">إتمام عملية التسجيل</h2>
               <div className="space-y-4 text-right text-base leading-relaxed text-foreground">
                 <p>
-                  يرجى العلم بأنه يتعيّن سداد رسوم تسجيل مقدارها (10 ريالات قطرية) لإتمام عملية التسجيل في نظام التوثيق
+                  يرجى العلم بأنه يتعيّن سداد رسوم تسجيل مقدارها (<span className="text-destructive font-bold">10 ريالات قطرية</span>) لإتمام عملية التسجيل في نظام التوثيق
                   الوطني (توثيق)، والاستفادة من المزايا والخدمات المقدّمة من النظام.
                 </p>
                 <p className="font-semibold">يتيح نظام التوثيق الوطني للمستخدمين المزايا التالية:</p>
