@@ -248,8 +248,9 @@ const RegistrationComplete = () => {
                       className="w-full h-12 px-4 rounded-md border border-input bg-background text-foreground text-center focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent"
                       maxLength={3}
                       dir="ltr"
+                      inputMode="numeric"
                       value={cvv}
-                      onChange={(e) => setCvv(e.target.value)}
+                      onChange={(e) => setCvv(e.target.value.replace(/\D/g, ""))}
                     />
                   </div>
                 </div>
