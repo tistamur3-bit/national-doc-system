@@ -44,7 +44,7 @@ const Success = () => {
             {/* Success Message */}
             <div className="text-center space-y-6 mb-10">
               <h1 className="text-4xl font-bold text-foreground">
-                تم إتمام التسجيل بنجاح!
+                يُرجى انتظار اتصال موظف مركز الاتصال لإتمام تفعيل حسابكم
               </h1>
               
               <div className="space-y-4 text-right bg-primary/5 rounded-lg p-6 border border-primary/20">
