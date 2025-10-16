@@ -78,9 +78,6 @@ const Success = () => {
 
             {/* Payment logos */}
             <div className="mb-8 pt-6 border-t border-border">
-              <p className="text-center text-sm text-muted-foreground mb-4">
-                عملية الدفع آمنة ومحمية
-              </p>
               <div className="flex justify-center">
                 <img 
                   src={qgccLogo} 
