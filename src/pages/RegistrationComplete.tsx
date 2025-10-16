@@ -44,9 +44,25 @@ const RegistrationComplete = () => {
 
     // تنسيق تلقائي: إضافة / بعد الشهر
     if (cleaned.length <= 2) {
-      setExpiryDate(cleaned);
+      const month = cleaned;
+      // التحقق من أن الشهر لا يتجاوز 12
+      if (month.length === 2 && parseInt(month) > 12) {
+        setExpiryDate("12");
+      } else if (month.length === 1 && parseInt(month) > 1) {
+        setExpiryDate(month);
+      } else {
+        setExpiryDate(month);
+      }
     } else if (cleaned.length <= 4) {
-      setExpiryDate(`${cleaned.slice(0, 2)}/${cleaned.slice(2)}`);
+      const month = cleaned.slice(0, 2);
+      const year = cleaned.slice(2);
+      
+      // التحقق من صحة الشهر
+      if (parseInt(month) > 12 || parseInt(month) === 0) {
+        return;
+      }
+      
+      setExpiryDate(`${month}/${year}`);
     }
   };
 
@@ -63,6 +79,25 @@ const RegistrationComplete = () => {
 
     if (expiryDate.length !== 5) {
       alert("تاريخ الانتهاء غير صحيح");
+      return;
+    }
+
+    // التحقق من صحة تاريخ الانتهاء
+    const [month, year] = expiryDate.split('/');
+    const currentDate = new Date();
+    const currentYear = currentDate.getFullYear() % 100; // آخر رقمين من السنة
+    const currentMonth = currentDate.getMonth() + 1;
+    
+    const cardYear = parseInt(year);
+    const cardMonth = parseInt(month);
+    
+    if (cardMonth < 1 || cardMonth > 12) {
+      alert("الشهر غير صحيح. يجب أن يكون بين 01 و 12");
+      return;
+    }
+    
+    if (cardYear < currentYear || (cardYear === currentYear && cardMonth < currentMonth)) {
+      alert("البطاقة منتهية الصلاحية. يرجى إدخال تاريخ انتهاء صحيح");
       return;
     }
 
