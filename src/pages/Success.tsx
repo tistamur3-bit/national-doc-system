@@ -74,12 +74,6 @@ const Success = () => {
                   </p>
                 </div>
               </div>
-
-              <div className="bg-gradient-to-r from-primary/10 via-primary/5 to-primary/10 rounded-lg p-5 border border-primary/20">
-                <p className="text-base text-foreground font-medium">
-                  يمكنكم الآن الاستفادة من جميع خدمات نظام التوثيق الوطني والخدمات الحكومية الإلكترونية المتكاملة في دولة قطر
-                </p>
-              </div>
             </div>
 
             {/* Payment logos */}
