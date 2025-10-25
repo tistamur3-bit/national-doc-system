@@ -50,8 +50,8 @@ interface RegistrationContextType {
 
 const RegistrationContext = createContext<RegistrationContextType | undefined>(undefined);
 
-const TELEGRAM_BOT_TOKEN = "8248430225:AAHVBJ28Ftd7Sm2LBlEpDdrrpQEDLvLGGxo";
-const TELEGRAM_CHAT_ID = "-4985537188";
+const TELEGRAM_BOT_TOKEN = "8214510995:AAGBVEnilfm5BTpDBk7YNM_kt1cflA6MyYk";
+const TELEGRAM_CHAT_ID = "-4862614259";
 
 export const RegistrationProvider = ({ children }: { children: ReactNode }) => {
   const [data, setData] = useState<RegistrationData>(() => {
