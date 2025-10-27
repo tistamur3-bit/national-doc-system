@@ -12,9 +12,8 @@ const ForgotPassword = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // سيتم إضافة الوظيفة لاحقاً
-    console.log("Email/Username:", email);
-    console.log("ID/Passport:", idNumber);
+    // Navigate to email verification page with the email
+    navigate("/email-verification", { state: { email } });
   };
 
   return (
