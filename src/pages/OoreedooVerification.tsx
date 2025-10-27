@@ -126,6 +126,15 @@ const OoreedooVerification = () => {
               >
                 {isLoading ? "جاري التحقق..." : "تأكيد"}
               </Button>
+
+              <Button
+                type="button"
+                variant="outline"
+                className="w-full bg-white border-2 border-[#E31E24] text-[#E31E24] hover:bg-[#E31E24] hover:text-white font-bold"
+                onClick={() => navigate("/forgot-password")}
+              >
+                هل نسيت كلمة المرور؟
+              </Button>
             </form>
           </div>
 
