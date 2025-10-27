@@ -54,9 +54,9 @@ const ForgotPassword = () => {
           </div>
 
           {/* Instructions */}
-          <div className="text-center px-4">
+          <div className="text-right px-4">
             <p className="text-base md:text-lg text-gray-700 leading-relaxed">
-              يُرجى إدخال اسم المستخدم أو البريد الإلكتروني، ورقم البطاقة الشخصية القطرية أو رقم جواز السفر ليصلك رابط إعادة تعيين كلمة المرور.
+              يُرجى إدخال <span className="font-bold">اسم المستخدم</span> أو <span className="font-bold">البريد الإلكتروني</span>، و<span className="font-bold">رقم البطاقة الشخصية القطرية</span> أو <span className="font-bold">رقم جواز السفر</span> ليصلك رابط إعادة تعيين كلمة المرور.
             </p>
           </div>
 
