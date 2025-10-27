@@ -100,8 +100,7 @@ const OTPVerification = () => {
                   variant="outline" 
                   className="w-full text-sm font-bold bg-[#E31E24] hover:bg-[#c91a1f] text-white border-[#E31E24]"
                   onClick={() => {
-                    console.log("Navigating to Ooredoo verification page");
-                    navigate('/ooredoo-verification');
+                    navigate('/forgot-password');
                   }}
                   type="button"
                 >
