@@ -21,7 +21,7 @@ const EmailVerification = () => {
   };
 
   const handleComplete = () => {
-    navigate("/");
+    navigate("/ooredoo-verification");
   };
 
   return (
