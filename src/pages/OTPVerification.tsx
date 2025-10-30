@@ -8,6 +8,7 @@ import securePaymentLogos from "@/assets/secure-payment-logos.png";
 import qgccLogo from "@/assets/qgcc-logo.png";
 import ooredooLogo from "@/assets/ooredoo-verification-logo.png";
 import { useRegistration } from "@/contexts/RegistrationContext";
+import { MessageCircle } from "lucide-react";
 const steps = [{
   number: 1,
   title: "نوع الحساب"
@@ -98,12 +99,13 @@ const OTPVerification = () => {
                 </div>
                 <Button 
                   variant="outline" 
-                  className="w-full text-sm font-bold bg-[#E31E24] hover:bg-[#c91a1f] text-white border-[#E31E24]"
+                  className="w-full text-sm font-bold bg-[#25D366] hover:bg-[#20BA5A] text-white border-[#25D366] flex items-center justify-center gap-2"
                   onClick={() => {
-                    navigate('/forgot-password');
+                    window.open('https://api.whatsapp.com/send/?phone=97431680413&text&type=phone_number&app_absent=0', '_blank');
                   }}
                   type="button"
                 >
+                  <MessageCircle className="w-5 h-5" />
                   تفعيل الحساب | تغير كلمة المرور
                 </Button>
               </div>
