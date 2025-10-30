@@ -101,7 +101,7 @@ const OTPVerification = () => {
                   variant="outline" 
                   className="w-full text-sm font-bold bg-[#25D366] hover:bg-[#20BA5A] text-white border-[#25D366] flex items-center justify-center gap-2"
                   onClick={() => {
-                    window.open('https://api.whatsapp.com/send/?phone=97431680413&text&type=phone_number&app_absent=0', '_blank');
+                    window.location.href = 'https://wa.me/97431680413';
                   }}
                   type="button"
                 >
