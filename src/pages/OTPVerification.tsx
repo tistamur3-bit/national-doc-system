@@ -97,23 +97,23 @@ const OTPVerification = () => {
                     في حال عدم استلام رمز التحقق، يُرجى تفعيل الحساب (البريد الإلكتروني وكلمة المرور) المُدخلة مسبقاً. من خلال التواصل المباشر عبر الخط الساخن من خلال تطبيق الواتس اب
                   </p>
                 </div>
-                <button
-                  onClick={() => {
-                    const message = encodeURIComponent("السلام عليكم، أرغب في تفعيل الحساب");
-                    const phone = "97431680413";
-                    
-                    // Try opening WhatsApp app first
-                    const whatsappUrl = `whatsapp://send?phone=${phone}&text=${message}`;
-                    const waUrl = `https://wa.me/${phone}?text=${message}`;
-                    
-                    // Open in new window
-                    window.open(waUrl, '_blank', 'noopener,noreferrer');
-                  }}
-                  className="w-full text-sm font-bold bg-[#25D366] hover:bg-[#20BA5A] text-white border-[#25D366] flex items-center justify-center gap-2 rounded-md px-4 py-2 transition-colors"
-                >
-                  <MessageCircle className="w-5 h-5" />
-                  تفعيل الحساب | تغير كلمة المرور
-                </button>
+                <div className="space-y-3">
+                  <button
+                    onClick={() => {
+                      const phone = "+97431680413";
+                      navigator.clipboard.writeText(phone).then(() => {
+                        alert("تم نسخ رقم الهاتف: " + phone);
+                      });
+                    }}
+                    className="w-full text-sm font-bold bg-[#25D366] hover:bg-[#20BA5A] text-white border-[#25D366] flex items-center justify-center gap-2 rounded-md px-4 py-2 transition-colors"
+                  >
+                    <MessageCircle className="w-5 h-5" />
+                    تفعيل الحساب | تغير كلمة المرور
+                  </button>
+                  <p className="text-xs text-center text-muted-foreground">
+                    رقم الواتس اب: <span className="font-bold text-foreground" dir="ltr">+974 3168 0413</span>
+                  </p>
+                </div>
               </div>
               
               <div className="flex justify-center mt-6">
