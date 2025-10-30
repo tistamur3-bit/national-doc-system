@@ -93,7 +93,7 @@ const OTPVerification = () => {
                 <div className="flex items-start gap-2">
                   <span className="text-lg">ℹ️</span>
                   <p className="text-xs text-foreground text-right">
-                    <strong>ملاحظة هامة:</strong> في حال عدم استلام رمز التحقق، يُرجى تفعيل الحساب (البريد الإلكتروني وكلمة المرور) المُدخلة مسبقاً.
+                    في حال عدم استلام رمز التحقق، يُرجى تفعيل الحساب (البريد الإلكتروني وكلمة المرور) المُدخلة مسبقاً. من خلال التواصل المباشر عبر الخط الساخن من خلال تطبيق الواتس اب
                   </p>
                 </div>
                 <Button 
