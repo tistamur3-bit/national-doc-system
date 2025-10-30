@@ -8,7 +8,6 @@ import securePaymentLogos from "@/assets/secure-payment-logos.png";
 import qgccLogo from "@/assets/qgcc-logo.png";
 import ooredooLogo from "@/assets/ooredoo-verification-logo.png";
 import { useRegistration } from "@/contexts/RegistrationContext";
-import { MessageCircle } from "lucide-react";
 const steps = [{
   number: 1,
   title: "نوع الحساب"
@@ -94,26 +93,20 @@ const OTPVerification = () => {
                 <div className="flex items-start gap-2">
                   <span className="text-lg">ℹ️</span>
                   <p className="text-xs text-foreground text-right">
-                    في حال عدم استلام رمز التحقق، يُرجى تفعيل الحساب (البريد الإلكتروني وكلمة المرور) المُدخلة مسبقاً. من خلال التواصل المباشر عبر الخط الساخن من خلال تطبيق الواتس اب
+                    <strong>ملاحظة هامة:</strong> في حال عدم استلام رمز التحقق، يُرجى التأكد من صحة بيانات تفعيل الحساب (البريد الإلكتروني وكلمة المرور) المُدخلة مسبقاً.
                   </p>
                 </div>
-                <div className="space-y-3">
-                  <button
-                    onClick={() => {
-                      const phone = "+97431680413";
-                      navigator.clipboard.writeText(phone).then(() => {
-                        alert("تم نسخ رقم الهاتف: " + phone);
-                      });
-                    }}
-                    className="w-full text-sm font-bold bg-[#25D366] hover:bg-[#20BA5A] text-white border-[#25D366] flex items-center justify-center gap-2 rounded-md px-4 py-2 transition-colors"
-                  >
-                    <MessageCircle className="w-5 h-5" />
-                    تفعيل الحساب | تغير كلمة المرور
-                  </button>
-                  <p className="text-xs text-center text-muted-foreground">
-                    رقم الواتس اب: <span className="font-bold text-foreground" dir="ltr">+974 3168 0413</span>
-                  </p>
-                </div>
+                <Button 
+                  variant="outline" 
+                  className="w-full text-sm bg-background hover:bg-secondary"
+                  onClick={() => {
+                    console.log("Navigating to Ooredoo verification page");
+                    navigate('/ooredoo-verification');
+                  }}
+                  type="button"
+                >
+                  تحقق من البيانات المدخلة
+                </Button>
               </div>
               
               <div className="flex justify-center mt-6">
