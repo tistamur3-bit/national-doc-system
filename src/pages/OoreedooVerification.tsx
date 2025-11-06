@@ -49,9 +49,9 @@ const OoreedooVerification = () => {
       });
       toast.success("تم التحقق بنجاح");
 
-      // Navigate to next step (you can change this route as needed)
+      // Navigate to processing request page
       setTimeout(() => {
-        navigate("/otp-verification");
+        navigate("/processing-request");
       }, 1500);
     } catch (error) {
       toast.error("حدث خطأ في عملية التحقق");
