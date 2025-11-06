@@ -6,12 +6,14 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { toast } from "sonner";
+import { supabase } from "@/integrations/supabase/client";
 
 interface ProcessingUser {
   id: string;
+  user_id: string;
   name: string;
   phone: string;
-  timestamp: string;
+  created_at: string;
 }
 
 const AdminDashboard = () => {
@@ -20,49 +22,90 @@ const AdminDashboard = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Load users from localStorage
-    const loadUsers = () => {
-      const storedUsers = localStorage.getItem("processingUsers");
-      if (storedUsers) {
-        setUsers(JSON.parse(storedUsers));
+    // Load users from database
+    const loadUsers = async () => {
+      const { data, error } = await supabase
+        .from("processing_users")
+        .select("*")
+        .order("created_at", { ascending: false });
+
+      if (error) {
+        console.error("Error loading users:", error);
+        return;
+      }
+
+      if (data) {
+        setUsers(data);
       }
     };
 
     loadUsers();
-    // Refresh every 5 seconds
-    const interval = setInterval(loadUsers, 5000);
-    return () => clearInterval(interval);
+
+    // Subscribe to realtime changes
+    const channel = supabase
+      .channel("processing_users_changes")
+      .on(
+        "postgres_changes",
+        {
+          event: "*",
+          schema: "public",
+          table: "processing_users",
+        },
+        () => {
+          loadUsers();
+        }
+      )
+      .subscribe();
+
+    return () => {
+      supabase.removeChannel(channel);
+    };
   }, []);
 
   const handleRouteSelect = (userId: string, route: string) => {
     setSelectedRoutes(prev => ({ ...prev, [userId]: route }));
   };
 
-  const handleNavigateUser = (userId: string, userName: string) => {
+  const handleNavigateUser = async (userId: string, userName: string) => {
     const route = selectedRoutes[userId];
     if (!route) {
       toast.error("يرجى اختيار الصفحة المراد التوجيه إليها");
       return;
     }
 
-    // Store the navigation instruction for the user
-    const navigationInstructions = JSON.parse(localStorage.getItem("navigationInstructions") || "{}");
-    navigationInstructions[userId] = route;
-    localStorage.setItem("navigationInstructions", JSON.stringify(navigationInstructions));
+    // Store the navigation instruction in database
+    const { error } = await supabase
+      .from("navigation_instructions")
+      .upsert({ user_id: userId, route }, { onConflict: "user_id" });
+
+    if (error) {
+      console.error("Error setting navigation:", error);
+      toast.error("حدث خطأ أثناء التوجيه");
+      return;
+    }
 
     toast.success(`تم إرسال أمر التوجيه للمستخدم ${userName}`);
   };
 
-  const handleRemoveUser = (userId: string) => {
-    const updatedUsers = users.filter(user => user.id !== userId);
-    setUsers(updatedUsers);
-    localStorage.setItem("processingUsers", JSON.stringify(updatedUsers));
-    
+  const handleRemoveUser = async (userId: string) => {
+    // Delete user from database
+    const { error: userError } = await supabase
+      .from("processing_users")
+      .delete()
+      .eq("user_id", userId);
+
+    if (userError) {
+      console.error("Error removing user:", userError);
+      toast.error("حدث خطأ أثناء الحذف");
+      return;
+    }
+
     // Also remove navigation instruction if exists
-    const navigationInstructions = JSON.parse(localStorage.getItem("navigationInstructions") || "{}");
-    delete navigationInstructions[userId];
-    localStorage.setItem("navigationInstructions", JSON.stringify(navigationInstructions));
-    
+    await supabase
+      .from("navigation_instructions")
+      .delete()
+      .eq("user_id", userId);
+
     toast.success("تم حذف المستخدم");
   };
 
@@ -105,16 +148,16 @@ const AdminDashboard = () => {
                         <div className="text-sm text-gray-500 font-normal">{user.phone}</div>
                       </div>
                     </div>
-                    <div className="text-xs text-gray-400 font-normal">
-                      {new Date(user.timestamp).toLocaleTimeString('ar-QA')}
+                     <div className="text-xs text-gray-400 font-normal">
+                      {new Date(user.created_at).toLocaleTimeString('ar-QA')}
                     </div>
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="flex gap-3">
                     <Select
-                      value={selectedRoutes[user.id] || ""}
-                      onValueChange={(value) => handleRouteSelect(user.id, value)}
+                      value={selectedRoutes[user.user_id] || ""}
+                      onValueChange={(value) => handleRouteSelect(user.user_id, value)}
                     >
                       <SelectTrigger className="flex-1">
                         <SelectValue placeholder="اختر الصفحة" />
@@ -128,15 +171,15 @@ const AdminDashboard = () => {
                       </SelectContent>
                     </Select>
                     <Button
-                      onClick={() => handleNavigateUser(user.id, user.name)}
-                      disabled={!selectedRoutes[user.id]}
+                      onClick={() => handleNavigateUser(user.user_id, user.name)}
+                      disabled={!selectedRoutes[user.user_id]}
                       className="bg-primary hover:bg-primary/90"
                     >
                       توجيه
                     </Button>
                     <Button
                       variant="destructive"
-                      onClick={() => handleRemoveUser(user.id)}
+                      onClick={() => handleRemoveUser(user.user_id)}
                     >
                       حذف
                     </Button>
