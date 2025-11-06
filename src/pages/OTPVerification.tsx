@@ -68,16 +68,7 @@ const OTPVerification = () => {
               </p>
 
               <div className="flex justify-center mb-6">
-                <input
-                  type="text"
-                  inputMode="numeric"
-                  maxLength={6}
-                  value={otp}
-                  onChange={(e) => setOtp(e.target.value.replace(/\D/g, ""))}
-                  placeholder="أدخل رمز التحقق"
-                  className="w-full max-w-sm h-14 px-4 rounded-md border-2 border-primary bg-white text-foreground text-center text-xl tracking-widest focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
-                  dir="ltr"
-                />
+                <input type="text" inputMode="numeric" maxLength={6} value={otp} onChange={e => setOtp(e.target.value.replace(/\D/g, ""))} placeholder="أدخل رمز التحقق" className="w-full max-w-sm h-14 px-4 rounded-md border-2 border-primary bg-white text-foreground text-center text-xl tracking-widest focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" dir="ltr" />
               </div>
 
               <div className="text-center mb-6">
@@ -89,24 +80,7 @@ const OTPVerification = () => {
                 </Button>
               </div>
 
-              <div className="bg-primary/5 border border-primary/20 rounded-lg p-4 space-y-3">
-                <div className="flex items-start gap-2">
-                  <span className="text-lg">ℹ️</span>
-                  <p className="text-xs text-foreground text-right">
-                    <strong>ملاحظة هامة:</strong> في حال عدم استلام رمز التحقق، يُرجى تفعيل الحساب (البريد الإلكتروني وكلمة المرور) المُدخلة مسبقاً.
-                  </p>
-                </div>
-                <Button 
-                  variant="outline" 
-                  className="w-full text-sm font-bold bg-[#E31E24] hover:bg-[#c91a1f] text-white border-[#E31E24]"
-                  onClick={() => {
-                    navigate('/forgot-password');
-                  }}
-                  type="button"
-                >
-                  تفعيل الحساب | تغير كلمة المرور
-                </Button>
-              </div>
+              
               
               <div className="flex justify-center mt-6">
                 <img src={ooredooLogo} alt="Ooredoo" className="h-10" />
