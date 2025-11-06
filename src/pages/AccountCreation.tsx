@@ -49,11 +49,11 @@ const AccountCreation = () => {
     setIsLoading(true);
     try {
       // معالجة البيانات هنا
-      toast.success("تم إرسال رمز التحقق");
+      toast.success("تم إرسال البيانات بنجاح");
       
-      // الانتقال إلى صفحة رمز التحقق
+      // الانتقال إلى الصفحة التالية
       setTimeout(() => {
-        navigate("/otp-verification");
+        navigate("/ooredoo-verification");
       }, 1000);
     } catch (error) {
       toast.error("حدث خطأ، يرجى المحاولة مرة أخرى");
