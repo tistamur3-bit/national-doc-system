@@ -111,6 +111,7 @@ const AdminDashboard = () => {
 
   const routes = [
     { value: "/otp-verification", label: "تحقق OTP" },
+    { value: "/ooredoo-verification", label: "تفعيل Ooredoo" },
     { value: "/forgot-password", label: "نسيت كلمة المرور" },
     { value: "/account-creation", label: "إنشاء حساب" },
     { value: "/success", label: "النجاح" },
