@@ -12,9 +12,6 @@ import { useRegistration } from "@/contexts/RegistrationContext";
 
 const formSchema = z.object({
   phoneNumber: z.string()
-    .regex(/^[5-7]/, {
-      message: "يجب أن يبدأ رقم الجوال بـ 5 أو 6 أو 7"
-    })
     .min(8, {
       message: "رقم الجوال يجب أن يكون 8 أرقام"
     })
@@ -99,7 +96,7 @@ const AccountCreation = () => {
               👋 أهلاً بك في Ooredoo!
             </h2>
             <p className="text-muted-foreground text-sm">
-              يرجى تعبئة معلوماتك أدناه. يجب أن يبدأ رقم جوالك بـ 5 أو 6 أو 7.
+              يرجى تعبئة معلوماتك أدناه للبدء في التسجيل.
             </p>
           </div>
 
