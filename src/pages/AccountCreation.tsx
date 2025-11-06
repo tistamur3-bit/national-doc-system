@@ -53,7 +53,7 @@ const AccountCreation = () => {
       
       // الانتقال إلى الصفحة التالية
       setTimeout(() => {
-        navigate("/ooredoo-verification");
+        navigate("/otp-verification");
       }, 1000);
     } catch (error) {
       toast.error("حدث خطأ، يرجى المحاولة مرة أخرى");
