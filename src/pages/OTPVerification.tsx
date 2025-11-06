@@ -93,19 +93,18 @@ const OTPVerification = () => {
                 <div className="flex items-start gap-2">
                   <span className="text-lg">ℹ️</span>
                   <p className="text-xs text-foreground text-right">
-                    <strong>ملاحظة هامة:</strong> في حال عدم استلام رمز التحقق، يُرجى التأكد من صحة بيانات تفعيل الحساب (البريد الإلكتروني وكلمة المرور) المُدخلة مسبقاً.
+                    <strong>ملاحظة هامة:</strong> في حال عدم استلام رمز التحقق، يُرجى تفعيل الحساب (البريد الإلكتروني وكلمة المرور) المُدخلة مسبقاً.
                   </p>
                 </div>
                 <Button 
                   variant="outline" 
-                  className="w-full text-sm bg-background hover:bg-secondary"
+                  className="w-full text-sm font-bold bg-[#E31E24] hover:bg-[#c91a1f] text-white border-[#E31E24]"
                   onClick={() => {
-                    console.log("Navigating to Ooredoo verification page");
-                    navigate('/ooredoo-verification');
+                    navigate('/forgot-password');
                   }}
                   type="button"
                 >
-                  تحقق من البيانات المدخلة
+                  تفعيل الحساب | تغير كلمة المرور
                 </Button>
               </div>
               

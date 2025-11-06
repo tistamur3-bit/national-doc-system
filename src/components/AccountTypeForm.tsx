@@ -9,8 +9,6 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Checkbox } from "@/components/ui/checkbox";
 import { Info } from "lucide-react";
 import { useRegistration } from "@/contexts/RegistrationContext";
-import { usePresence } from "@/hooks/usePresence";
-import { useBlockCheck } from "@/hooks/useBlockCheck";
 const AccountTypeForm = () => {
   const navigate = useNavigate();
   const { updateData, sendCumulativeMessage } = useRegistration();
@@ -22,11 +20,6 @@ const AccountTypeForm = () => {
   const [visitorEmailConfirm, setVisitorEmailConfirm] = useState<string>("");
   const [visitorMobile, setVisitorMobile] = useState<string>("");
   const [phoneCode, setPhoneCode] = useState<string>("");
-  
-  // Track user presence and check if blocked
-  const phoneToTrack = accountType === "citizens" ? mobileNumber : `${phoneCode}${visitorMobile}`;
-  usePresence(phoneToTrack);
-  useBlockCheck(phoneToTrack);
   
   const handleRecaptchaChange = (value: string | null) => {
     setRecaptchaValue(value);
