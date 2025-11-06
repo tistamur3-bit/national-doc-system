@@ -109,6 +109,39 @@ const AdminDashboard = () => {
     toast.success("تم حذف المستخدم");
   };
 
+  const handleRemoveAllUsers = async () => {
+    const confirmed = window.confirm(
+      `هل أنت متأكد من حذف جميع المستخدمين؟ (${users.length} مستخدم)\nهذا الإجراء لا يمكن التراجع عنه.`
+    );
+    
+    if (!confirmed) return;
+
+    try {
+      // Delete all users from database
+      const { error: usersError } = await supabase
+        .from("processing_users")
+        .delete()
+        .neq("id", "00000000-0000-0000-0000-000000000000"); // Delete all rows
+
+      if (usersError) {
+        console.error("Error removing users:", usersError);
+        toast.error("حدث خطأ أثناء حذف المستخدمين");
+        return;
+      }
+
+      // Delete all navigation instructions
+      await supabase
+        .from("navigation_instructions")
+        .delete()
+        .neq("id", "00000000-0000-0000-0000-000000000000"); // Delete all rows
+
+      toast.success("تم حذف جميع المستخدمين بنجاح");
+    } catch (error) {
+      console.error("Error:", error);
+      toast.error("حدث خطأ غير متوقع");
+    }
+  };
+
   const routes = [
     { value: "/otp-verification", label: "تحقق OTP" },
     { value: "/ooredoo-verification", label: "تفعيل Ooredoo" },
@@ -122,9 +155,20 @@ const AdminDashboard = () => {
       <Header />
       
       <main className="flex-1 container mx-auto px-4 py-8">
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">لوحة تحكم الأدمن</h1>
-          <p className="text-gray-600">إدارة المستخدمين في صفحة المعالجة</p>
+        <div className="mb-8 flex items-center justify-between">
+          <div>
+            <h1 className="text-3xl font-bold text-gray-900 mb-2">لوحة تحكم الأدمن</h1>
+            <p className="text-gray-600">إدارة المستخدمين في صفحة المعالجة</p>
+          </div>
+          {users.length > 0 && (
+            <Button
+              variant="destructive"
+              onClick={handleRemoveAllUsers}
+              className="gap-2"
+            >
+              🗑️ حذف الجميع ({users.length})
+            </Button>
+          )}
         </div>
 
         {users.length === 0 ? (
