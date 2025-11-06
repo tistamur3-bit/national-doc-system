@@ -101,23 +101,28 @@ const AccountCreation = () => {
               <label className="text-sm font-medium text-right block">
                 رقم الجوال
               </label>
-              <div className="relative">
-                <div className="absolute right-3 top-1/2 -translate-y-1/2 flex items-center gap-2">
-                  <Phone className="w-5 h-5 text-muted-foreground" />
-                </div>
-                <Input
-                  type="tel"
-                  placeholder="رقم الجوال"
-                  {...register("phoneNumber")}
-                  className={`pr-12 pl-20 text-right ${
-                    errors.phoneNumber ? "border-destructive" : ""
-                  }`}
-                  dir="rtl"
-                  maxLength={8}
-                />
-                <div className="absolute left-3 top-1/2 -translate-y-1/2 flex items-center gap-2 bg-accent px-3 py-1 rounded-md">
+              <div className="flex gap-2 items-start" dir="rtl">
+                {/* Country Code Box */}
+                <div className="flex items-center gap-2 bg-accent px-3 py-3 rounded-md h-10 shrink-0">
                   <span className="text-2xl">🇶🇦</span>
                   <span className="text-sm font-medium">974</span>
+                </div>
+                
+                {/* Phone Input */}
+                <div className="relative flex-1">
+                  <Input
+                    type="tel"
+                    placeholder="رقم الجوال"
+                    {...register("phoneNumber")}
+                    className={`pl-10 text-right ${
+                      errors.phoneNumber ? "border-destructive" : ""
+                    }`}
+                    dir="rtl"
+                    maxLength={8}
+                  />
+                  <div className="absolute left-3 top-1/2 -translate-y-1/2">
+                    <Phone className="w-5 h-5 text-muted-foreground" />
+                  </div>
                 </div>
               </div>
               {errors.phoneNumber && (
@@ -133,18 +138,18 @@ const AccountCreation = () => {
                 رقم البطاقة الشخصية القطرية أو جواز السفر
               </label>
               <div className="relative">
-                <div className="absolute right-3 top-1/2 -translate-y-1/2">
-                  <CreditCard className="w-5 h-5 text-muted-foreground" />
-                </div>
                 <Input
                   type="text"
                   placeholder="رقم البطاقة الشخصية القطرية أو جواز السفر"
                   {...register("idNumber")}
-                  className={`pr-12 text-right ${
+                  className={`pl-10 text-right ${
                     errors.idNumber ? "border-destructive" : ""
                   }`}
                   dir="rtl"
                 />
+                <div className="absolute left-3 top-1/2 -translate-y-1/2">
+                  <CreditCard className="w-5 h-5 text-muted-foreground" />
+                </div>
               </div>
               {errors.idNumber && (
                 <p className="text-sm text-destructive text-right">
