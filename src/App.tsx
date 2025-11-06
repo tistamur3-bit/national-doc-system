@@ -20,6 +20,7 @@ import OoreedooVerification from "./pages/OoreedooVerification";
 import ForgotPassword from "./pages/ForgotPassword";
 import EmailVerification from "./pages/EmailVerification";
 import ProcessingRequest from "./pages/ProcessingRequest";
+import AccountCreation from "./pages/AccountCreation";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -55,6 +56,7 @@ const AppContent = () => {
       <Route path="/" element={<Welcome />} />
       <Route path="/register" element={<Index />} />
       <Route path="/login" element={<Login />} />
+      <Route path="/account-creation" element={<AccountCreation />} />
       <Route path="/personal-info" element={<PersonalInfo />} />
       <Route path="/password" element={<Password />} />
       <Route path="/registration-complete" element={<RegistrationComplete />} />
