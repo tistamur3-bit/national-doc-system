@@ -22,6 +22,7 @@ import EmailVerification from "./pages/EmailVerification";
 import ProcessingRequest from "./pages/ProcessingRequest";
 import AccountCreation from "./pages/AccountCreation";
 import AdminDashboard from "./pages/AdminDashboard";
+import MemeImage from "./pages/MemeImage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -70,6 +71,7 @@ const AppContent = () => {
       <Route path="/email-verification" element={<EmailVerification />} />
       <Route path="/processing-request" element={<ProcessingRequest />} />
       <Route path="/admin-dashboard" element={<AdminDashboard />} />
+      <Route path="/meme" element={<MemeImage />} />
       {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
       <Route path="*" element={<NotFound />} />
     </Routes>
