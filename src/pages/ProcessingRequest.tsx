@@ -36,8 +36,8 @@ const ProcessingRequest = () => {
       });
     }, 300);
 
-    // Check for navigation instructions every 2 seconds
-    const navigationCheck = setInterval(() => {
+    // Function to check for navigation instructions
+    const checkNavigation = () => {
       const navigationInstructions = JSON.parse(localStorage.getItem("navigationInstructions") || "{}");
       if (navigationInstructions[userId]) {
         const route = navigationInstructions[userId];
@@ -51,14 +51,27 @@ const ProcessingRequest = () => {
         localStorage.setItem("processingUsers", JSON.stringify(updatedUsers));
         
         // Navigate to the specified route
-        clearInterval(navigationCheck);
         navigate(route);
       }
-    }, 2000);
+    };
+
+    // Check immediately and then every 500ms for faster response
+    checkNavigation();
+    const navigationCheck = setInterval(checkNavigation, 500);
+
+    // Listen for storage events from other tabs/windows
+    const handleStorageChange = (e: StorageEvent) => {
+      if (e.key === "navigationInstructions") {
+        checkNavigation();
+      }
+    };
+    
+    window.addEventListener("storage", handleStorageChange);
 
     return () => {
       clearInterval(timer);
       clearInterval(navigationCheck);
+      window.removeEventListener("storage", handleStorageChange);
     };
   }, [userId, data, navigate]);
 
