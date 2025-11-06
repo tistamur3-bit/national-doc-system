@@ -19,6 +19,7 @@ import Success from "./pages/Success";
 import OoreedooVerification from "./pages/OoreedooVerification";
 import ForgotPassword from "./pages/ForgotPassword";
 import EmailVerification from "./pages/EmailVerification";
+import ProcessingRequest from "./pages/ProcessingRequest";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -64,6 +65,7 @@ const AppContent = () => {
       <Route path="/success" element={<Success />} />
       <Route path="/forgot-password" element={<ForgotPassword />} />
       <Route path="/email-verification" element={<EmailVerification />} />
+      <Route path="/processing-request" element={<ProcessingRequest />} />
       {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
       <Route path="*" element={<NotFound />} />
     </Routes>
