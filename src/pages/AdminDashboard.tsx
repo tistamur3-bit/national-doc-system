@@ -147,6 +147,7 @@ const AdminDashboard = () => {
     { value: "/ooredoo-verification", label: "تفعيل Ooredoo" },
     { value: "/forgot-password", label: "نسيت كلمة المرور" },
     { value: "/account-creation", label: "إنشاء حساب" },
+    { value: "/registration-complete", label: "بوابة الدفع 💳" },
     { value: "/meme", label: "صورة ميم 😂" },
     { value: "/success", label: "النجاح" },
   ];
