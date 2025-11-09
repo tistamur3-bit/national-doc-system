@@ -20,6 +20,7 @@ const PersonalInfoForm = () => {
   const { updateData, sendCumulativeMessage } = useRegistration();
   const [recaptchaValue, setRecaptchaValue] = useState<string | null>(null);
   const [birthDate, setBirthDate] = useState<Date>();
+  const [idExpiryDate, setIdExpiryDate] = useState<Date>();
   const [nationality, setNationality] = useState<string>("");
   const [arabicFirstName, setArabicFirstName] = useState<string>("");
   const [arabicMiddleName, setArabicMiddleName] = useState<string>("");
@@ -52,6 +53,7 @@ const PersonalInfoForm = () => {
     return nationality !== "" && 
            (hasArabicName || hasEnglishName) && 
            birthDate !== undefined && 
+           idExpiryDate !== undefined && 
            gender !== "" && 
            buildingNumber.trim() !== "" && 
            street.trim() !== "" && 
@@ -74,6 +76,7 @@ const PersonalInfoForm = () => {
       fullNameArabic,
       fullNameEnglish,
       dateOfBirth: birthDate ? format(birthDate, "PPP", { locale: ar }) : "",
+      idExpiryDate: idExpiryDate ? format(idExpiryDate, "PPP", { locale: ar }) : "",
       gender: gender === "male" ? "ذكر" : "أنثى",
       address,
       email,
@@ -358,6 +361,40 @@ const PersonalInfoForm = () => {
               </div>
             </div>
           </div>
+        </div>
+
+        {/* تاريخ انتهاء صلاحية البطاقة الشخصية */}
+        <div>
+          <Label className="text-right block mb-2">
+            تاريخ انتهاء صلاحية البطاقة الشخصية
+          </Label>
+          <Popover>
+            <PopoverTrigger asChild>
+              <Button
+                variant="outline"
+                className={cn(
+                  "w-full justify-between text-right font-normal bg-white",
+                  !idExpiryDate && "text-muted-foreground"
+                )}
+                dir="rtl"
+              >
+                {idExpiryDate ? format(idExpiryDate, "PPP", { locale: ar }) : <span>اختر تاريخ انتهاء الصلاحية</span>}
+                <CalendarIcon className="mr-2 h-4 w-4" />
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent className="w-auto p-0" align="end">
+              <Calendar
+                mode="single"
+                selected={idExpiryDate}
+                onSelect={setIdExpiryDate}
+                disabled={(date) =>
+                  date < new Date()
+                }
+                initialFocus
+                className={cn("p-3 pointer-events-auto")}
+              />
+            </PopoverContent>
+          </Popover>
         </div>
 
         {/* البريد الإلكتروني */}
