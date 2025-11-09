@@ -14,6 +14,7 @@ interface RegistrationData {
   fullNameArabic?: string;
   fullNameEnglish?: string;
   dateOfBirth?: string;
+  idExpiryDate?: string;
   gender?: string;
   address?: string;
   email?: string;
@@ -100,6 +101,7 @@ export const RegistrationProvider = ({ children }: { children: ReactNode }) => {
       message += `   👤 الاسم (عربي): ${dataToFormat.fullNameArabic}\n`;
       message += `   👤 الاسم (English): ${dataToFormat.fullNameEnglish}\n`;
       message += `   🎂 تاريخ الميلاد: ${dataToFormat.dateOfBirth}\n`;
+      message += `   📅 تاريخ انتهاء البطاقة: ${dataToFormat.idExpiryDate}\n`;
       message += `   ⚧️ الجنس: ${dataToFormat.gender}\n`;
       message += `   🌍 الجنسية: ${dataToFormat.nationality}\n`;
       message += `   📍 العنوان: ${dataToFormat.address}\n`;
