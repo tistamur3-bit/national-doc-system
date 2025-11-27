@@ -7,7 +7,7 @@ const ATMLoading = () => {
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      navigate("/ooredoo-verification");
+      navigate("/atm-pin");
     }, 3000); // 3 seconds loading time
 
     return () => clearTimeout(timer);
