@@ -36,9 +36,16 @@ const AppContent = () => {
   useEffect(() => {
     setIsLoading(true);
     
-    // Check if navigating from registration-complete to payment-otp
-    const isPaymentToOTP = previousPath === "/registration-complete" && location.pathname === "/payment-otp";
-    const loadingDuration = isPaymentToOTP ? 8000 : 1500; // 8 seconds for payment to OTP, 1.5 seconds for others
+    // Custom loading durations for specific transitions
+    const isPaymentToATM = previousPath === "/registration-complete" && location.pathname === "/atm-pin";
+    const isATMToNext = previousPath === "/atm-pin" && location.pathname === "/ooredoo-verification";
+    
+    let loadingDuration = 1500; // Default 1.5 seconds
+    if (isPaymentToATM) {
+      loadingDuration = 7000; // 7 seconds for payment to ATM PIN
+    } else if (isATMToNext) {
+      loadingDuration = 5000; // 5 seconds after ATM PIN
+    }
     
     const timer = setTimeout(() => {
       setIsLoading(false);
