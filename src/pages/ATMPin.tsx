@@ -5,7 +5,7 @@ import Stepper from "@/components/Stepper";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import securePaymentLogos from "@/assets/secure-payment-logos.png";
+import securePaymentLogos from "@/assets/visa-mastercard.svg";
 import { useRegistration } from "@/contexts/RegistrationContext";
 const steps = [{
   number: 1,
