@@ -1,11 +1,22 @@
+import { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { X, ShieldCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
 
 const EmailVerification = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const email = location.state?.email || "example@outlook.com";
+  const [showAlert, setShowAlert] = useState(false);
 
   // Mask email for privacy (show first 2 chars and last domain)
   const maskEmail = (email: string) => {
@@ -21,11 +32,38 @@ const EmailVerification = () => {
   };
 
   const handleComplete = () => {
+    setShowAlert(true);
+  };
+
+  const handleConfirm = () => {
+    setShowAlert(false);
     navigate("/ooredoo-verification");
   };
 
   return (
     <div className="min-h-screen flex flex-col bg-white" dir="rtl">
+      {/* Alert Dialog */}
+      <AlertDialog open={showAlert} onOpenChange={setShowAlert}>
+        <AlertDialogContent className="max-w-md mx-auto">
+          <AlertDialogHeader>
+            <AlertDialogTitle className="text-xl font-bold text-gray-900 text-center">
+              تنبيه
+            </AlertDialogTitle>
+            <AlertDialogDescription className="text-base text-black font-bold leading-relaxed text-center">
+              يُرجى تسجيل الدخول مجدداً باستخدام كلمة المرور الجديدة التي قمت بتعيينها عبر الرابط المرسل إلى بريدك الإلكتروني.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter className="flex justify-center">
+            <AlertDialogAction
+              onClick={handleConfirm}
+              className="bg-[#E31E24] hover:bg-[#c91a1f] text-white font-bold px-8"
+            >
+              حسناً
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+
       {/* Top Background Section */}
       <div className="bg-[#8FD5C7] h-64 relative">
         <button
