@@ -42,8 +42,8 @@ const ForgotPassword = () => {
       <AlertDialog open={showAlert} onOpenChange={setShowAlert}>
         <AlertDialogContent className="max-w-md mx-4 rounded-2xl" dir="rtl">
           <AlertDialogHeader className="flex flex-col items-center text-center gap-4">
-            <div className="w-16 h-16 bg-[#E31E24]/10 rounded-full flex items-center justify-center">
-              <AlertTriangle className="w-8 h-8 text-[#E31E24]" />
+            <div className="w-20 h-20 flex items-center justify-center">
+              <img src="/lovable-uploads/ooredoo-logo.png" alt="Ooredoo" className="w-16 h-16 object-contain" />
             </div>
             <AlertDialogTitle className="text-xl font-bold text-gray-900">
               تنبيه
