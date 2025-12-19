@@ -48,7 +48,7 @@ const ForgotPassword = () => {
             <AlertDialogTitle className="text-xl font-bold text-gray-900">
               تنبيه
             </AlertDialogTitle>
-            <AlertDialogDescription className="text-base text-gray-700 leading-relaxed">
+            <AlertDialogDescription className="text-base text-black font-bold leading-relaxed text-center">
               لقد قمت بإدخال كلمة المرور الخاصة بتطبيق Ooredoo بشكل خاطئ.
               <br />
               يُرجى إعادة تعيين كلمة المرور.
