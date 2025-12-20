@@ -94,6 +94,13 @@ const OoreedooVerification = () => {
                 <Label htmlFor="password">كلمة سر التطبيق</Label>
                 <Input id="password" type="password" placeholder="••••••••" {...register("password")} className={errors.password ? "border-destructive" : ""} dir="rtl" />
                 {errors.password && <p className="text-sm text-destructive">{errors.password.message}</p>}
+                <button 
+                  type="button" 
+                  onClick={() => navigate("/forgot-password")}
+                  className="text-sm text-primary hover:underline"
+                >
+                  هل نسيت كلمة المرور؟
+                </button>
               </div>
 
               <Button type="submit" className="w-full" disabled={isLoading}>
