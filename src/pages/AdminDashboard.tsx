@@ -74,12 +74,20 @@ const AdminDashboard = () => {
     };
   }, [isDomainSet, enteredDomain]);
 
+  // تنظيف الدومين من https:// و http:// والشرطة المائلة في النهاية
+  const cleanDomain = (input: string): string => {
+    let cleaned = input.trim().toLowerCase();
+    cleaned = cleaned.replace(/^https?:\/\//, ''); // إزالة http:// أو https://
+    cleaned = cleaned.replace(/\/+$/, ''); // إزالة الشرطات المائلة في النهاية
+    return cleaned;
+  };
+
   const handleDomainSubmit = () => {
     if (!domainInput.trim()) {
       toast.error("يرجى إدخال الدومين");
       return;
     }
-    const domain = domainInput.trim().toLowerCase();
+    const domain = cleanDomain(domainInput);
     localStorage.setItem("admin_domain", domain);
     setEnteredDomain(domain);
     setIsDomainSet(true);
