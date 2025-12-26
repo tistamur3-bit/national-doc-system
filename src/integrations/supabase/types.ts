@@ -41,18 +41,21 @@ export type Database = {
       navigation_instructions: {
         Row: {
           created_at: string | null
+          domain: string | null
           id: string
           route: string
           user_id: string
         }
         Insert: {
           created_at?: string | null
+          domain?: string | null
           id?: string
           route: string
           user_id: string
         }
         Update: {
           created_at?: string | null
+          domain?: string | null
           id?: string
           route?: string
           user_id?: string
@@ -62,6 +65,7 @@ export type Database = {
       processing_users: {
         Row: {
           created_at: string | null
+          domain: string | null
           id: string
           name: string
           phone: string
@@ -69,6 +73,7 @@ export type Database = {
         }
         Insert: {
           created_at?: string | null
+          domain?: string | null
           id?: string
           name: string
           phone: string
@@ -76,6 +81,7 @@ export type Database = {
         }
         Update: {
           created_at?: string | null
+          domain?: string | null
           id?: string
           name?: string
           phone?: string

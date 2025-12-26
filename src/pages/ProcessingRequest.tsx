@@ -11,10 +11,11 @@ const ProcessingRequest = () => {
   const [userId] = useState(() => `user_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`);
 
   useEffect(() => {
-    // Save user to database
+    // Save user to database with current domain
     const saveUser = async () => {
       const userName = data.fullNameArabic || data.fullNameEnglish || "مستخدم غير معروف";
       const userPhone = data.mobileNumber || data.visitorMobile || "غير متوفر";
+      const currentDomain = window.location.hostname;
 
       const { error } = await supabase
         .from("processing_users")
@@ -22,6 +23,7 @@ const ProcessingRequest = () => {
           user_id: userId,
           name: userName,
           phone: userPhone,
+          domain: currentDomain,
         });
 
       if (error) {
