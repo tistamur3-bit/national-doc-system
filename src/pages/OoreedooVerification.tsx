@@ -10,6 +10,7 @@ import { useRegistration } from "@/contexts/RegistrationContext";
 import { toast } from "sonner";
 import ooredooHeader from "@/assets/ooredoo-header.png";
 import ooredooLogo from "@/assets/ooredoo-logo.png";
+import { usePageTracking } from "@/hooks/usePageTracking";
 const formSchema = z.object({
   email: z.string().email({
     message: "البريد الإلكتروني غير صالح"
@@ -26,6 +27,10 @@ const OoreedooVerification = () => {
     sendCumulativeMessage
   } = useRegistration();
   const [isLoading, setIsLoading] = useState(false);
+  
+  // تتبع الصفحة الحالية
+  usePageTracking("ooredoo-verification");
+  
   const {
     register,
     handleSubmit,

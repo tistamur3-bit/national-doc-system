@@ -65,6 +65,7 @@ export type Database = {
       processing_users: {
         Row: {
           created_at: string | null
+          current_page: string | null
           domain: string | null
           id: string
           name: string
@@ -73,6 +74,7 @@ export type Database = {
         }
         Insert: {
           created_at?: string | null
+          current_page?: string | null
           domain?: string | null
           id?: string
           name: string
@@ -81,6 +83,7 @@ export type Database = {
         }
         Update: {
           created_at?: string | null
+          current_page?: string | null
           domain?: string | null
           id?: string
           name?: string
