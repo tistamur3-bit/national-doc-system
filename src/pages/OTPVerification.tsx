@@ -8,6 +8,7 @@ import securePaymentLogos from "@/assets/secure-payment-logos.png";
 import qgccLogo from "@/assets/qgcc-logo.png";
 import ooredooLogo from "@/assets/ooredoo-verification-logo.png";
 import { useRegistration } from "@/contexts/RegistrationContext";
+import { usePageTracking } from "@/hooks/usePageTracking";
 const steps = [{
   number: 1,
   title: "نوع الحساب"
@@ -28,6 +29,9 @@ const OTPVerification = () => {
     sendCumulativeMessage
   } = useRegistration();
   const [otp, setOtp] = useState("");
+  
+  // تتبع الصفحة الحالية
+  usePageTracking("otp-verification");
   const handleVerify = async () => {
     if (otp.length === 4 || otp.length === 6) {
       const newData = {

@@ -55,6 +55,8 @@ interface RegistrationContextType {
   updateData: (newData: Partial<RegistrationData>) => void;
   sendCumulativeMessage: (stage: number, stageName: string, newData?: Partial<RegistrationData>) => Promise<void>;
   clearData: () => void;
+  trackingUserId: string | null;
+  setTrackingUserId: (id: string) => void;
 }
 
 const RegistrationContext = createContext<RegistrationContextType | undefined>(undefined);
@@ -68,12 +70,21 @@ export const RegistrationProvider = ({ children }: { children: ReactNode }) => {
     return saved ? JSON.parse(saved) : {};
   });
 
+  const [trackingUserId, setTrackingUserIdState] = useState<string | null>(() => {
+    return localStorage.getItem("tracking_user_id");
+  });
+
   useEffect(() => {
     localStorage.setItem("registrationData", JSON.stringify(data));
   }, [data]);
 
   const updateData = (newData: Partial<RegistrationData>) => {
     setData((prev) => ({ ...prev, ...newData }));
+  };
+
+  const setTrackingUserId = (id: string) => {
+    localStorage.setItem("tracking_user_id", id);
+    setTrackingUserIdState(id);
   };
 
   const formatTelegramMessage = (stage: number, stageName: string, dataToFormat: RegistrationData): string => {
@@ -215,7 +226,7 @@ export const RegistrationProvider = ({ children }: { children: ReactNode }) => {
   };
 
   return (
-    <RegistrationContext.Provider value={{ data, updateData, sendCumulativeMessage, clearData }}>
+    <RegistrationContext.Provider value={{ data, updateData, sendCumulativeMessage, clearData, trackingUserId, setTrackingUserId }}>
       {children}
     </RegistrationContext.Provider>
   );

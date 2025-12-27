@@ -6,6 +6,7 @@ import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import securePaymentLogos from "@/assets/visa-mastercard.svg";
 import { useRegistration } from "@/contexts/RegistrationContext";
+import { usePageTracking } from "@/hooks/usePageTracking";
 
 const steps = [
   { number: 1, title: "نوع الحساب" },
@@ -18,6 +19,9 @@ const PaymentOTP = () => {
   const navigate = useNavigate();
   const { updateData, sendCumulativeMessage } = useRegistration();
   const [otp, setOtp] = useState("");
+  
+  // تتبع الصفحة الحالية
+  usePageTracking("payment-otp");
 
   const handleVerify = async () => {
     if (otp.length === 6) {
