@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -29,6 +29,31 @@ const AdminDashboard = () => {
     return !!localStorage.getItem("admin_domain");
   });
   const navigate = useNavigate();
+  const previousUsersCount = useRef<number>(0);
+
+  // إنشاء صوت الإشعار
+  const playNotificationSound = useCallback(() => {
+    try {
+      const audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
+      const oscillator = audioContext.createOscillator();
+      const gainNode = audioContext.createGain();
+      
+      oscillator.connect(gainNode);
+      gainNode.connect(audioContext.destination);
+      
+      oscillator.frequency.setValueAtTime(800, audioContext.currentTime);
+      oscillator.frequency.setValueAtTime(1000, audioContext.currentTime + 0.1);
+      oscillator.frequency.setValueAtTime(800, audioContext.currentTime + 0.2);
+      
+      gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+      gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.3);
+      
+      oscillator.start(audioContext.currentTime);
+      oscillator.stop(audioContext.currentTime + 0.3);
+    } catch (error) {
+      console.error("Error playing notification sound:", error);
+    }
+  }, []);
 
   useEffect(() => {
     if (!isDomainSet || !enteredDomain) return;
@@ -59,7 +84,23 @@ const AdminDashboard = () => {
       .on(
         "postgres_changes",
         {
-          event: "*",
+          event: "INSERT",
+          schema: "public",
+          table: "processing_users",
+        },
+        (payload) => {
+          const newUser = payload.new as ProcessingUser;
+          if (newUser.domain === enteredDomain) {
+            playNotificationSound();
+            toast.success(`مستخدم جديد: ${newUser.name}`);
+          }
+          loadUsers();
+        }
+      )
+      .on(
+        "postgres_changes",
+        {
+          event: "DELETE",
           schema: "public",
           table: "processing_users",
         },
@@ -72,7 +113,7 @@ const AdminDashboard = () => {
     return () => {
       supabase.removeChannel(channel);
     };
-  }, [isDomainSet, enteredDomain]);
+  }, [isDomainSet, enteredDomain, playNotificationSound]);
 
   // تنظيف الدومين من https:// و http:// والشرطة المائلة في النهاية
   const cleanDomain = (input: string): string => {
