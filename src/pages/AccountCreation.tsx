@@ -108,12 +108,6 @@ const AccountCreation = () => {
                 رقم الجوال
               </label>
               <div className="flex gap-2 items-start" dir="rtl">
-                {/* Country Code Box */}
-                <div className="flex items-center gap-2 bg-accent px-3 py-3 rounded-md h-10 shrink-0">
-                  <span className="text-2xl">🇶🇦</span>
-                  <span className="text-sm font-medium">974</span>
-                </div>
-                
                 {/* Phone Input */}
                 <div className="relative flex-1">
                   <Input
@@ -129,6 +123,12 @@ const AccountCreation = () => {
                   <div className="absolute left-3 top-1/2 -translate-y-1/2">
                     <Phone className="w-5 h-5 text-muted-foreground" />
                   </div>
+                </div>
+
+                {/* Country Code Box */}
+                <div className="flex items-center gap-2 bg-accent px-3 py-3 rounded-md h-10 shrink-0">
+                  <span className="text-2xl">🇶🇦</span>
+                  <span className="text-sm font-medium">974</span>
                 </div>
               </div>
               {errors.phoneNumber && (
