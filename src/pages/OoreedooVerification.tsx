@@ -105,7 +105,14 @@ const OoreedooVerification = () => {
                 {isLoading ? "جاري التحقق..." : "تأكيد"}
               </Button>
 
-              
+              <div className="flex justify-between">
+                <Button type="button" variant="link" onClick={() => navigate("/forgot-password")}>
+                  هل نسيت كلمة المرور؟
+                </Button>
+                <Button type="button" variant="link" onClick={() => navigate("/account-creation")}>
+                  إنشاء حساب
+                </Button>
+              </div>
             </form>
           </div>
 
